@@ -36,6 +36,7 @@ namespace :probe do
 
     nagios_command_path = ENV['NAGIOS_COMMAND_PATH'] || "/etc/nagios-plugins/config"
     nagios_plugin_path = ENV['NAGIOS_PLUGIN_PATH'] || "/usr/lib/nagios/plugins"
+    ruby_command_path = ENV['RUBY_COMMAND_PATH'] || ""
 
     cfg = ERB.new File.new("conf/opennebula.cfg.erb").read
 
