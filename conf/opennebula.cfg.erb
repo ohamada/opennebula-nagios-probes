@@ -15,74 +15,18 @@
 ##      <%= ruby_command_path %>
 #######################################################################################################################
 
-# 'check_opennebula_oned_basic' command definition
+<% protocols.each do |protocol| %>
+    <% services.each do |service| %>
+# 'check_opennebula_<%= service.to_s %>_<%= protocol.to_s  %>_basic' command definition
 define command{
-    command_name    check_opennebula_oned_basic
-    command_line    <%= ruby_command_path %> <%= nagios_plugin_path %>/check_opennebula/check_opennebula.rb --service oned --protocol http --hostname '$HOSTADDRESS$' --port '$ARG1$' --path '$ARG2$' --username '$ARG3$' --password '$ARG4$'
+    command_name    check_opennebula_<%= service.to_s %>_<%= protocol.to_s  %>_basic
+    command_line    <%= ruby_command_path %> <%= nagios_plugin_path %>/check_opennebula/check_opennebula.rb --service <%= service.to_s  %> --protocol <%= protocol.to_s  %> --hostname '$HOSTADDRESS$' --port '$ARG1$' --path '$ARG2$' --username '$ARG3$' --password '$ARG4$'
 }
 
-# 'check_opennebula_oned_secure_basic' command definition
+# 'check_opennebula_<%= service.to_s %>_<%= protocol.to_s  %>_resources' command definition
 define command{
-    command_name    check_opennebula_oned_secure_basic
-    command_line    <%= ruby_command_path %> <%= nagios_plugin_path %>/check_opennebula/check_opennebula.rb --service oned --protocol https --hostname '$HOSTADDRESS$' --port '$ARG1$' --path '$ARG2$' --username '$ARG3$' --password '$ARG4$'
+    command_name    check_opennebula_<%= service.to_s %>_<%= protocol.to_s  %>_resources
+    command_line    <%= ruby_command_path %> <%= nagios_plugin_path %>/check_opennebula/check_opennebula.rb --service <%= service.to_s %> --protocol <%= protocol.to_s %> --hostname '$HOSTADDRESS$' --port '$ARG1$' --path '$ARG2$' --username '$ARG3$' --password '$ARG4$' --check-network '$ARG5$' --check-storage '$ARG6$' --check-compute '$ARG7$'
 }
-
-# 'check_opennebula_oned_resources' command definition
-define command{
-    command_name    check_opennebula_oned_resources
-    command_line    <%= ruby_command_path %> <%= nagios_plugin_path %>/check_opennebula/check_opennebula.rb --service oned --protocol http --hostname '$HOSTADDRESS$' --port '$ARG1$' --path '$ARG2$' --username '$ARG3$' --password '$ARG4$' --check-network '$ARG5$' --check-storage '$ARG6$' --check-compute '$ARG7$'
-}
-
-# 'check_opennebula_oned_secure_resources' command definition
-define command{
-    command_name    check_opennebula_oned_secure_resources
-    command_line    <%= ruby_command_path %> <%= nagios_plugin_path %>/check_opennebula/check_opennebula.rb --service oned --protocol https --hostname '$HOSTADDRESS$' --port '$ARG1$' --path '$ARG2$' --username '$ARG3$' --password '$ARG4$' --check-network '$ARG5$' --check-storage '$ARG6$' --check-compute '$ARG7$'
-}
-
-# 'check_opennebula_econe_basic' command definition
-define command{
-    command_name    check_opennebula_econe_basic
-    command_line    <%= ruby_command_path %> <%= nagios_plugin_path %>/check_opennebula/check_opennebula.rb --service econe --protocol http --hostname '$HOSTADDRESS$' --port '$ARG1$' --path '$ARG2$' --username '$ARG3$' --password '$ARG4$'
-}
-
-# 'check_opennebula_econe_secure_basic' command definition
-define command{
-    command_name    check_opennebula_econe_secure_basic
-    command_line    <%= ruby_command_path %> <%= nagios_plugin_path %>/check_opennebula/check_opennebula.rb --service econe --protocol https --hostname '$HOSTADDRESS$' --port '$ARG1$' --path '$ARG2$' --username '$ARG3$' --password '$ARG4$'
-}
-
-# 'check_opennebula_econe_resources' command definition
-define command{
-    command_name    check_opennebula_econe_resources
-    command_line    <%= ruby_command_path %> <%= nagios_plugin_path %>/check_opennebula/check_opennebula.rb --service econe --protocol http --hostname '$HOSTADDRESS$' --port '$ARG1$' --path '$ARG2$' --username '$ARG3$' --password '$ARG4$' --check-network '$ARG5$' --check-storage '$ARG6$' --check-compute '$ARG7$'
-}
-
-# 'check_opennebula_econe_secure_resources' command definition
-define command{
-    command_name    check_opennebula_econe_secure_resources
-    command_line    <%= ruby_command_path %> <%= nagios_plugin_path %>/check_opennebula/check_opennebula.rb --service econe --protocol https --hostname '$HOSTADDRESS$' --port '$ARG1$' --path '$ARG2$' --username '$ARG3$' --password '$ARG4$' --check-network '$ARG5$' --check-storage '$ARG6$' --check-compute '$ARG7$'
-}
-
-# 'check_opennebula_occi_basic' command definition
-define command{
-    command_name    check_opennebula_occi_basic
-    command_line    <%= ruby_command_path %> <%= nagios_plugin_path %>/check_opennebula/check_opennebula.rb --service occi --protocol http --hostname '$HOSTADDRESS$' --port '$ARG1$' --path '$ARG2$' --username '$ARG3$' --password '$ARG4$'
-}
-
-# 'check_opennebula_occi_secure_basic' command definition
-define command{
-    command_name    check_opennebula_occi_secure_basic
-    command_line    <%= ruby_command_path %> <%= nagios_plugin_path %>/check_opennebula/check_opennebula.rb --service occi --protocol https --hostname '$HOSTADDRESS$' --port '$ARG1$' --path '$ARG2$' --username '$ARG3$' --password '$ARG4$'
-}
-
-# 'check_opennebula_occi_resources' command definition
-define command{
-    command_name    check_opennebula_occi_resources
-    command_line    <%= ruby_command_path %> <%= nagios_plugin_path %>/check_opennebula/check_opennebula.rb --service occi --protocol http --hostname '$HOSTADDRESS$' --port '$ARG1$' --path '$ARG2$' --username '$ARG3$' --password '$ARG4$' --check-network '$ARG5$' --check-storage '$ARG6$' --check-compute '$ARG7$'
-}
-
-# 'check_opennebula_occi_secure_resources' command definition
-define command{
-    command_name    check_opennebula_occi_secure_resources
-    command_line    <%= ruby_command_path %> <%= nagios_plugin_path %>/check_opennebula/check_opennebula.rb --service occi --protocol https --hostname '$HOSTADDRESS$' --port '$ARG1$' --path '$ARG2$' --username '$ARG3$' --password '$ARG4$' --check-network '$ARG5$' --check-storage '$ARG6$' --check-compute '$ARG7$'
-}
+    <% end %>
+<% end %>

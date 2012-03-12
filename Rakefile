@@ -34,6 +34,9 @@ namespace :probe do
   task :install => "build/check_opennebula" do
     puts "Installing the opennebula probe ..."
 
+    services = [:oned, :occi, :econe]
+    protocols = [:http, :https]
+
     nagios_command_path = ENV['NAGIOS_COMMAND_PATH'] || "/etc/nagios-plugins/config"
     nagios_plugin_path = ENV['NAGIOS_PLUGIN_PATH'] || "/usr/lib/nagios/plugins"
     ruby_command_path = ENV['RUBY_COMMAND_PATH'] || ""
@@ -51,7 +54,11 @@ namespace :probe do
   task :uninstall do
     puts "Uninstalling the opennebula probe ..."
 
-    #TODO: help with probe removal
+    nagios_command_path = ENV['NAGIOS_COMMAND_PATH'] || "/etc/nagios-plugins/config"
+    nagios_plugin_path = ENV['NAGIOS_PLUGIN_PATH'] || "/usr/lib/nagios/plugins"
+
+    sh 'rm -rf ' + nagios_plugin_path + '/check_opennebula'
+    sh 'rm ' + nagios_command_path + '/opennebula.cfg'
   end
 
   desc 'Remove temporary files and directories created during installation process'
