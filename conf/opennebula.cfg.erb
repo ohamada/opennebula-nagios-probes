@@ -20,13 +20,13 @@
 # 'check_opennebula_<%= service.to_s %>_<%= protocol.to_s  %>_basic' command definition
 define command{
     command_name    check_opennebula_<%= service.to_s %>_<%= protocol.to_s  %>_basic
-    command_line    <%= ruby_command_path %> <%= nagios_plugin_path %>/check_opennebula/check_opennebula.rb --service <%= service.to_s  %> --protocol <%= protocol.to_s  %> --hostname '$HOSTADDRESS$' --port '$ARG1$' --path '$ARG2$' --username '$ARG3$' --password '$ARG4$'
+    command_line    <%= ruby_command_path %> <%= nagios_plugin_path %>/check_opennebula/check_opennebula.rb --service <%= service.to_s  %> --protocol <%= protocol.to_s  %> --hostname '$HOSTNAME$' --port '$ARG1$' --path '$ARG2$' --username '$ARG3$' --password '$ARG4$'
 }
 
 # 'check_opennebula_<%= service.to_s %>_<%= protocol.to_s  %>_resources' command definition
 define command{
     command_name    check_opennebula_<%= service.to_s %>_<%= protocol.to_s  %>_resources
-    command_line    <%= ruby_command_path %> <%= nagios_plugin_path %>/check_opennebula/check_opennebula.rb --service <%= service.to_s %> --protocol <%= protocol.to_s %> --hostname '$HOSTADDRESS$' --port '$ARG1$' --path '$ARG2$' --username '$ARG3$' --password '$ARG4$' --check-network '$ARG5$' --check-storage '$ARG6$' --check-compute '$ARG7$'
+    command_line    <%= ruby_command_path %> <%= nagios_plugin_path %>/check_opennebula/check_opennebula.rb --service <%= service.to_s %> --protocol <%= protocol.to_s %> --hostname '$HOSTNAME$' --port '$ARG1$' --path '$ARG2$' --username '$ARG3$' --password '$ARG4$' --check-network '$ARG5$' --check-storage '$ARG6$' --check-compute '$ARG7$'
 }
     <% end %>
 <% end %>
