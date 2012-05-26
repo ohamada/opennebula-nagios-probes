@@ -18,14 +18,13 @@
 require 'OpenNebula/Pool'
 
 module OpenNebula
-    class VirtualNetworkPool < Pool
+    class DatastorePool < Pool
         #######################################################################
         # Constants and Class attribute accessors
         #######################################################################
 
-
-        VN_POOL_METHODS = {
-            :info => "vnpool.info"
+        DATASTORE_POOL_METHODS = {
+            :info => "datastorepool.info"
         }
 
         #######################################################################
@@ -33,42 +32,22 @@ module OpenNebula
         #######################################################################
 
         # +client+ a Client object that represents a XML-RPC connection
-        # +user_id+ is to refer to a Pool with VirtualNetworks from that user
-        def initialize(client, user_id=0)
-            super('VNET_POOL','VNET',client)
-
-            @user_id  = user_id
+        def initialize(client)
+            super('DATASTORE_POOL','DATASTORE',client)
         end
 
-        # Default Factory Method for the Pools
+        # Factory method to create User objects
         def factory(element_xml)
-            OpenNebula::VirtualNetwork.new(element_xml,@client)
+            OpenNebula::Group.new(element_xml,@client)
         end
 
         #######################################################################
-        # XML-RPC Methods for the Virtual Network Object
+        # XML-RPC Methods for the User Object
         #######################################################################
 
-        # Retrieves all or part of the VirtualMachines in the pool.
-        def info(*args)
-            case args.size
-                when 0
-                    info_filter(VN_POOL_METHODS[:info],@user_id,-1,-1)
-                when 3
-                    info_filter(VN_POOL_METHODS[:info],args[0],args[1],args[2])
-            end
-        end
-
-        def info_all()
-            return super(VN_POOL_METHODS[:info])
-        end
-
-        def info_mine()
-            return super(VN_POOL_METHODS[:info])
-        end
-
-        def info_group()
-            return super(VN_POOL_METHODS[:info])
+        # Retrieves all the Groups in the pool.
+        def info()
+            super(DATASTORE_POOL_METHODS[:info])
         end
     end
 end
