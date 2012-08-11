@@ -22,7 +22,7 @@ require 'vcr'
 require 'webmock'
 
 require 'nagios-probe'
-require 'occi'
+require 'occi/client'
 require 'log4r'
 require 'ostruct'
 
