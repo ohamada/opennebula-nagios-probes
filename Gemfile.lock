@@ -15,10 +15,6 @@ GEM
     nagios-probe (0.1.2)
     net-http-persistent (1.4.1)
     nokogiri (1.4.7)
-    occi (1.2.1)
-      hugs (~> 2.3.0)
-      multipart-post (~> 1.0.1)
-      nokogiri (~> 1.4.4)
     test-unit (2.4.7)
     vcr (1.11.3)
     webmock (1.7.10)
@@ -32,9 +28,11 @@ PLATFORMS
 
 DEPENDENCIES
   amazon-ec2
+  hugs (~> 2.3.0)
   log4r
+  multipart-post (~> 1.0.1)
   nagios-probe
-  occi
+  nokogiri (~> 1.4.4)
   test-unit
   vcr
   webmock

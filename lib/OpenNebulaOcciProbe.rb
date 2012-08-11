@@ -13,7 +13,7 @@
 ###########################################################################
 
 require 'nagios-probe'
-require 'occi'
+require 'occi/client'
 
 #
 class OpenNebulaOcciProbe < Nagios::Probe
