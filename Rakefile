@@ -1,11 +1,14 @@
 require 'erb'
+require 'rspec/core'
+require 'rspec/core/rake_task'
 
-desc 'Default target, runs probe:all'
-task :default => 'probe:all'
+desc 'Default target, runs probe:test'
+task :default => 'probe:test'
 
 namespace :probe do
 
   directory "build/check_opennebula"
+  RSpec::Core::RakeTask.new(:rspec)
 
   desc 'Check for required dependencies, test the probe and install it'
   task :all do
@@ -25,9 +28,7 @@ namespace :probe do
   task :test do
     puts "Running basic tests ..."
 
-    sh 'cd test && ruby econe_test.rb'
-    sh 'cd test && ruby occi_test.rb'
-    sh 'cd test && ruby oned_test.rb'
+    Rake::Task['probe:rspec'].invoke
   end
 
   desc 'Install the opennebula probe'

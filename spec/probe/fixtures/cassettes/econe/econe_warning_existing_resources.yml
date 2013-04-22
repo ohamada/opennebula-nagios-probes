@@ -1,0 +1,75 @@
+---
+http_interactions:
+- request:
+    method: post
+    uri: https://localhost:2345/
+    body:
+      encoding: US-ASCII
+      string: AWSAccessKeyId=nagios-probes-test&Action=DescribeImages&SignatureMethod=HmacSHA256&SignatureVersion=2&Timestamp=2013-04-18T11%3A44%3A03Z&Version=2010-08-31&Signature=yUyjdPgO3iXIfZrj%2FtbiO8lM2qrZ2ZOc%2FbjvfzJ5Jxo%3D
+    headers:
+      Accept:
+      - ! '*/*'
+      User-Agent:
+      - github-amazon-ec2-ruby-gem
+      Content-Type:
+      - application/x-www-form-urlencoded
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Thu, 18 Apr 2013 11:44:03 GMT
+      Server:
+      - thin 1.3.1 codename Triple Espresso
+      X-Frame-Options:
+      - sameorigin
+      X-Xss-Protection:
+      - 1; mode=block
+      Content-Type:
+      - application/xml
+      Content-Length:
+      - '880'
+    body:
+      encoding: US-ASCII
+      string: <?xml version="1.0"?><DescribeImagesResponse xmlns="http://ec2.amazonaws.com/doc/2010-08-31/"><requestId>2965d262-0159-48ad-8c52-ff937ffb9229</requestId><imagesSet><item><name>ttylinux
+        - kvm</name><description>ttylinux</description><imageId>ami-00000006</imageId><imageLocation>7ba83cabcea65882790fbe449d25e4ca</imageLocation><imageState>available</imageState><imageOwnerId>nagios-probes-test</imageOwnerId><isPublic>false</isPublic><architecture>i386</architecture><imageType>machine</imageType></item><item><name>ttylinux
+        - kvm2</name><description>ttylinux</description><imageId>ami-00000007</imageId><imageLocation>07193573e51336e1bce9aedc2492bbc6</imageLocation><imageState>available</imageState><imageOwnerId>nagios-probes-test</imageOwnerId><isPublic>false</isPublic><architecture>i386</architecture><imageType>machine</imageType></item></imagesSet></DescribeImagesResponse>
+    http_version:
+  recorded_at: Thu, 18 Apr 2013 11:44:03 GMT
+- request:
+    method: post
+    uri: https://localhost:2345/
+    body:
+      encoding: US-ASCII
+      string: AWSAccessKeyId=nagios-probes-test&Action=DescribeInstances&SignatureMethod=HmacSHA256&SignatureVersion=2&Timestamp=2013-04-18T11%3A44%3A03Z&Version=2010-08-31&Signature=pVdE33jTb1CpxwbzvB1%2F65LUc6eD6WFEfRx%2B0qXLIuw%3D
+    headers:
+      Accept:
+      - ! '*/*'
+      User-Agent:
+      - github-amazon-ec2-ruby-gem
+      Content-Type:
+      - application/x-www-form-urlencoded
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Thu, 18 Apr 2013 11:44:03 GMT
+      Server:
+      - thin 1.3.1 codename Triple Espresso
+      X-Frame-Options:
+      - sameorigin
+      X-Xss-Protection:
+      - 1; mode=block
+      Content-Type:
+      - application/xml
+      Content-Length:
+      - '1785'
+    body:
+      encoding: US-ASCII
+      string: <?xml version="1.0"?><DescribeInstancesResponse xmlns="http://ec2.amazonaws.com/doc/2010-08-31/"><requestId>14dc10a9-0c6b-4956-8cfb-d8c20fe2d6c7</requestId><reservationSet><item><reservationId>default</reservationId><ownerId>nagios-probes-test</ownerId><groupSet><item><groupId>default</groupId></item></groupSet><instancesSet><item><instanceId>i-00000009</instanceId><imageId></imageId><instanceState><code>0</code><name>pending</name></instanceState><keyName>none</keyName><productCodes/><instanceType></instanceType><launchTime>2013-04-04T13:29:49+02:00</launchTime><placement><availabilityZone>default</availabilityZone></placement><amiLaunchIndex>9</amiLaunchIndex><kernelId>eki-EA801065</kernelId><ramdiskId>eri-1FEE1144</ramdiskId><monitoring><state>false</state></monitoring></item><item><instanceId>i-00000010</instanceId><imageId></imageId><instanceState><code>0</code><name>pending</name></instanceState><keyName>none</keyName><productCodes/><instanceType></instanceType><launchTime>2013-04-04T13:29:49+02:00</launchTime><placement><availabilityZone>default</availabilityZone></placement><amiLaunchIndex>10</amiLaunchIndex><kernelId>eki-EA801065</kernelId><ramdiskId>eri-1FEE1144</ramdiskId><monitoring><state>false</state></monitoring></item><item><instanceId>i-00000011</instanceId><imageId></imageId><instanceState><code>0</code><name>pending</name></instanceState><keyName>none</keyName><productCodes/><instanceType></instanceType><launchTime>2013-04-04T13:30:33+02:00</launchTime><placement><availabilityZone>default</availabilityZone></placement><amiLaunchIndex>11</amiLaunchIndex><kernelId>eki-EA801065</kernelId><ramdiskId>eri-1FEE1144</ramdiskId><monitoring><state>false</state></monitoring></item></instancesSet></item></reservationSet></DescribeInstancesResponse>
+    http_version:
+  recorded_at: Thu, 18 Apr 2013 11:44:03 GMT
+recorded_with: VCR 2.4.0

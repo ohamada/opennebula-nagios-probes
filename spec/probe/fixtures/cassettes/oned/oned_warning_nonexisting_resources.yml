@@ -1,0 +1,167 @@
+---
+http_interactions:
+- request:
+    method: post
+    uri: https://localhost:2345/RPC2
+    body:
+      encoding: US-ASCII
+      string: ! '<?xml version="1.0" ?><methodCall><methodName>one.vnpool.info</methodName><params><param><value><string>nagios-probes-test:1b5834c03b1a9fda89b38c081a6d99af634b046e</string></value></param><param><value><i4>-1</i4></value></param><param><value><i4>-1</i4></value></param><param><value><i4>-1</i4></value></param></params></methodCall>
+
+'
+    headers:
+      User-Agent:
+      - XMLRPC::Client (Ruby 1.9.3)
+      Content-Type:
+      - text/xml; charset=utf-8
+      Content-Length:
+      - '303'
+      Connection:
+      - close
+      Accept:
+      - ! '*/*'
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Thu, 11 Apr 2013 09:12:31 GMT
+      Server:
+      - Xmlrpc-c_Abyss/1.16.32
+      Content-Type:
+      - text/xml; charset="utf-8"
+      Content-Length:
+      - '2698'
+      Vary:
+      - Accept-Encoding
+      Connection:
+      - close
+    body:
+      encoding: US-ASCII
+      string: ! "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<methodResponse>\r\n<params>\r\n<param><value><array><data>\r\n<value><boolean>1</boolean></value>\r\n<value><string>&lt;VNET_POOL&gt;&lt;VNET&gt;&lt;ID&gt;2&lt;/ID&gt;&lt;UID&gt;304&lt;/UID&gt;&lt;GID&gt;0&lt;/GID&gt;&lt;UNAME&gt;nagios-probes-test&lt;/UNAME&gt;&lt;GNAME&gt;oneadmin&lt;/GNAME&gt;&lt;NAME&gt;net1&lt;/NAME&gt;&lt;PERMISSIONS&gt;&lt;OWNER_U&gt;1&lt;/OWNER_U&gt;&lt;OWNER_M&gt;1&lt;/OWNER_M&gt;&lt;OWNER_A&gt;0&lt;/OWNER_A&gt;&lt;GROUP_U&gt;0&lt;/GROUP_U&gt;&lt;GROUP_M&gt;0&lt;/GROUP_M&gt;&lt;GROUP_A&gt;0&lt;/GROUP_A&gt;&lt;OTHER_U&gt;0&lt;/OTHER_U&gt;&lt;OTHER_M&gt;0&lt;/OTHER_M&gt;&lt;OTHER_A&gt;0&lt;/OTHER_A&gt;&lt;/PERMISSIONS&gt;&lt;CLUSTER_ID&gt;-1&lt;/CLUSTER_ID&gt;&lt;CLUSTER&gt;&lt;/CLUSTER&gt;&lt;TYPE&gt;1&lt;/TYPE&gt;&lt;BRIDGE&gt;xenbr0&lt;/BRIDGE&gt;&lt;VLAN&gt;1&lt;/VLAN&gt;&lt;PHYDEV/&gt;&lt;VLAN_ID&gt;15&lt;/VLAN_ID&gt;&lt;TOTAL_LEASES&gt;0&lt;/TOTAL_LEASES&gt;&lt;TEMPLATE&gt;&lt;/TEMPLATE&gt;&lt;/VNET&gt;&lt;VNET&gt;&lt;ID&gt;3&lt;/ID&gt;&lt;UID&gt;304&lt;/UID&gt;&lt;GID&gt;0&lt;/GID&gt;&lt;UNAME&gt;nagios-probes-test&lt;/UNAME&gt;&lt;GNAME&gt;oneadmin&lt;/GNAME&gt;&lt;NAME&gt;net2&lt;/NAME&gt;&lt;PERMISSIONS&gt;&lt;OWNER_U&gt;1&lt;/OWNER_U&gt;&lt;OWNER_M&gt;1&lt;/OWNER_M&gt;&lt;OWNER_A&gt;0&lt;/OWNER_A&gt;&lt;GROUP_U&gt;0&lt;/GROUP_U&gt;&lt;GROUP_M&gt;0&lt;/GROUP_M&gt;&lt;GROUP_A&gt;0&lt;/GROUP_A&gt;&lt;OTHER_U&gt;0&lt;/OTHER_U&gt;&lt;OTHER_M&gt;0&lt;/OTHER_M&gt;&lt;OTHER_A&gt;0&lt;/OTHER_A&gt;&lt;/PERMISSIONS&gt;&lt;CLUSTER_ID&gt;-1&lt;/CLUSTER_ID&gt;&lt;CLUSTER&gt;&lt;/CLUSTER&gt;&lt;TYPE&gt;1&lt;/TYPE&gt;&lt;BRIDGE&gt;xenbr0&lt;/BRIDGE&gt;&lt;VLAN&gt;0&lt;/VLAN&gt;&lt;PHYDEV/&gt;&lt;VLAN_ID/&gt;&lt;TOTAL_LEASES&gt;0&lt;/TOTAL_LEASES&gt;&lt;TEMPLATE&gt;&lt;/TEMPLATE&gt;&lt;/VNET&gt;&lt;VNET&gt;&lt;ID&gt;4&lt;/ID&gt;&lt;UID&gt;304&lt;/UID&gt;&lt;GID&gt;0&lt;/GID&gt;&lt;UNAME&gt;nagios-probes-test&lt;/UNAME&gt;&lt;GNAME&gt;oneadmin&lt;/GNAME&gt;&lt;NAME&gt;net3&lt;/NAME&gt;&lt;PERMISSIONS&gt;&lt;OWNER_U&gt;1&lt;/OWNER_U&gt;&lt;OWNER_M&gt;1&lt;/OWNER_M&gt;&lt;OWNER_A&gt;0&lt;/OWNER_A&gt;&lt;GROUP_U&gt;0&lt;/GROUP_U&gt;&lt;GROUP_M&gt;0&lt;/GROUP_M&gt;&lt;GROUP_A&gt;0&lt;/GROUP_A&gt;&lt;OTHER_U&gt;0&lt;/OTHER_U&gt;&lt;OTHER_M&gt;0&lt;/OTHER_M&gt;&lt;OTHER_A&gt;0&lt;/OTHER_A&gt;&lt;/PERMISSIONS&gt;&lt;CLUSTER_ID&gt;-1&lt;/CLUSTER_ID&gt;&lt;CLUSTER&gt;&lt;/CLUSTER&gt;&lt;TYPE&gt;1&lt;/TYPE&gt;&lt;BRIDGE&gt;xenbr0&lt;/BRIDGE&gt;&lt;VLAN&gt;1&lt;/VLAN&gt;&lt;PHYDEV/&gt;&lt;VLAN_ID/&gt;&lt;TOTAL_LEASES&gt;0&lt;/TOTAL_LEASES&gt;&lt;TEMPLATE&gt;&lt;/TEMPLATE&gt;&lt;/VNET&gt;&lt;/VNET_POOL&gt;</string></value>\r\n<value><i4>0</i4></value>\r\n</data></array></value></param>\r\n</params>\r\n</methodResponse>\r\n"
+    http_version:
+  recorded_at: Thu, 11 Apr 2013 08:12:31 GMT
+- request:
+    method: post
+    uri: https://localhost:2345/RPC2
+    body:
+      encoding: US-ASCII
+      string: ! '<?xml version="1.0" ?><methodCall><methodName>one.vn.info</methodName><params><param><value><string>nagios-probes-test:1b5834c03b1a9fda89b38c081a6d99af634b046e</string></value></param><param><value><i4>2</i4></value></param></params></methodCall>
+
+'
+    headers:
+      User-Agent:
+      - XMLRPC::Client (Ruby 1.9.3)
+      Content-Type:
+      - text/xml; charset=utf-8
+      Content-Length:
+      - '216'
+      Connection:
+      - close
+      Accept:
+      - ! '*/*'
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Thu, 11 Apr 2013 09:12:31 GMT
+      Server:
+      - Xmlrpc-c_Abyss/1.16.32
+      Content-Type:
+      - text/xml; charset="utf-8"
+      Content-Length:
+      - '1100'
+      Vary:
+      - Accept-Encoding
+      Connection:
+      - close
+    body:
+      encoding: US-ASCII
+      string: ! "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<methodResponse>\r\n<params>\r\n<param><value><array><data>\r\n<value><boolean>1</boolean></value>\r\n<value><string>&lt;VNET&gt;&lt;ID&gt;2&lt;/ID&gt;&lt;UID&gt;304&lt;/UID&gt;&lt;GID&gt;0&lt;/GID&gt;&lt;UNAME&gt;nagios-probes-test&lt;/UNAME&gt;&lt;GNAME&gt;oneadmin&lt;/GNAME&gt;&lt;NAME&gt;net1&lt;/NAME&gt;&lt;PERMISSIONS&gt;&lt;OWNER_U&gt;1&lt;/OWNER_U&gt;&lt;OWNER_M&gt;1&lt;/OWNER_M&gt;&lt;OWNER_A&gt;0&lt;/OWNER_A&gt;&lt;GROUP_U&gt;0&lt;/GROUP_U&gt;&lt;GROUP_M&gt;0&lt;/GROUP_M&gt;&lt;GROUP_A&gt;0&lt;/GROUP_A&gt;&lt;OTHER_U&gt;0&lt;/OTHER_U&gt;&lt;OTHER_M&gt;0&lt;/OTHER_M&gt;&lt;OTHER_A&gt;0&lt;/OTHER_A&gt;&lt;/PERMISSIONS&gt;&lt;CLUSTER_ID&gt;-1&lt;/CLUSTER_ID&gt;&lt;CLUSTER&gt;&lt;/CLUSTER&gt;&lt;TYPE&gt;1&lt;/TYPE&gt;&lt;BRIDGE&gt;xenbr0&lt;/BRIDGE&gt;&lt;VLAN&gt;1&lt;/VLAN&gt;&lt;PHYDEV/&gt;&lt;VLAN_ID&gt;15&lt;/VLAN_ID&gt;&lt;TOTAL_LEASES&gt;0&lt;/TOTAL_LEASES&gt;&lt;TEMPLATE&gt;&lt;/TEMPLATE&gt;&lt;LEASES&gt;&lt;/LEASES&gt;&lt;/VNET&gt;</string></value>\r\n<value><i4>0</i4></value>\r\n</data></array></value></param>\r\n</params>\r\n</methodResponse>\r\n"
+    http_version:
+  recorded_at: Thu, 11 Apr 2013 08:12:31 GMT
+- request:
+    method: post
+    uri: https://localhost:2345/RPC2
+    body:
+      encoding: US-ASCII
+      string: ! '<?xml version="1.0" ?><methodCall><methodName>one.vn.info</methodName><params><param><value><string>nagios-probes-test:1b5834c03b1a9fda89b38c081a6d99af634b046e</string></value></param><param><value><i4>3</i4></value></param></params></methodCall>
+
+'
+    headers:
+      User-Agent:
+      - XMLRPC::Client (Ruby 1.9.3)
+      Content-Type:
+      - text/xml; charset=utf-8
+      Content-Length:
+      - '216'
+      Connection:
+      - close
+      Accept:
+      - ! '*/*'
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Thu, 11 Apr 2013 09:12:31 GMT
+      Server:
+      - Xmlrpc-c_Abyss/1.16.32
+      Content-Type:
+      - text/xml; charset="utf-8"
+      Content-Length:
+      - '1083'
+      Vary:
+      - Accept-Encoding
+      Connection:
+      - close
+    body:
+      encoding: US-ASCII
+      string: ! "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<methodResponse>\r\n<params>\r\n<param><value><array><data>\r\n<value><boolean>1</boolean></value>\r\n<value><string>&lt;VNET&gt;&lt;ID&gt;3&lt;/ID&gt;&lt;UID&gt;304&lt;/UID&gt;&lt;GID&gt;0&lt;/GID&gt;&lt;UNAME&gt;nagios-probes-test&lt;/UNAME&gt;&lt;GNAME&gt;oneadmin&lt;/GNAME&gt;&lt;NAME&gt;net2&lt;/NAME&gt;&lt;PERMISSIONS&gt;&lt;OWNER_U&gt;1&lt;/OWNER_U&gt;&lt;OWNER_M&gt;1&lt;/OWNER_M&gt;&lt;OWNER_A&gt;0&lt;/OWNER_A&gt;&lt;GROUP_U&gt;0&lt;/GROUP_U&gt;&lt;GROUP_M&gt;0&lt;/GROUP_M&gt;&lt;GROUP_A&gt;0&lt;/GROUP_A&gt;&lt;OTHER_U&gt;0&lt;/OTHER_U&gt;&lt;OTHER_M&gt;0&lt;/OTHER_M&gt;&lt;OTHER_A&gt;0&lt;/OTHER_A&gt;&lt;/PERMISSIONS&gt;&lt;CLUSTER_ID&gt;-1&lt;/CLUSTER_ID&gt;&lt;CLUSTER&gt;&lt;/CLUSTER&gt;&lt;TYPE&gt;1&lt;/TYPE&gt;&lt;BRIDGE&gt;xenbr0&lt;/BRIDGE&gt;&lt;VLAN&gt;0&lt;/VLAN&gt;&lt;PHYDEV/&gt;&lt;VLAN_ID/&gt;&lt;TOTAL_LEASES&gt;0&lt;/TOTAL_LEASES&gt;&lt;TEMPLATE&gt;&lt;/TEMPLATE&gt;&lt;LEASES&gt;&lt;/LEASES&gt;&lt;/VNET&gt;</string></value>\r\n<value><i4>0</i4></value>\r\n</data></array></value></param>\r\n</params>\r\n</methodResponse>\r\n"
+    http_version:
+  recorded_at: Thu, 11 Apr 2013 08:12:31 GMT
+- request:
+    method: post
+    uri: https://localhost:2345/RPC2
+    body:
+      encoding: US-ASCII
+      string: ! '<?xml version="1.0" ?><methodCall><methodName>one.vn.info</methodName><params><param><value><string>nagios-probes-test:1b5834c03b1a9fda89b38c081a6d99af634b046e</string></value></param><param><value><i4>4</i4></value></param></params></methodCall>
+
+'
+    headers:
+      User-Agent:
+      - XMLRPC::Client (Ruby 1.9.3)
+      Content-Type:
+      - text/xml; charset=utf-8
+      Content-Length:
+      - '216'
+      Connection:
+      - close
+      Accept:
+      - ! '*/*'
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Thu, 11 Apr 2013 09:12:32 GMT
+      Server:
+      - Xmlrpc-c_Abyss/1.16.32
+      Content-Type:
+      - text/xml; charset="utf-8"
+      Content-Length:
+      - '1083'
+      Vary:
+      - Accept-Encoding
+      Connection:
+      - close
+    body:
+      encoding: US-ASCII
+      string: ! "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<methodResponse>\r\n<params>\r\n<param><value><array><data>\r\n<value><boolean>1</boolean></value>\r\n<value><string>&lt;VNET&gt;&lt;ID&gt;4&lt;/ID&gt;&lt;UID&gt;304&lt;/UID&gt;&lt;GID&gt;0&lt;/GID&gt;&lt;UNAME&gt;nagios-probes-test&lt;/UNAME&gt;&lt;GNAME&gt;oneadmin&lt;/GNAME&gt;&lt;NAME&gt;net3&lt;/NAME&gt;&lt;PERMISSIONS&gt;&lt;OWNER_U&gt;1&lt;/OWNER_U&gt;&lt;OWNER_M&gt;1&lt;/OWNER_M&gt;&lt;OWNER_A&gt;0&lt;/OWNER_A&gt;&lt;GROUP_U&gt;0&lt;/GROUP_U&gt;&lt;GROUP_M&gt;0&lt;/GROUP_M&gt;&lt;GROUP_A&gt;0&lt;/GROUP_A&gt;&lt;OTHER_U&gt;0&lt;/OTHER_U&gt;&lt;OTHER_M&gt;0&lt;/OTHER_M&gt;&lt;OTHER_A&gt;0&lt;/OTHER_A&gt;&lt;/PERMISSIONS&gt;&lt;CLUSTER_ID&gt;-1&lt;/CLUSTER_ID&gt;&lt;CLUSTER&gt;&lt;/CLUSTER&gt;&lt;TYPE&gt;1&lt;/TYPE&gt;&lt;BRIDGE&gt;xenbr0&lt;/BRIDGE&gt;&lt;VLAN&gt;1&lt;/VLAN&gt;&lt;PHYDEV/&gt;&lt;VLAN_ID/&gt;&lt;TOTAL_LEASES&gt;0&lt;/TOTAL_LEASES&gt;&lt;TEMPLATE&gt;&lt;/TEMPLATE&gt;&lt;LEASES&gt;&lt;/LEASES&gt;&lt;/VNET&gt;</string></value>\r\n<value><i4>0</i4></value>\r\n</data></array></value></param>\r\n</params>\r\n</methodResponse>\r\n"
+    http_version:
+  recorded_at: Thu, 11 Apr 2013 08:12:32 GMT
+recorded_with: VCR 2.4.0
