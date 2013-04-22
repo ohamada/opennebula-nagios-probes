@@ -15,7 +15,7 @@
 ###########################################################################
 
 # include the probe files and a custom version of OCA
-$: << File.expand_path("..", __FILE__) + '/lib'
+$: << File.expand_path("..", __FILE__) + '/lib/probe'
 
 # bundler integration and dependencies
 require 'rubygems'

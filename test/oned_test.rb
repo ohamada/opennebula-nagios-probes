@@ -12,7 +12,7 @@
 ## limitations under the License.
 ###########################################################################
 
-$: << File.expand_path("..", __FILE__) + "/../lib"
+$: << File.expand_path("..", __FILE__) + "/../lib/probe"
 
 require 'rubygems'
 require 'bundler/setup'
@@ -31,7 +31,7 @@ require 'OpenNebula'
 include OpenNebula
 include Log4r
 
-require 'OpenNebulaOnedProbe'
+require 'opennebula_oned_probe'
 
 class OnedProbeVCRTest < Test::Unit::TestCase
 

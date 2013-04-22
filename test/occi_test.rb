@@ -12,7 +12,7 @@
 ## limitations under the License.
 ###########################################################################
 
-$: << File.expand_path("..", __FILE__) + "/../lib"
+$: << File.expand_path("..", __FILE__) + "/../lib/probe"
 
 require 'rubygems'
 require 'bundler/setup'
@@ -26,7 +26,7 @@ require 'occi/client'
 require 'log4r'
 require 'ostruct'
 
-require 'OpenNebulaOcciProbe'
+require 'opennebula_occi_probe'
 
 include Log4r
 

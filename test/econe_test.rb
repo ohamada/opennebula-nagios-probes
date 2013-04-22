@@ -12,7 +12,7 @@
 ## limitations under the License.
 ###########################################################################
 
-$: << File.expand_path("..", __FILE__) + "/../lib"
+$: << File.expand_path("..", __FILE__) + "/../lib/probe"
 
 require 'rubygems'
 require 'bundler/setup'
@@ -26,7 +26,7 @@ require 'AWS'
 require 'log4r'
 require 'ostruct'
 
-require 'OpenNebulaEconeProbe'
+require 'opennebula_econe_probe'
 
 include Log4r
 
