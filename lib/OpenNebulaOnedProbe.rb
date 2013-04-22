@@ -12,8 +12,6 @@
 ## limitations under the License.
 ###########################################################################
 
-$: << File.expand_path("..", __FILE__) + '/oca'
-
 require 'nagios-probe'
 require 'OpenNebula'
 
@@ -36,7 +34,7 @@ class OpenNebulaOnedProbe < Nagios::Probe
 
     @logger.info "Checking for basic connectivity at " + endpoint
 
-    client = Client.new(credentials, endpoint, true, @opts.timeout)
+    client = Client.new(credentials, endpoint)
 
     vnet_pool = VirtualNetworkPool.new(client, -1)
     rc = vnet_pool.info
@@ -79,7 +77,7 @@ class OpenNebulaOnedProbe < Nagios::Probe
       return false
     end
 
-    client = Client.new(credentials, endpoint, true, @opts.timeout)
+    client = Client.new(credentials, endpoint)
 
     # check networks, if there are any
     unless @opts.network.nil?

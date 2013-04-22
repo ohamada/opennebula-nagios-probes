@@ -13,7 +13,6 @@
 ###########################################################################
 
 $: << File.expand_path("..", __FILE__) + "/../lib"
-$: << File.expand_path("..", __FILE__) + "/../lib/oca"
 
 require 'rubygems'
 require 'bundler/setup'
