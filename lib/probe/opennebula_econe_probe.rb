@@ -12,20 +12,16 @@
 ## limitations under the License.
 ###########################################################################
 
-require 'nagios-probe'
+require 'opennebula_probe'
 require 'AWS'
 
-#
-class OpenNebulaEconeProbe < Nagios::Probe
+class OpenNebulaEconeProbe < OpennebulaProbe
 
   attr_writer :logger
 
-  #
-  def check_crit
-
-    @logger.info "Checking for basic connectivity at " + @opts.protocol.to_s + "://" + @opts.hostname + ":" + @opts.port.to_s + @opts.path
-
-    connection = AWS::EC2::Base.new(
+  def initialize(opts)
+    super(opts)
+    @connection = AWS::EC2::Base.new(
         :access_key_id     => @opts.username,
         :secret_access_key => @opts.password,
         :server            => @opts.hostname,
@@ -33,11 +29,16 @@ class OpenNebulaEconeProbe < Nagios::Probe
         :path              => @opts.path,
         :use_ssl           => @opts.protocol == :https
     )
+  end
+
+  def check_crit
+
+    @logger.info "Checking for basic connectivity at " + @endpoint
 
     begin
-      connection.describe_images
-      connection.describe_instances
-    rescue Exception => e
+      @connection.describe_images
+      @connection.describe_instances
+    rescue StandardError => e
       @logger.error "Failed to check connectivity: " + e.message
       return true
     end
@@ -45,84 +46,64 @@ class OpenNebulaEconeProbe < Nagios::Probe
     false
   end
 
-  #
+  def check_resources(resources)
+    if resources.map { |x| x[:resource] }.inject(true){ |product,resource| product && resource.nil? }
+      @logger.info "There are no resources to check, for details on how to specify resources see --help"
+      return false
+    end
+
+    resources.each do |resource_hash|
+      resource = resource_hash[:resource]
+
+      next if resource.nil?
+
+      @logger.info "Looking for " + resource_hash[:resource_string] + "s: " + resource.inspect
+      if resource_hash[:resource_type] == :image
+        result = @connection.describe_images
+        set = "imagesSet"
+        id = "imageId"
+      elsif resource_hash[:resource_type] == :compute
+        result = @connection.describe_instances
+        result = result["reservationSet"]["item"][0] unless result["reservationSet"].nil? || result["reservationSet"]["item"].nil?
+        set = "instancesSet"
+        id = "instanceId"
+      else
+        raise StandardError.new("Wrong resource definition")
+      end
+
+      @logger.debug result
+
+      raise StandardError.new("No " + resource_hash[:resource_string].capitalize + " found") unless result && result[set]
+
+      resource.each do |resource_to_look_for|
+        found = false
+
+        result[set]["item"].each { |resource_found| found = true if resource_to_look_for == resource_found[id] }
+
+        raise StandardError.new(resource_hash[:resource_string].capitalize + " " + resource_to_look_for + "not found") unless found
+      end
+    end
+  end
+
   def check_warn
 
-    @logger.info "Checking for resource availability at " + @opts.protocol.to_s + "://" + @opts.hostname + ":" + @opts.port.to_s + @opts.path
-
-    connection = AWS::EC2::Base.new(
-        :access_key_id     => @opts.username,
-        :secret_access_key => @opts.password,
-        :server            => @opts.hostname,
-        :port              => @opts.port,
-        :path              => @opts.path,
-        :use_ssl           => @opts.protocol == :https
-    )
+    @logger.info "Checking for resource availability at " + @endpoint
 
     begin
       # iterate over given resources
       @logger.info "Not looking for networks, since it is not supported by OpenNebula's ECONE server'"  unless @opts.network.nil?
 
-      unless @opts.compute.nil?
-        @logger.info "Looking for compute instances: " + @opts.compute.inspect
-        result = connection.describe_instances
-        @logger.debug result
+      resources = Array.new
+      resources << {:resource_type => :image, :resource => @opts.storage, :resource_string => "image"}
+      resources << {:resource_type => :compute, :resource => @opts.compute, :resource_string => "compute instance"}
 
-        unless result.nil? || result["instancesSet"].nil?
-          @opts.compute.each do |instance_to_look_for|
-            found = false
+      check_resources(resources)
 
-            result["instancesSet"]["item"].each do |instance_found|
-              if instance_to_look_for == instance_found["instanceId"]
-                found = true
-              end
-            end
-
-            raise Exception.new("Instance " + instance_to_look_for + " not found") unless found
-          end
-        end
-
-      end
-
-      unless @opts.storage.nil?
-        @logger.info "Looking for storage volumes: " + @opts.storage.inspect
-        result = connection.describe_images
-        @logger.debug result
-
-        unless result.nil? || result["imagesSet"].nil?
-          @opts.storage.each do |image_to_look_for|
-            found = false
-
-            result["imagesSet"]["item"].each do |image_found|
-              if image_to_look_for == image_found["imageId"]
-                found = true
-              end
-            end
-
-            raise Exception.new("Image " + image_to_look_for + " not found") unless found
-          end
-        end
-      end
-    rescue Exception => e
+    rescue StandardError => e
       @logger.error "Failed to check resource availability: " + e.message
       return true
     end
 
     false
-  end
-
-  #
-  def crit_message
-    "Failed to establish connection with the remote server"
-  end
-
-  #
-  def warn_message
-    "Failed to query specified remote resources"
-  end
-
-  #
-  def ok_message
-    "Remote resources successfully queried"
   end
 end

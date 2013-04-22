@@ -26,10 +26,10 @@ require 'log4r'
 include Log4r
 
 # include the probe classes and a custom argument parser
-require 'OpenNebulaOnedProbe'
-require 'OpenNebulaOcciProbe'
-require 'OpenNebulaEconeProbe'
-require 'OptparseNagiosProbe'
+require 'opennebula_oned_probe'
+require 'opennebula_occi_probe'
+require 'opennebula_econe_probe'
+require 'optparser_nagios_probe'
 
 begin
 
