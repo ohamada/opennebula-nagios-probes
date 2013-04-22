@@ -12,98 +12,73 @@
 ## limitations under the License.
 ###########################################################################
 
-require 'nagios-probe'
+require 'opennebula_probe'
 require 'occi/client'
 
-#
-class OpenNebulaOcciProbe < Nagios::Probe
+class OpenNebulaOcciProbe < OpennebulaProbe
 
   attr_writer :logger
 
-  #
-  def check_crit
+  def initialize(opts)
+    super(opts)
 
-    @logger.info "Checking for basic connectivity at " + @opts.protocol.to_s + "://" + @opts.hostname + ":" + @opts.port.to_s + @opts.path
-
-    connection = Occi::Client.new(
+    @connection = Occi::Client.new(
         :host     => @opts.hostname,
         :port     => @opts.port,
         :scheme   => @opts.protocol,
         :user     => @opts.username,
         :password => @opts.password
     )
+  end
+
+  def check_crit
+    @logger.info "Checking for basic connectivity at #{@endpoint}"
 
     begin
       # make a few simple queries just to be sure that the service is running
-      connection.network.all
-      connection.compute.all
-      connection.storage.all
-    rescue Exception => e
-      @logger.error "Failed to check connectivity: " + e.message
+      @connection.network.all
+      @connection.compute.all
+      @connection.storage.all
+    rescue StandardError => e
+      @logger.error "Failed to check connectivity: #{e.message}"
       return true
     end
 
     false
   end
 
-  #
-  def check_warn
-
-    @logger.info "Checking for resource availability at " + @opts.protocol.to_s + "://" + @opts.hostname + ":" + @opts.port.to_s + @opts.path
-
-    # there is nothing to test in this stage
-    if @opts.network.nil? && @opts.storage.nil? && @opts.compute.nil?
-      @logger.info "There are no resources to check, for details on how to specify resources see --help"
+  def check_resources(resources)
+    if resources.map { |x| x[:resource] }.inject(true){ |product,resource| product && resource.nil? }
+      @logger.info 'There are no resources to check, for details on how to specify resources see --help'
       return false
     end
 
-    connection = Occi::Client.new(
-        :host     => @opts.hostname,
-        :port     => @opts.port,
-        :scheme   => @opts.protocol,
-        :user     => @opts.username,
-        :password => @opts.password
-    )
+    resources.each do |resource_hash|
+      resource = resource_hash[:resource]
 
-    begin
-      # iterate over given resources
-      unless @opts.network.nil?
-        @logger.info "Looking for networks: " + @opts.network.inspect
-        result = @opts.network.collect {|id| connection.network.find id }
-        @logger.debug result
-      end
+      next unless resource
 
-      unless @opts.compute.nil?
-        @logger.info "Looking for compute instances: " + @opts.compute.inspect
-        result = @opts.compute.collect {|id| connection.compute.find id }
+      begin
+        @logger.info "Looking for #{resource_hash[:resource_string]}s: #{resource.inspect}"
+        result = resource.collect {|id| resource_hash[:resource_connection].find id }
         @logger.debug result
+      rescue StandardError => e
+        @logger.error "Failed to check resource availability: #{e.message}"
+        return true
       end
-
-      unless @opts.storage.nil?
-        @logger.info "Looking for storage volumes: " + @opts.storage.inspect
-        result = @opts.storage.collect {|id| connection.storage.find id }
-        @logger.debug result
-      end
-    rescue Exception => e
-      @logger.error "Failed to check resource availability: " + e.message
-      return true
     end
 
     false
   end
 
-  #
-  def crit_message
-    "Failed to establish connection with the remote server"
-  end
+  def check_warn
+    @logger.info "Checking for resource availability at #{@endpoint}"
 
-  #
-  def warn_message
-    "Failed to query specified remote resources"
-  end
+    resources = []
+    resources << {resource: @opts.storage, resource_string: 'image', resource_connection: @connection.storage}
+    resources << {resource: @opts.compute, resource_string: 'compute instance', resource_connection: @connection.compute}
+    resources << {resource: @opts.network, resource_string: 'network', resource_connection: @connection.network}
 
-  #
-  def ok_message
-    "Remote resources successfully queried"
+    check_resources(resources)
   end
 end
