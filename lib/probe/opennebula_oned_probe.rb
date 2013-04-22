@@ -12,187 +12,87 @@
 ## limitations under the License.
 ###########################################################################
 
-require 'nagios-probe'
+require 'opennebula_probe'
 require 'OpenNebula'
 
-# include OCA
 include OpenNebula
 
-#
-class OpenNebulaOnedProbe < Nagios::Probe
+class OpenNebulaOnedProbe < OpennebulaProbe
 
   attr_writer :logger
 
-  #
-  def check_crit
+  FAILED_CONNECTIVITY = 'Failed to check connectivity: '
+  FAILED_RESOURCE = 'Failed to check resource availability: '
 
+  def initialize(opts)
+    super(opts)
     # OpenNebula credentials
-    credentials = @opts.username + ":" + @opts.password
+    @credentials = "#{@opts.username}:#{@opts.password}"
+    @client = Client.new(@credentials, @endpoint)
+  end
 
-    # XML_RPC endpoint where OpenNebula is listening
-    endpoint = @opts.protocol.to_s + "://" + @opts.hostname + ":" + @opts.port.to_s + @opts.path
+  def check_crit
+    @logger.info "Checking for basic connectivity at #{@endpoint}"
 
-    @logger.info "Checking for basic connectivity at " + endpoint
-
-    client = Client.new(credentials, endpoint)
-
-    vnet_pool = VirtualNetworkPool.new(client, -1)
-    rc = vnet_pool.info
-    if OpenNebula.is_error?(rc)
-      @logger.error "Failed to check connectivity: " + rc.message
-      return true
-    end
-
-    image_pool = ImagePool.new(client, -1)
-    rc = image_pool.info
-    if OpenNebula.is_error?(rc)
-      @logger.error "Failed to check connectivity: " + rc.message
-      return true
-    end
-
-    vm_pool = VirtualMachinePool.new(client, -1)
-    rc = vm_pool.info
-    if OpenNebula.is_error?(rc)
-      @logger.error "Failed to check connectivity: " + rc.message
-      return true
+    pool_class_array = [VirtualNetworkPool, ImagePool, VirtualMachinePool]
+    pool_class_array.each do |pool_class|
+      pool = pool_class.new(@client, -1)
+      check_rc(pool, FAILED_CONNECTIVITY)
     end
 
     false
+
+  rescue StandardError => e
+    @logger.error "Failed to check connectivity: #{e.message}"
+    return true
   end
 
-  #
-  def check_warn
+  def check_rc(pool, msg)
+    rc = pool.info
+    raise "#{msg} #{rc.message}" if OpenNebula.is_error?(rc)
+  end
 
-    # OpenNebula credentials
-    credentials = @opts.username + ":" + @opts.password
-
-    # XML_RPC endpoint where OpenNebula is listening
-    endpoint = @opts.protocol.to_s + "://" + @opts.hostname + ":" + @opts.port.to_s + @opts.path
-
-    @logger.info "Checking for resource availability at " + endpoint
-
-    # there is nothing to test in this stage
-    if @opts.network.nil? && @opts.storage.nil? && @opts.compute.nil?
-      @logger.info "There are no resources to check, for details on how to specify resources see --help"
+  def check_resources(resources)
+    if resources.map { |x| x[:resource] }.inject(true){ |product,resource| product && resource.nil? }
+      @logger.info 'There are no resources to check, for details on how to specify resources see --help'
       return false
     end
 
-    client = Client.new(credentials, endpoint)
+    resources.each do |resource_hash|
+      resource = resource_hash[:resource]
 
-    # check networks, if there are any
-    unless @opts.network.nil?
-      @logger.info "Looking for networks: " + @opts.network.inspect
-      vnet_pool = VirtualNetworkPool.new(client, -1)
-      rc = vnet_pool.info
-      if OpenNebula.is_error?(rc)
-        @logger.error "Failed to check resource availability: " + rc.message
-        return true
-      end
+      next unless resource
 
-      @opts.network.each do |vnet_to_look_for|
+      @logger.info "Looking for #{resource_hash[:resource_string]}s: #{resource.inspect}"
+      pool = resource_hash[:resource_pool].new(@client, -1)
+      check_rc(pool, FAILED_RESOURCE)
+
+      resource.each do |resource_to_look_for|
         found = false
 
-        vnet_pool.each do |vnet|
-          rc = vnet.info
-
-          if OpenNebula.is_error?(rc)
-            @logger.error "Failed to check resource availability: " + rc.message
-            return true
-          end
-
-          if vnet.id.to_s == vnet_to_look_for
-            found = true
-          end
+        pool.each do |res|
+          check_rc(res, FAILED_RESOURCE)
+          found = true if res.id.to_s == resource_to_look_for
         end
-
-        unless found
-          @logger.error "Failed to check resource availability: Network " + vnet_to_look_for + " not found"
-          return true
-        end
-      end
-    end
-
-    # check storage, if there is some
-    unless @opts.storage.nil?
-      @logger.info "Looking for storage volumes: " + @opts.storage.inspect
-      image_pool = ImagePool.new(client, -1)
-      rc = image_pool.info
-      if OpenNebula.is_error?(rc)
-        @logger.error "Failed to check resource availability: " + rc.message
-        return true
-      end
-
-      @opts.storage.each do |image_to_look_for|
-        found = false
-
-        image_pool.each do |image|
-          rc = image.info
-
-          if OpenNebula.is_error?(rc)
-            @logger.error "Failed to check resource availability: " + rc.message
-            return true
-          end
-
-          if image.id.to_s == image_to_look_for
-            found = true
-          end
-        end
-
-        unless found
-          @logger.error "Failed to check resource availability: Image " + image_to_look_for + " not found"
-          return true
-        end
-      end
-    end
-
-    # check VMs, if there are any
-    unless @opts.compute.nil?
-      @logger.info "Looking for compute instances: " + @opts.compute.inspect
-      vm_pool = VirtualMachinePool.new(client, -1)
-      rc = vm_pool.info
-      if OpenNebula.is_error?(rc)
-        @logger.error "Failed to check resource availability: " + rc.message
-        return true
-      end
-
-      @opts.compute.each do |instance_to_look_for|
-        found = false
-
-        vm_pool.each do |vm|
-          rc = vm.info
-
-          if OpenNebula.is_error?(rc)
-            @logger.error "Failed to check resource availability: " + rc.message
-            return true
-          end
-
-          if vm.id.to_s == instance_to_look_for
-            found = true
-          end
-        end
-
-        unless found
-          @logger.error "Failed to check resource availability: Instance " + instance_to_look_for + " not found"
-          return true
-        end
+        raise "#{resource_hash[:resource_string].capitalize} #{resource_to_look_for} not found" unless found
       end
     end
 
     false
   end
 
-  #
-  def crit_message
-    "Failed to establish connection with the remote server"
-  end
+  def check_warn
+    @logger.info "Checking for resource availability at #{@endpoint}"
 
-  #
-  def warn_message
-    "Failed to query specified remote resources"
-  end
+    resources = []
+    resources << {resource: @opts.storage, resource_string: 'image', resource_pool: ImagePool}
+    resources << {resource: @opts.compute, resource_string: 'compute instance', resource_pool: VirtualMachinePool}
+    resources << {resource: @opts.network, resource_string: 'network', resource_pool: VirtualNetworkPool}
 
-  #
-  def ok_message
-    "Remote resources successfully queried"
+    check_resources(resources)
+
+  rescue StandardError => e
+    @logger.error "Failed to check resource availability: #{e.message}"
+    return true
   end
 end

@@ -29,7 +29,7 @@ include Log4r
 require 'opennebula_oned_probe'
 require 'opennebula_occi_probe'
 require 'opennebula_econe_probe'
-require 'optparser_nagios_probe'
+require 'optparse_nagios_probe'
 
 begin
 
@@ -48,7 +48,7 @@ begin
       probe = OpenNebulaEconeProbe.new(options)
       logger = Logger.new 'OpenNebulaEconeProbe'
     else
-      raise Exception.new("This probe cannot check the specified service")
+      raise Exception.new('This probe cannot check the specified service')
   end
 
   # set the logger
@@ -59,9 +59,9 @@ begin
   # run the probe
   probe.run
 
-rescue Exception => e
+rescue StandardError => e
 
-  puts "Unknown: " + e.message
+  puts "Unknown: #{e.message}"
   exit Nagios::UNKNOWN
 
 end

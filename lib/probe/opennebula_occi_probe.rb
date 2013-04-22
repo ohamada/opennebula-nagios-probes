@@ -62,9 +62,7 @@ class OpenNebulaOcciProbe < OpennebulaProbe
         @logger.info "Looking for #{resource_hash[:resource_string]}s: #{resource.inspect}"
         result = resource.collect {|id| resource_hash[:resource_connection].find id }
         @logger.debug result
-      rescue StandardError => e
-        @logger.error "Failed to check resource availability: #{e.message}"
-        return true
+
       end
     end
 
@@ -80,5 +78,9 @@ class OpenNebulaOcciProbe < OpennebulaProbe
     resources << {resource: @opts.network, resource_string: 'network', resource_connection: @connection.network}
 
     check_resources(resources)
+
+  rescue StandardError => e
+    @logger.error "Failed to check resource availability: #{e.message}"
+    return true
   end
 end

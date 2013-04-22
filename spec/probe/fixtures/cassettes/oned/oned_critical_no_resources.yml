@@ -25,7 +25,7 @@ http_interactions:
       message: OK
     headers:
       Date:
-      - Thu, 11 Apr 2013 09:12:29 GMT
+      - Mon, 22 Apr 2013 15:08:52 GMT
       Server:
       - Xmlrpc-c_Abyss/1.16.32
       Content-Type:
@@ -40,7 +40,7 @@ http_interactions:
       encoding: US-ASCII
       string: ! "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<methodResponse>\r\n<params>\r\n<param><value><array><data>\r\n<value><boolean>1</boolean></value>\r\n<value><string>&lt;VNET_POOL&gt;&lt;VNET&gt;&lt;ID&gt;2&lt;/ID&gt;&lt;UID&gt;304&lt;/UID&gt;&lt;GID&gt;0&lt;/GID&gt;&lt;UNAME&gt;nagios-probes-test&lt;/UNAME&gt;&lt;GNAME&gt;oneadmin&lt;/GNAME&gt;&lt;NAME&gt;net1&lt;/NAME&gt;&lt;PERMISSIONS&gt;&lt;OWNER_U&gt;1&lt;/OWNER_U&gt;&lt;OWNER_M&gt;1&lt;/OWNER_M&gt;&lt;OWNER_A&gt;0&lt;/OWNER_A&gt;&lt;GROUP_U&gt;0&lt;/GROUP_U&gt;&lt;GROUP_M&gt;0&lt;/GROUP_M&gt;&lt;GROUP_A&gt;0&lt;/GROUP_A&gt;&lt;OTHER_U&gt;0&lt;/OTHER_U&gt;&lt;OTHER_M&gt;0&lt;/OTHER_M&gt;&lt;OTHER_A&gt;0&lt;/OTHER_A&gt;&lt;/PERMISSIONS&gt;&lt;CLUSTER_ID&gt;-1&lt;/CLUSTER_ID&gt;&lt;CLUSTER&gt;&lt;/CLUSTER&gt;&lt;TYPE&gt;1&lt;/TYPE&gt;&lt;BRIDGE&gt;xenbr0&lt;/BRIDGE&gt;&lt;VLAN&gt;1&lt;/VLAN&gt;&lt;PHYDEV/&gt;&lt;VLAN_ID&gt;15&lt;/VLAN_ID&gt;&lt;TOTAL_LEASES&gt;0&lt;/TOTAL_LEASES&gt;&lt;TEMPLATE&gt;&lt;/TEMPLATE&gt;&lt;/VNET&gt;&lt;VNET&gt;&lt;ID&gt;3&lt;/ID&gt;&lt;UID&gt;304&lt;/UID&gt;&lt;GID&gt;0&lt;/GID&gt;&lt;UNAME&gt;nagios-probes-test&lt;/UNAME&gt;&lt;GNAME&gt;oneadmin&lt;/GNAME&gt;&lt;NAME&gt;net2&lt;/NAME&gt;&lt;PERMISSIONS&gt;&lt;OWNER_U&gt;1&lt;/OWNER_U&gt;&lt;OWNER_M&gt;1&lt;/OWNER_M&gt;&lt;OWNER_A&gt;0&lt;/OWNER_A&gt;&lt;GROUP_U&gt;0&lt;/GROUP_U&gt;&lt;GROUP_M&gt;0&lt;/GROUP_M&gt;&lt;GROUP_A&gt;0&lt;/GROUP_A&gt;&lt;OTHER_U&gt;0&lt;/OTHER_U&gt;&lt;OTHER_M&gt;0&lt;/OTHER_M&gt;&lt;OTHER_A&gt;0&lt;/OTHER_A&gt;&lt;/PERMISSIONS&gt;&lt;CLUSTER_ID&gt;-1&lt;/CLUSTER_ID&gt;&lt;CLUSTER&gt;&lt;/CLUSTER&gt;&lt;TYPE&gt;1&lt;/TYPE&gt;&lt;BRIDGE&gt;xenbr0&lt;/BRIDGE&gt;&lt;VLAN&gt;0&lt;/VLAN&gt;&lt;PHYDEV/&gt;&lt;VLAN_ID/&gt;&lt;TOTAL_LEASES&gt;0&lt;/TOTAL_LEASES&gt;&lt;TEMPLATE&gt;&lt;/TEMPLATE&gt;&lt;/VNET&gt;&lt;VNET&gt;&lt;ID&gt;4&lt;/ID&gt;&lt;UID&gt;304&lt;/UID&gt;&lt;GID&gt;0&lt;/GID&gt;&lt;UNAME&gt;nagios-probes-test&lt;/UNAME&gt;&lt;GNAME&gt;oneadmin&lt;/GNAME&gt;&lt;NAME&gt;net3&lt;/NAME&gt;&lt;PERMISSIONS&gt;&lt;OWNER_U&gt;1&lt;/OWNER_U&gt;&lt;OWNER_M&gt;1&lt;/OWNER_M&gt;&lt;OWNER_A&gt;0&lt;/OWNER_A&gt;&lt;GROUP_U&gt;0&lt;/GROUP_U&gt;&lt;GROUP_M&gt;0&lt;/GROUP_M&gt;&lt;GROUP_A&gt;0&lt;/GROUP_A&gt;&lt;OTHER_U&gt;0&lt;/OTHER_U&gt;&lt;OTHER_M&gt;0&lt;/OTHER_M&gt;&lt;OTHER_A&gt;0&lt;/OTHER_A&gt;&lt;/PERMISSIONS&gt;&lt;CLUSTER_ID&gt;-1&lt;/CLUSTER_ID&gt;&lt;CLUSTER&gt;&lt;/CLUSTER&gt;&lt;TYPE&gt;1&lt;/TYPE&gt;&lt;BRIDGE&gt;xenbr0&lt;/BRIDGE&gt;&lt;VLAN&gt;1&lt;/VLAN&gt;&lt;PHYDEV/&gt;&lt;VLAN_ID/&gt;&lt;TOTAL_LEASES&gt;0&lt;/TOTAL_LEASES&gt;&lt;TEMPLATE&gt;&lt;/TEMPLATE&gt;&lt;/VNET&gt;&lt;/VNET_POOL&gt;</string></value>\r\n<value><i4>0</i4></value>\r\n</data></array></value></param>\r\n</params>\r\n</methodResponse>\r\n"
     http_version:
-  recorded_at: Thu, 11 Apr 2013 08:12:29 GMT
+  recorded_at: Mon, 22 Apr 2013 14:08:52 GMT
 - request:
     method: post
     uri: https://localhost:2345/RPC2
@@ -66,7 +66,7 @@ http_interactions:
       message: OK
     headers:
       Date:
-      - Thu, 11 Apr 2013 09:12:29 GMT
+      - Mon, 22 Apr 2013 15:08:52 GMT
       Server:
       - Xmlrpc-c_Abyss/1.16.32
       Content-Type:
@@ -83,7 +83,7 @@ http_interactions:
         - kvm&lt;/NAME&gt;&lt;PERMISSIONS&gt;&lt;OWNER_U&gt;1&lt;/OWNER_U&gt;&lt;OWNER_M&gt;1&lt;/OWNER_M&gt;&lt;OWNER_A&gt;0&lt;/OWNER_A&gt;&lt;GROUP_U&gt;0&lt;/GROUP_U&gt;&lt;GROUP_M&gt;0&lt;/GROUP_M&gt;&lt;GROUP_A&gt;0&lt;/GROUP_A&gt;&lt;OTHER_U&gt;0&lt;/OTHER_U&gt;&lt;OTHER_M&gt;0&lt;/OTHER_M&gt;&lt;OTHER_A&gt;0&lt;/OTHER_A&gt;&lt;/PERMISSIONS&gt;&lt;TYPE&gt;0&lt;/TYPE&gt;&lt;DISK_TYPE&gt;0&lt;/DISK_TYPE&gt;&lt;PERSISTENT&gt;0&lt;/PERSISTENT&gt;&lt;REGTIME&gt;1365072973&lt;/REGTIME&gt;&lt;SOURCE&gt;/opt/opennebula/var/datastores/1/7ba83cabcea65882790fbe449d25e4ca&lt;/SOURCE&gt;&lt;PATH&gt;https://marketplace.c12g.com/appliance/4fc76a938fb81d3517000003/download&lt;/PATH&gt;&lt;FSTYPE&gt;&lt;/FSTYPE&gt;&lt;SIZE&gt;40&lt;/SIZE&gt;&lt;STATE&gt;2&lt;/STATE&gt;&lt;RUNNING_VMS&gt;3&lt;/RUNNING_VMS&gt;&lt;CLONING_OPS&gt;0&lt;/CLONING_OPS&gt;&lt;CLONING_ID&gt;-1&lt;/CLONING_ID&gt;&lt;DATASTORE_ID&gt;1&lt;/DATASTORE_ID&gt;&lt;DATASTORE&gt;default&lt;/DATASTORE&gt;&lt;VMS&gt;&lt;ID&gt;9&lt;/ID&gt;&lt;ID&gt;10&lt;/ID&gt;&lt;ID&gt;11&lt;/ID&gt;&lt;/VMS&gt;&lt;TEMPLATE&gt;&lt;DESCRIPTION&gt;&lt;![CDATA[ttylinux]]&gt;&lt;/DESCRIPTION&gt;&lt;DEV_PREFIX&gt;&lt;![CDATA[xvd]]&gt;&lt;/DEV_PREFIX&gt;&lt;MD5&gt;&lt;![CDATA[04c7d00e88fa66d9aaa34d9cf8ad6aaa]]&gt;&lt;/MD5&gt;&lt;/TEMPLATE&gt;&lt;/IMAGE&gt;&lt;IMAGE&gt;&lt;ID&gt;7&lt;/ID&gt;&lt;UID&gt;304&lt;/UID&gt;&lt;GID&gt;0&lt;/GID&gt;&lt;UNAME&gt;nagios-probes-test&lt;/UNAME&gt;&lt;GNAME&gt;oneadmin&lt;/GNAME&gt;&lt;NAME&gt;ttylinux
         - kvm2&lt;/NAME&gt;&lt;PERMISSIONS&gt;&lt;OWNER_U&gt;1&lt;/OWNER_U&gt;&lt;OWNER_M&gt;1&lt;/OWNER_M&gt;&lt;OWNER_A&gt;0&lt;/OWNER_A&gt;&lt;GROUP_U&gt;0&lt;/GROUP_U&gt;&lt;GROUP_M&gt;0&lt;/GROUP_M&gt;&lt;GROUP_A&gt;0&lt;/GROUP_A&gt;&lt;OTHER_U&gt;0&lt;/OTHER_U&gt;&lt;OTHER_M&gt;0&lt;/OTHER_M&gt;&lt;OTHER_A&gt;0&lt;/OTHER_A&gt;&lt;/PERMISSIONS&gt;&lt;TYPE&gt;0&lt;/TYPE&gt;&lt;DISK_TYPE&gt;0&lt;/DISK_TYPE&gt;&lt;PERSISTENT&gt;0&lt;/PERSISTENT&gt;&lt;REGTIME&gt;1365074685&lt;/REGTIME&gt;&lt;SOURCE&gt;/opt/opennebula/var/datastores/1/07193573e51336e1bce9aedc2492bbc6&lt;/SOURCE&gt;&lt;PATH&gt;/opt/opennebula/var/datastores/1/7ba83cabcea65882790fbe449d25e4ca&lt;/PATH&gt;&lt;FSTYPE&gt;&lt;/FSTYPE&gt;&lt;SIZE&gt;40&lt;/SIZE&gt;&lt;STATE&gt;1&lt;/STATE&gt;&lt;RUNNING_VMS&gt;0&lt;/RUNNING_VMS&gt;&lt;CLONING_OPS&gt;0&lt;/CLONING_OPS&gt;&lt;CLONING_ID&gt;-1&lt;/CLONING_ID&gt;&lt;DATASTORE_ID&gt;1&lt;/DATASTORE_ID&gt;&lt;DATASTORE&gt;default&lt;/DATASTORE&gt;&lt;VMS&gt;&lt;/VMS&gt;&lt;TEMPLATE&gt;&lt;DESCRIPTION&gt;&lt;![CDATA[ttylinux]]&gt;&lt;/DESCRIPTION&gt;&lt;DEV_PREFIX&gt;&lt;![CDATA[xvd]]&gt;&lt;/DEV_PREFIX&gt;&lt;FSTYPE&gt;&lt;![CDATA[]]&gt;&lt;/FSTYPE&gt;&lt;MD5&gt;&lt;![CDATA[04c7d00e88fa66d9aaa34d9cf8ad6aaa]]&gt;&lt;/MD5&gt;&lt;/TEMPLATE&gt;&lt;/IMAGE&gt;&lt;/IMAGE_POOL&gt;</string></value>\r\n<value><i4>0</i4></value>\r\n</data></array></value></param>\r\n</params>\r\n</methodResponse>\r\n"
     http_version:
-  recorded_at: Thu, 11 Apr 2013 08:12:29 GMT
+  recorded_at: Mon, 22 Apr 2013 14:08:52 GMT
 - request:
     method: post
     uri: https://localhost:2345/RPC2
@@ -109,7 +109,7 @@ http_interactions:
       message: OK
     headers:
       Date:
-      - Thu, 11 Apr 2013 09:12:29 GMT
+      - Mon, 22 Apr 2013 15:08:52 GMT
       Server:
       - Xmlrpc-c_Abyss/1.16.32
       Content-Type:
@@ -127,5 +127,5 @@ http_interactions:
         - kvm]]&gt;&lt;/IMAGE&gt;&lt;IMAGE_ID&gt;&lt;![CDATA[6]]&gt;&lt;/IMAGE_ID&gt;&lt;IMAGE_UNAME&gt;&lt;![CDATA[iuname]]&gt;&lt;/IMAGE_UNAME&gt;&lt;READONLY&gt;&lt;![CDATA[NO]]&gt;&lt;/READONLY&gt;&lt;SAVE&gt;&lt;![CDATA[NO]]&gt;&lt;/SAVE&gt;&lt;SOURCE&gt;&lt;![CDATA[/opt/opennebula/var/datastores/1/7ba83cabcea65882790fbe449d25e4ca]]&gt;&lt;/SOURCE&gt;&lt;TARGET&gt;&lt;![CDATA[xvda]]&gt;&lt;/TARGET&gt;&lt;TM_MAD&gt;&lt;![CDATA[ssh]]&gt;&lt;/TM_MAD&gt;&lt;TYPE&gt;&lt;![CDATA[FILE]]&gt;&lt;/TYPE&gt;&lt;/DISK&gt;&lt;MEMORY&gt;&lt;![CDATA[1024]]&gt;&lt;/MEMORY&gt;&lt;NAME&gt;&lt;![CDATA[one-10]]&gt;&lt;/NAME&gt;&lt;OS&gt;&lt;ARCH&gt;&lt;![CDATA[i686]]&gt;&lt;/ARCH&gt;&lt;BOOT&gt;&lt;![CDATA[hd]]&gt;&lt;/BOOT&gt;&lt;/OS&gt;&lt;RAW&gt;&lt;TYPE&gt;&lt;![CDATA[kvm]]&gt;&lt;/TYPE&gt;&lt;/RAW&gt;&lt;TEMPLATE_ID&gt;&lt;![CDATA[5]]&gt;&lt;/TEMPLATE_ID&gt;&lt;VMID&gt;&lt;![CDATA[10]]&gt;&lt;/VMID&gt;&lt;/TEMPLATE&gt;&lt;HISTORY_RECORDS/&gt;&lt;/VM&gt;&lt;VM&gt;&lt;ID&gt;11&lt;/ID&gt;&lt;UID&gt;304&lt;/UID&gt;&lt;GID&gt;0&lt;/GID&gt;&lt;UNAME&gt;nagios-probes-test&lt;/UNAME&gt;&lt;GNAME&gt;oneadmin&lt;/GNAME&gt;&lt;NAME&gt;one-11&lt;/NAME&gt;&lt;PERMISSIONS&gt;&lt;OWNER_U&gt;1&lt;/OWNER_U&gt;&lt;OWNER_M&gt;1&lt;/OWNER_M&gt;&lt;OWNER_A&gt;0&lt;/OWNER_A&gt;&lt;GROUP_U&gt;0&lt;/GROUP_U&gt;&lt;GROUP_M&gt;0&lt;/GROUP_M&gt;&lt;GROUP_A&gt;0&lt;/GROUP_A&gt;&lt;OTHER_U&gt;0&lt;/OTHER_U&gt;&lt;OTHER_M&gt;0&lt;/OTHER_M&gt;&lt;OTHER_A&gt;0&lt;/OTHER_A&gt;&lt;/PERMISSIONS&gt;&lt;LAST_POLL&gt;0&lt;/LAST_POLL&gt;&lt;STATE&gt;1&lt;/STATE&gt;&lt;LCM_STATE&gt;0&lt;/LCM_STATE&gt;&lt;RESCHED&gt;0&lt;/RESCHED&gt;&lt;STIME&gt;1365075033&lt;/STIME&gt;&lt;ETIME&gt;0&lt;/ETIME&gt;&lt;DEPLOY_ID&gt;&lt;/DEPLOY_ID&gt;&lt;MEMORY&gt;0&lt;/MEMORY&gt;&lt;CPU&gt;0&lt;/CPU&gt;&lt;NET_TX&gt;0&lt;/NET_TX&gt;&lt;NET_RX&gt;0&lt;/NET_RX&gt;&lt;TEMPLATE&gt;&lt;CPU&gt;&lt;![CDATA[1]]&gt;&lt;/CPU&gt;&lt;DISK&gt;&lt;CLONE&gt;&lt;![CDATA[YES]]&gt;&lt;/CLONE&gt;&lt;DATASTORE&gt;&lt;![CDATA[default]]&gt;&lt;/DATASTORE&gt;&lt;DATASTORE_ID&gt;&lt;![CDATA[1]]&gt;&lt;/DATASTORE_ID&gt;&lt;DEV_PREFIX&gt;&lt;![CDATA[xvd]]&gt;&lt;/DEV_PREFIX&gt;&lt;DISK_ID&gt;&lt;![CDATA[0]]&gt;&lt;/DISK_ID&gt;&lt;IMAGE&gt;&lt;![CDATA[ttylinux
         - kvm]]&gt;&lt;/IMAGE&gt;&lt;IMAGE_ID&gt;&lt;![CDATA[6]]&gt;&lt;/IMAGE_ID&gt;&lt;IMAGE_UNAME&gt;&lt;![CDATA[iuname]]&gt;&lt;/IMAGE_UNAME&gt;&lt;READONLY&gt;&lt;![CDATA[NO]]&gt;&lt;/READONLY&gt;&lt;SAVE&gt;&lt;![CDATA[NO]]&gt;&lt;/SAVE&gt;&lt;SOURCE&gt;&lt;![CDATA[/opt/opennebula/var/datastores/1/7ba83cabcea65882790fbe449d25e4ca]]&gt;&lt;/SOURCE&gt;&lt;TARGET&gt;&lt;![CDATA[xvda]]&gt;&lt;/TARGET&gt;&lt;TM_MAD&gt;&lt;![CDATA[ssh]]&gt;&lt;/TM_MAD&gt;&lt;TYPE&gt;&lt;![CDATA[FILE]]&gt;&lt;/TYPE&gt;&lt;/DISK&gt;&lt;MEMORY&gt;&lt;![CDATA[512]]&gt;&lt;/MEMORY&gt;&lt;NAME&gt;&lt;![CDATA[one-11]]&gt;&lt;/NAME&gt;&lt;OS&gt;&lt;ARCH&gt;&lt;![CDATA[i686]]&gt;&lt;/ARCH&gt;&lt;BOOT&gt;&lt;![CDATA[hd]]&gt;&lt;/BOOT&gt;&lt;/OS&gt;&lt;RAW&gt;&lt;TYPE&gt;&lt;![CDATA[kvm]]&gt;&lt;/TYPE&gt;&lt;/RAW&gt;&lt;TEMPLATE_ID&gt;&lt;![CDATA[3]]&gt;&lt;/TEMPLATE_ID&gt;&lt;VMID&gt;&lt;![CDATA[11]]&gt;&lt;/VMID&gt;&lt;/TEMPLATE&gt;&lt;HISTORY_RECORDS/&gt;&lt;/VM&gt;&lt;/VM_POOL&gt;</string></value>\r\n<value><i4>0</i4></value>\r\n</data></array></value></param>\r\n</params>\r\n</methodResponse>\r\n"
     http_version:
-  recorded_at: Thu, 11 Apr 2013 08:12:29 GMT
+  recorded_at: Mon, 22 Apr 2013 14:08:52 GMT
 recorded_with: VCR 2.4.0

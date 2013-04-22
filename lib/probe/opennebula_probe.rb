@@ -2,9 +2,9 @@ require 'nagios-probe'
 
 class OpennebulaProbe < Nagios::Probe
 
-  CRIT_MSG = "Failed to establish connection with the remote server"
-  WARN_MSG = "Failed to query specified remote resources"
-  OK_MSG = "Remote resources successfully queried"
+  CRIT_MSG = 'Failed to establish connection with the remote server'
+  WARN_MSG = 'Failed to query specified remote resources'
+  OK_MSG = 'Remote resources successfully queried'
 
   def initialize(opts)
     super(opts)

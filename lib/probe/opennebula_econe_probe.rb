@@ -54,7 +54,7 @@ class OpenNebulaEconeProbe < OpennebulaProbe
     resources.each do |resource_hash|
       resource = resource_hash[:resource]
 
-      next if resource.nil?
+      next unless resource
 
       @logger.info "Looking for #{resource_hash[:resource_string]}s: #{resource.inspect}"
       if resource_hash[:resource_type] == :image
@@ -67,41 +67,39 @@ class OpenNebulaEconeProbe < OpennebulaProbe
         set = 'instancesSet'
         id = 'instanceId'
       else
-        raise StandardError.new('Wrong resource definition')
+        raise 'Wrong resource definition'
       end
 
       @logger.debug result
 
-      raise StandardError.new("No #{resource_hash[:resource_string].capitalize} found") unless result && result[set]
+      raise "No #{resource_hash[:resource_string].capitalize} found" unless result && result[set]
 
       resource.each do |resource_to_look_for|
         found = false
 
         result[set]["item"].each { |resource_found| found = true if resource_to_look_for == resource_found[id] }
 
-        raise StandardError.new("#{resource_hash[:resource_string].capitalize} #{resource_to_look_for} not found") unless found
+        raise "#{resource_hash[:resource_string].capitalize} #{resource_to_look_for} not found" unless found
       end
     end
+
+    false
   end
 
   def check_warn
     @logger.info "Checking for resource availability at #{@endpoint}"
 
-    begin
-      # iterate over given resources
-      @logger.info "Not looking for networks, since it is not supported by OpenNebula's ECONE server'"  if @opts.network
+    # iterate over given resources
+    @logger.info "Not looking for networks, since it is not supported by OpenNebula's ECONE server'"  if @opts.network
 
-      resources = []
-      resources << {resource_type: :image, resource: @opts.storage, resource_string: 'image'}
-      resources << {resource_type: :compute, resource: @opts.compute, resource_string: 'compute instance'}
+    resources = []
+    resources << {resource_type: :image, resource: @opts.storage, resource_string: 'image'}
+    resources << {resource_type: :compute, resource: @opts.compute, resource_string: 'compute instance'}
 
-      check_resources(resources)
+    check_resources(resources)
 
-    rescue StandardError => e
-      @logger.error "Failed to check resource availability: #{e.message}"
-      return true
-    end
-
-    false
+  rescue StandardError => e
+    @logger.error "Failed to check resource availability: #{e.message}"
+    return true
   end
 end
