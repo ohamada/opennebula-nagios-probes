@@ -36,9 +36,9 @@ class OcciProbeVCRTest < Test::Unit::TestCase
 
     WebMock.disable_net_connect! :allow => "localhost"
 
-    VCR.config do |c|
+    VCR.configure do |c|
       c.cassette_library_dir = 'fixtures/cassettes/occi'
-      c.stub_with :webmock
+      c.hook_into :webmock
     end
 
     @options = OpenStruct.new

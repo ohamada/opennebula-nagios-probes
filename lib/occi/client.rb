@@ -15,10 +15,9 @@ module Occi
         :host     => options[:host],
         :scheme   => options[:scheme] || "http",
         :port     => options[:port] || 4567,
-        :type     => options[:type] || :xml
+        :type     => options[:type] || :xml,
+        :raise_errors   => true
       )
-      @connection.raise_4xx = true
-      @connection.raise_5xx = true
     end
 
     def network
