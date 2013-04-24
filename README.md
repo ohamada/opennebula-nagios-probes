@@ -18,21 +18,9 @@ These probes are written in Ruby, Gemfile for bundler is included.
 
 and with optional
 
-*`--timeout` (this option is, for now, ignored by OCCI and ECONE probes)
-*`--protocol [https | http]`
-*`--debug`
-*`--check-network <ID>,<ID>,<ID>,...` (this option is ignored by the ECONE probe)
-*`--check-storage <ID>,<ID>,<ID>,...`
-*`--check-compute <ID>,<ID>,<ID>,...`
-
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
+* `--timeout` (this option is, for now, ignored by OCCI and ECONE probes)
+* `--protocol [https | http]`
+* `--debug`
+* `--check-network <ID>,<ID>,<ID>,...` (this option is ignored by the ECONE probe)
+* `--check-storage <ID>,<ID>,<ID>,...`
+* `--check-compute <ID>,<ID>,<ID>,...`
