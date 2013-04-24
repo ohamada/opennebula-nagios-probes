@@ -15,7 +15,7 @@
 ###########################################################################
 
 # include the probe files and a custom version of OCA
-$: << File.expand_path("..", __FILE__) + '/lib'
+$: << File.expand_path("..", __FILE__) + '/lib/probe'
 
 # bundler integration and dependencies
 require 'rubygems'
@@ -26,10 +26,10 @@ require 'log4r'
 include Log4r
 
 # include the probe classes and a custom argument parser
-require 'OpenNebulaOnedProbe'
-require 'OpenNebulaOcciProbe'
-require 'OpenNebulaEconeProbe'
-require 'OptparseNagiosProbe'
+require 'opennebula_oned_probe'
+require 'opennebula_occi_probe'
+require 'opennebula_econe_probe'
+require 'optparse_nagios_probe'
 
 begin
 
@@ -48,7 +48,7 @@ begin
       probe = OpenNebulaEconeProbe.new(options)
       logger = Logger.new 'OpenNebulaEconeProbe'
     else
-      raise Exception.new("This probe cannot check the specified service")
+      raise Exception.new('This probe cannot check the specified service')
   end
 
   # set the logger
@@ -59,9 +59,9 @@ begin
   # run the probe
   probe.run
 
-rescue Exception => e
+rescue StandardError => e
 
-  puts "Unknown: " + e.message
+  puts "Unknown: #{e.message}"
   exit Nagios::UNKNOWN
 
 end

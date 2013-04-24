@@ -1,0 +1,143 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: https://nagios-probes-test:1b5834c03b1a9fda89b38c081a6d99af634b046e@localhost:2345/network
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept:
+      - ! '*/*'
+      - application/xml
+      User-Agent:
+      - Ruby
+      Connection:
+      - keep-alive
+      Keep-Alive:
+      - 30
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Thu, 11 Apr 2013 09:24:04 GMT
+      Server:
+      - thin 1.3.1 codename Triple Espresso
+      X-Frame-Options:
+      - sameorigin
+      X-Xss-Protection:
+      - 1; mode=block
+      Content-Type:
+      - application/xml;charset=utf-8
+      Cache-Control:
+      - no-store
+      Content-Length:
+      - '270'
+      Keep-Alive:
+      - timeout=5, max=100
+      Connection:
+      - Keep-Alive
+    body:
+      encoding: US-ASCII
+      string: ! '<NETWORK_COLLECTION><NETWORK href="https://localhost:2345//network/2"
+        name="net1"/><NETWORK href="https://localhost:2345//network/3"
+        name="net2"/><NETWORK href="https://localhost:2345//network/4"
+        name="net3"/></NETWORK_COLLECTION>       '
+    http_version:
+  recorded_at: Thu, 11 Apr 2013 09:24:04 GMT
+- request:
+    method: get
+    uri: https://nagios-probes-test:1b5834c03b1a9fda89b38c081a6d99af634b046e@localhost:2345/compute
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept:
+      - ! '*/*'
+      - application/xml
+      User-Agent:
+      - Ruby
+      Connection:
+      - keep-alive
+      Keep-Alive:
+      - 30
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Thu, 11 Apr 2013 09:24:04 GMT
+      Server:
+      - thin 1.3.1 codename Triple Espresso
+      X-Frame-Options:
+      - sameorigin
+      X-Xss-Protection:
+      - 1; mode=block
+      Content-Type:
+      - application/xml;charset=utf-8
+      Cache-Control:
+      - no-store
+      Content-Length:
+      - '277'
+      Keep-Alive:
+      - timeout=5, max=100
+      Connection:
+      - Keep-Alive
+    body:
+      encoding: US-ASCII
+      string: ! '<COMPUTE_COLLECTION><COMPUTE href="https://localhost:2345//compute/9"
+        name="one-9"/><COMPUTE href="https://localhost:2345//compute/10"
+        name="one-10"/><COMPUTE href="https://localhost:2345//compute/11"
+        name="one-11"/></COMPUTE_COLLECTION>       '
+    http_version:
+  recorded_at: Thu, 11 Apr 2013 09:24:04 GMT
+- request:
+    method: get
+    uri: https://nagios-probes-test:1b5834c03b1a9fda89b38c081a6d99af634b046e@localhost:2345/storage
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept:
+      - ! '*/*'
+      - application/xml
+      User-Agent:
+      - Ruby
+      Connection:
+      - keep-alive
+      Keep-Alive:
+      - 30
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Thu, 11 Apr 2013 09:24:04 GMT
+      Server:
+      - thin 1.3.1 codename Triple Espresso
+      X-Frame-Options:
+      - sameorigin
+      X-Xss-Protection:
+      - 1; mode=block
+      Content-Type:
+      - application/xml;charset=utf-8
+      Cache-Control:
+      - no-store
+      Content-Length:
+      - '217'
+      Keep-Alive:
+      - timeout=5, max=100
+      Connection:
+      - Keep-Alive
+    body:
+      encoding: US-ASCII
+      string: ! '<STORAGE_COLLECTION><STORAGE href="https://localhost:2345//storage/6"
+        name="ttylinux - kvm"/><STORAGE href="https://localhost:2345//storage/7"
+        name="ttylinux - kvm2"/></STORAGE_COLLECTION>       '
+    http_version:
+  recorded_at: Thu, 11 Apr 2013 09:24:04 GMT
+recorded_with: VCR 2.4.0

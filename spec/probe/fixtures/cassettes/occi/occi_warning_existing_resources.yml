@@ -1,0 +1,230 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: https://nagios-probes-test:1b5834c03b1a9fda89b38c081a6d99af634b046e@localhost:2345/network/3
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept:
+      - ! '*/*'
+      - application/xml
+      User-Agent:
+      - Ruby
+      Connection:
+      - keep-alive
+      Keep-Alive:
+      - 30
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Thu, 11 Apr 2013 09:24:04 GMT
+      Server:
+      - thin 1.3.1 codename Triple Espresso
+      X-Frame-Options:
+      - sameorigin
+      X-Xss-Protection:
+      - 1; mode=block
+      Content-Type:
+      - application/xml;charset=utf-8
+      Cache-Control:
+      - no-store
+      Content-Length:
+      - '252'
+      Keep-Alive:
+      - timeout=5, max=100
+      Connection:
+      - Keep-Alive
+    body:
+      encoding: US-ASCII
+      string: <NETWORK href="https://localhost:2345//network/3"><ID>3</ID><NAME>net2</NAME><USER
+        href="https://localhost:2345//user/304" name="nagios-probes-test"/><GROUP>oneadmin</GROUP><USED_LEASES>0</USED_LEASES><PUBLIC>NO</PUBLIC></NETWORK>
+    http_version:
+  recorded_at: Thu, 11 Apr 2013 09:24:04 GMT
+- request:
+    method: get
+    uri: https://nagios-probes-test:1b5834c03b1a9fda89b38c081a6d99af634b046e@localhost:2345/network/4
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept:
+      - ! '*/*'
+      - application/xml
+      User-Agent:
+      - Ruby
+      Connection:
+      - keep-alive
+      Keep-Alive:
+      - 30
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Thu, 11 Apr 2013 09:24:04 GMT
+      Server:
+      - thin 1.3.1 codename Triple Espresso
+      X-Frame-Options:
+      - sameorigin
+      X-Xss-Protection:
+      - 1; mode=block
+      Content-Type:
+      - application/xml;charset=utf-8
+      Cache-Control:
+      - no-store
+      Content-Length:
+      - '252'
+      Keep-Alive:
+      - timeout=5, max=100
+      Connection:
+      - Keep-Alive
+    body:
+      encoding: US-ASCII
+      string: <NETWORK href="https://localhost:2345//network/4"><ID>4</ID><NAME>net3</NAME><USER
+        href="https://localhost:2345//user/304" name="nagios-probes-test"/><GROUP>oneadmin</GROUP><USED_LEASES>0</USED_LEASES><PUBLIC>NO</PUBLIC></NETWORK>
+    http_version:
+  recorded_at: Thu, 11 Apr 2013 09:24:04 GMT
+- request:
+    method: get
+    uri: https://nagios-probes-test:1b5834c03b1a9fda89b38c081a6d99af634b046e@localhost:2345/compute/11
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept:
+      - ! '*/*'
+      - application/xml
+      User-Agent:
+      - Ruby
+      Connection:
+      - keep-alive
+      Keep-Alive:
+      - 30
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Thu, 11 Apr 2013 09:24:04 GMT
+      Server:
+      - thin 1.3.1 codename Triple Espresso
+      X-Frame-Options:
+      - sameorigin
+      X-Xss-Protection:
+      - 1; mode=block
+      Content-Type:
+      - application/xml;charset=utf-8
+      Cache-Control:
+      - no-store
+      Content-Length:
+      - '405'
+      Keep-Alive:
+      - timeout=5, max=100
+      Connection:
+      - Keep-Alive
+    body:
+      encoding: US-ASCII
+      string: <COMPUTE href="https://localhost:2345//compute/11"><ID>11</ID><USER
+        href="https://localhost:2345//user/304" name="nagios-probes-test"/><GROUP>oneadmin</GROUP><CPU>1</CPU><MEMORY>512</MEMORY><NAME>one-11</NAME><STATE>PENDING</STATE><DISK
+        id="0"><STORAGE href="https://localhost:2345//storage/6" name="ttylinux
+        - kvm"/><TYPE>FILE</TYPE><TARGET>xvda</TARGET></DISK></COMPUTE>
+    http_version:
+  recorded_at: Thu, 11 Apr 2013 09:24:04 GMT
+- request:
+    method: get
+    uri: https://nagios-probes-test:1b5834c03b1a9fda89b38c081a6d99af634b046e@localhost:2345/storage/6
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept:
+      - ! '*/*'
+      - application/xml
+      User-Agent:
+      - Ruby
+      Connection:
+      - keep-alive
+      Keep-Alive:
+      - 30
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Thu, 11 Apr 2013 09:24:04 GMT
+      Server:
+      - thin 1.3.1 codename Triple Espresso
+      X-Frame-Options:
+      - sameorigin
+      X-Xss-Protection:
+      - 1; mode=block
+      Content-Type:
+      - application/xml;charset=utf-8
+      Cache-Control:
+      - no-store
+      Content-Length:
+      - '345'
+      Keep-Alive:
+      - timeout=5, max=100
+      Connection:
+      - Keep-Alive
+    body:
+      encoding: US-ASCII
+      string: <STORAGE href="https://localhost:2345//storage/6"><ID>6</ID><NAME>ttylinux
+        - kvm</NAME><USER href="https://localhost:2345//user/304" name="nagios-probes-test"/><GROUP>oneadmin</GROUP><STATE>USED</STATE><TYPE>OS</TYPE><DESCRIPTION>ttylinux</DESCRIPTION><SIZE>40</SIZE><PUBLIC>NO</PUBLIC><PERSISTENT>NO</PERSISTENT></STORAGE>
+    http_version:
+  recorded_at: Thu, 11 Apr 2013 09:24:04 GMT
+- request:
+    method: get
+    uri: https://nagios-probes-test:1b5834c03b1a9fda89b38c081a6d99af634b046e@localhost:2345/storage/7
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept:
+      - ! '*/*'
+      - application/xml
+      User-Agent:
+      - Ruby
+      Connection:
+      - keep-alive
+      Keep-Alive:
+      - 30
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Thu, 11 Apr 2013 09:24:04 GMT
+      Server:
+      - thin 1.3.1 codename Triple Espresso
+      X-Frame-Options:
+      - sameorigin
+      X-Xss-Protection:
+      - 1; mode=block
+      Content-Type:
+      - application/xml;charset=utf-8
+      Cache-Control:
+      - no-store
+      Content-Length:
+      - '347'
+      Keep-Alive:
+      - timeout=5, max=100
+      Connection:
+      - Keep-Alive
+    body:
+      encoding: US-ASCII
+      string: <STORAGE href="https://localhost:2345//storage/7"><ID>7</ID><NAME>ttylinux
+        - kvm2</NAME><USER href="https://localhost:2345//user/304" name="nagios-probes-test"/><GROUP>oneadmin</GROUP><STATE>READY</STATE><TYPE>OS</TYPE><DESCRIPTION>ttylinux</DESCRIPTION><SIZE>40</SIZE><PUBLIC>NO</PUBLIC><PERSISTENT>NO</PERSISTENT></STORAGE>
+    http_version:
+  recorded_at: Thu, 11 Apr 2013 09:24:04 GMT
+recorded_with: VCR 2.4.0
