@@ -93,8 +93,8 @@ class OpenNebulaEconeProbe < OpennebulaProbe
     @logger.info "Not looking for networks, since it is not supported by OpenNebula's ECONE server'"  if @opts.network
 
     resources = []
-    resources << {resource_type: :image, resource: @opts.storage, resource_string: 'image'}
-    resources << {resource_type: :compute, resource: @opts.compute, resource_string: 'compute instance'}
+    resources << {:resource_type => :image, :resource => @opts.storage, :resource_string => 'image'}
+    resources << {:resource_type => :compute, :resource => @opts.compute, :resource_string => 'compute instance'}
 
     check_resources(resources)
 
