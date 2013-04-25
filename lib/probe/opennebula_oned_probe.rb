@@ -85,9 +85,9 @@ class OpenNebulaOnedProbe < OpennebulaProbe
     @logger.info "Checking for resource availability at #{@endpoint}"
 
     resources = []
-    resources << {resource: @opts.storage, resource_string: 'image', resource_pool: ImagePool}
-    resources << {resource: @opts.compute, resource_string: 'compute instance', resource_pool: VirtualMachinePool}
-    resources << {resource: @opts.network, resource_string: 'network', resource_pool: VirtualNetworkPool}
+    resources << {:resource => @opts.storage, :resource_string => 'image', :resource_pool => ImagePool}
+    resources << {:resource => @opts.compute, :resource_string => 'compute instance', :resource_pool => VirtualMachinePool}
+    resources << {:resource => @opts.network, :resource_string => 'network', :resource_pool => VirtualNetworkPool}
 
     check_resources(resources)
 

@@ -14,6 +14,7 @@
 
 require 'opennebula_probe'
 require 'occi/client'
+require 'fix/httpresponse_fix'
 
 class OpenNebulaOcciProbe < OpennebulaProbe
 
@@ -73,9 +74,9 @@ class OpenNebulaOcciProbe < OpennebulaProbe
     @logger.info "Checking for resource availability at #{@endpoint}"
 
     resources = []
-    resources << {resource: @opts.storage, resource_string: 'image', resource_connection: @connection.storage}
-    resources << {resource: @opts.compute, resource_string: 'compute instance', resource_connection: @connection.compute}
-    resources << {resource: @opts.network, resource_string: 'network', resource_connection: @connection.network}
+    resources << {:resource => @opts.storage, :resource_string => 'image', :resource_connection => @connection.storage}
+    resources << {:resource => @opts.compute, :resource_string => 'compute instance', :resource_connection => @connection.compute}
+    resources << {:resource => @opts.network, :resource_string => 'network', :resource_connection => @connection.network}
 
     check_resources(resources)
 
