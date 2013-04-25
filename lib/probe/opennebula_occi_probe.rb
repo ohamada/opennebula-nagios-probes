@@ -14,6 +14,7 @@
 
 require 'opennebula_probe'
 require 'occi/client'
+require 'fix/httpresponse_fix'
 
 class OpenNebulaOcciProbe < OpennebulaProbe
 
