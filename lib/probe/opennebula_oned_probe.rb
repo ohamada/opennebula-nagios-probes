@@ -19,16 +19,20 @@ include OpenNebula
 
 class OpenNebulaOnedProbe < OpennebulaProbe
 
-  attr_writer :logger
-
   FAILED_CONNECTIVITY = 'Failed to check connectivity: '
   FAILED_RESOURCE = 'Failed to check resource availability: '
 
   def initialize(opts)
     super(opts)
+
     # OpenNebula credentials
     @credentials = "#{@opts.username}:#{@opts.password}"
     @client = Client.new(@credentials, @endpoint)
+  end
+
+  def check_pool(pool, msg)
+    rc = pool.info
+    raise "#{msg} #{rc.message}" if OpenNebula.is_error?(rc)
   end
 
   def check_crit
@@ -37,7 +41,7 @@ class OpenNebulaOnedProbe < OpennebulaProbe
     pool_class_array = [VirtualNetworkPool, ImagePool, VirtualMachinePool]
     pool_class_array.each do |pool_class|
       pool = pool_class.new(@client, -1)
-      check_rc(pool, FAILED_CONNECTIVITY)
+      check_pool(pool, FAILED_CONNECTIVITY)
     end
 
     false
@@ -45,11 +49,6 @@ class OpenNebulaOnedProbe < OpennebulaProbe
   rescue StandardError => e
     @logger.error "Failed to check connectivity: #{e.message}"
     return true
-  end
-
-  def check_rc(pool, msg)
-    rc = pool.info
-    raise "#{msg} #{rc.message}" if OpenNebula.is_error?(rc)
   end
 
   def check_resources(resources)
@@ -65,13 +64,13 @@ class OpenNebulaOnedProbe < OpennebulaProbe
 
       @logger.info "Looking for #{resource_hash[:resource_string]}s: #{resource.inspect}"
       pool = resource_hash[:resource_pool].new(@client, -1)
-      check_rc(pool, FAILED_RESOURCE)
+      check_pool(pool, FAILED_RESOURCE)
 
       resource.each do |resource_to_look_for|
         found = false
 
         pool.each do |res|
-          check_rc(res, FAILED_RESOURCE)
+          check_pool(res, FAILED_RESOURCE)
           found = true if res.id.to_s == resource_to_look_for
         end
         raise "#{resource_hash[:resource_string].capitalize} #{resource_to_look_for} not found" unless found

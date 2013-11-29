@@ -36,7 +36,7 @@ class OptparseNagiosProbe
 
     options.timeout = 60
 
-    opts = OptionParser.new do |opts|
+    opts_ = OptionParser.new do |opts|
       opts.banner = "Usage: check_opennebula.rb [options]"
 
       opts.separator ""
@@ -111,7 +111,7 @@ class OptparseNagiosProbe
 
     end
 
-    opts.parse!(args)
+    opts_.parse!(args)
 
     mandatory = [:protocol, :hostname, :port, :path, :service, :username, :password]
     options_hash = options.marshal_dump

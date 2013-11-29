@@ -17,8 +17,6 @@ require 'occi/client'
 
 class OpenNebulaOcciProbe < OpennebulaProbe
 
-  attr_writer :logger
-
   def initialize(opts)
     super(opts)
 

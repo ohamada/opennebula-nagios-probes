@@ -20,19 +20,17 @@ $: << File.expand_path("..", __FILE__) + '/lib/probe'
 # bundler integration and dependencies
 require 'rubygems'
 require 'bundler/setup'
-
-require 'nagios-probe'
 require 'log4r'
 include Log4r
 
 # include the probe classes and a custom argument parser
+require 'opennebula_probe'
+require 'optparse_nagios_probe'
 require 'opennebula_oned_probe'
 require 'opennebula_occi_probe'
 require 'opennebula_econe_probe'
-require 'optparse_nagios_probe'
 
 begin
-
   # parse the arguments (type checks, required args etc.)
   options = OptparseNagiosProbe.parse(ARGV)
 
@@ -59,13 +57,11 @@ begin
   # run the probe
   probe.run
 
-rescue StandardError => e
+  # report the result in a nagios-compatible format
+  puts probe.message
+  exit probe.retval
 
-  puts "Unknown: #{e.message}"
-  exit Nagios::UNKNOWN
-
+  rescue StandardError => e
+    puts "Exception occured: #{e}"
+    exit UNKNOWN
 end
-
-# report the result in a nagios-compatible format
-puts probe.message
-exit probe.retval

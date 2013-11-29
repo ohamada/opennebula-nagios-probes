@@ -17,10 +17,9 @@ require 'AWS'
 
 class OpenNebulaEconeProbe < OpennebulaProbe
 
-  attr_writer :logger
-
   def initialize(opts)
     super(opts)
+
     @connection = AWS::EC2::Base.new(
         :access_key_id     => @opts.username,
         :secret_access_key => @opts.password,
