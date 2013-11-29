@@ -1,3 +1,4 @@
+# encoding: UTF-8
 ###########################################################################
 ## Licensed under the Apache License, Version 2.0 (the "License");
 ## you may not use this file except in compliance with the License.
@@ -17,8 +18,9 @@ require 'OpenNebula'
 
 include OpenNebula
 
-class OpenNebulaOnedProbe < OpennebulaProbe
+# OpenNebulaOnedProbe - XML-RPC ONED client query service implementation.
 
+class OpenNebulaOnedProbe < OpennebulaProbe
   FAILED_CONNECTIVITY = 'Failed to check connectivity: '
   FAILED_RESOURCE = 'Failed to check resource availability: '
 
@@ -32,7 +34,7 @@ class OpenNebulaOnedProbe < OpennebulaProbe
 
   def check_pool(pool, msg)
     rc = pool.info
-    raise "#{msg} #{rc.message}" if OpenNebula.is_error?(rc)
+    fail "#{msg} #{rc.message}" if OpenNebula.is_error?(rc)
   end
 
   def check_crit
@@ -52,7 +54,7 @@ class OpenNebulaOnedProbe < OpennebulaProbe
   end
 
   def check_resources(resources)
-    if resources.map { |x| x[:resource] }.inject(true){ |product,resource| product && resource.nil? }
+    if resources.map { |x| x[:resource] }.reduce(true) { |product, resource| product && resource.nil? }
       @logger.info 'There are no resources to check, for details on how to specify resources see --help'
       return false
     end
@@ -73,7 +75,7 @@ class OpenNebulaOnedProbe < OpennebulaProbe
           check_pool(res, FAILED_RESOURCE)
           found = true if res.id.to_s == resource_to_look_for
         end
-        raise "#{resource_hash[:resource_string].capitalize} #{resource_to_look_for} not found" unless found
+        fail "#{resource_hash[:resource_string].capitalize} #{resource_to_look_for} not found" unless found
       end
     end
 
@@ -84,9 +86,9 @@ class OpenNebulaOnedProbe < OpennebulaProbe
     @logger.info "Checking for resource availability at #{@endpoint}"
 
     resources = []
-    resources << {:resource => @opts.storage, :resource_string => 'image', :resource_pool => ImagePool}
-    resources << {:resource => @opts.compute, :resource_string => 'compute instance', :resource_pool => VirtualMachinePool}
-    resources << {:resource => @opts.network, :resource_string => 'network', :resource_pool => VirtualNetworkPool}
+    resources << { resource: @opts.storage, resource_string: 'image', resource_pool: ImagePool }
+    resources << { resource: @opts.compute, resource_string: 'compute instance', resource_pool: VirtualMachinePool }
+    resources << { resource: @opts.network, resource_string: 'network', resource_pool: VirtualNetworkPool }
 
     check_resources(resources)
 

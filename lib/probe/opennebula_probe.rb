@@ -1,3 +1,4 @@
+# encoding: UTF-8
 ###########################################################################
 ## Licensed under the Apache License, Version 2.0 (the "License");
 ## you may not use this file except in compliance with the License.
@@ -31,30 +32,43 @@ WARNING  = 1
 CRITICAL = 2
 UNKNOWN  = 3
 
+# OpennebulaProbe covers generic implementation of subprobes.
+# ==== Attributes
+# * logger - Logger connector.
+# * message - Resulting message.
+# * retval - Probe status constant.
+# * endpoint - Server URI.
+#
+# ==== Options
+# * opts - Hash with parsed command line arguments.
+#
+# ==== Examples
+# Instance is initialized from child class
+
 class OpennebulaProbe
   OK_MSG    = 'Remote resources successfully queried!'
   WARN_MSG  = 'Failed to query specified remote resources!'
   CRIT_MSG  = 'Failed to establish connection with the remote server!'
-  UNKWN_MSG = 'Failed to check connectivity!'
+  UNKWN_MSG = 'An exception or error occured!'
 
   attr_reader :retval, :message
   attr_writer :logger
 
   def initialize(opts = {})
-      @opts = opts
-      @retval = UNKNOWN
-      @logger = nil
-      @message = "#{UNKWN_MSG}"
-      @endpoint = "#{@opts.protocol.to_s}://#{@opts.hostname}:#{@opts.port.to_s}#{@opts.path}"
-    end
+    @opts = opts
+    @retval = UNKNOWN
+    @logger = nil
+    @message = "#{UNKWN_MSG}"
+    @endpoint = "#{@opts.protocol.to_s}://#{@opts.hostname}:#{@opts.port.to_s}#{@opts.path}"
+  end
 
   def check_crit
-    # please override
+    # please override in child class
     true
   end
 
   def check_warn
-    # please override
+    # please override in child class
     true
   end
 

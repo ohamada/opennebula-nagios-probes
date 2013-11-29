@@ -1,4 +1,5 @@
 #!/usr/bin/env ruby
+# encoding: UTF-8
 
 ###########################################################################
 ## Licensed under the Apache License, Version 2.0 (the "License");
@@ -14,8 +15,10 @@
 ## limitations under the License.
 ###########################################################################
 
+# translate special symbols into readable ones
+require 'English'
 # include the probe files and a custom version of OCA
-$: << File.expand_path("..", __FILE__) + '/lib/probe'
+$LOAD_PATH << File.expand_path('..', __FILE__) + '/lib/probe'
 
 # bundler integration and dependencies
 require 'rubygems'
@@ -36,17 +39,15 @@ begin
 
   # instantiate a probe
   case options.service
-    when :oned
-      probe = OpenNebulaOnedProbe.new(options)
-      logger = Logger.new 'OpenNebulaOnedProbe'
-    when :occi
-      probe = OpenNebulaOcciProbe.new(options)
-      logger = Logger.new 'OpenNebulaOcciProbe'
-    when :econe
-      probe = OpenNebulaEconeProbe.new(options)
-      logger = Logger.new 'OpenNebulaEconeProbe'
-    else
-      raise Exception.new('This probe cannot check the specified service')
+  when :oned
+    probe = OpenNebulaOnedProbe.new(options)
+    logger = Logger.new 'OpenNebulaOnedProbe'
+  when :occi
+    probe = OpenNebulaOcciProbe.new(options)
+    logger = Logger.new 'OpenNebulaOcciProbe'
+  when :econe
+    probe = OpenNebulaEconeProbe.new(options)
+    logger = Logger.new 'OpenNebulaEconeProbe'
   end
 
   # set the logger
@@ -61,7 +62,9 @@ begin
   puts probe.message
   exit probe.retval
 
-  rescue StandardError => e
-    puts "Exception occured: #{e}"
-    exit UNKNOWN
+# catch all StandardErrors raised by parser or probes and treat them as a UKNOWN probe state too
+rescue StandardError => e
+  puts "Exception occured: #{e}"
+  puts UNKNOWN
+  exit UNKNOWN
 end

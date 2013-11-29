@@ -1,3 +1,4 @@
+# encoding: UTF-8
 ###########################################################################
 ## Licensed under the Apache License, Version 2.0 (the "License");
 ## you may not use this file except in compliance with the License.
@@ -15,17 +16,18 @@
 require 'opennebula_probe'
 require 'occi/client'
 
-class OpenNebulaOcciProbe < OpennebulaProbe
+# OpenNebulaOcciProbe - OCCI client query service implementation.
 
+class OpenNebulaOcciProbe < OpennebulaProbe
   def initialize(opts)
     super(opts)
 
     @connection = Occi::Client.new(
-        :host     => @opts.hostname,
-        :port     => @opts.port,
-        :scheme   => @opts.protocol,
-        :user     => @opts.username,
-        :password => @opts.password
+        host: @opts.hostname,
+        port: @opts.port,
+        scheme: @opts.protocol,
+        user: @opts.username,
+        password: @opts.password
     )
   end
 
@@ -46,7 +48,7 @@ class OpenNebulaOcciProbe < OpennebulaProbe
   end
 
   def check_resources(resources)
-    if resources.map { |x| x[:resource] }.inject(true){ |product,resource| product && resource.nil? }
+    if resources.map { |x| x[:resource] }.reduce(true) { |product, resource| product && resource.nil? }
       @logger.info 'There are no resources to check, for details on how to specify resources see --help'
       return false
     end
@@ -58,7 +60,7 @@ class OpenNebulaOcciProbe < OpennebulaProbe
 
       begin
         @logger.info "Looking for #{resource_hash[:resource_string]}s: #{resource.inspect}"
-        result = resource.collect {|id| resource_hash[:resource_connection].find id }
+        result = resource.map { |id| resource_hash[:resource_connection].find id }
         @logger.debug result
 
       end
@@ -71,9 +73,12 @@ class OpenNebulaOcciProbe < OpennebulaProbe
     @logger.info "Checking for resource availability at #{@endpoint}"
 
     resources = []
-    resources << {:resource => @opts.storage, :resource_string => 'image', :resource_connection => @connection.storage}
-    resources << {:resource => @opts.compute, :resource_string => 'compute instance', :resource_connection => @connection.compute}
-    resources << {:resource => @opts.network, :resource_string => 'network', :resource_connection => @connection.network}
+    resources << { resource: @opts.storage, resource_string: 'image',
+                   resource_connection: @connection.storage }
+    resources << { resource: @opts.compute, resource_string: 'compute instance',
+                   resource_connection: @connection.compute }
+    resources << { resource: @opts.network, resource_string: 'network',
+                   resource_connection: @connection.network }
 
     check_resources(resources)
 

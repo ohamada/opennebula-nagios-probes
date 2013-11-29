@@ -1,3 +1,4 @@
+# encoding: UTF-8
 ###########################################################################
 ## Licensed under the Apache License, Version 2.0 (the "License");
 ## you may not use this file except in compliance with the License.
@@ -15,18 +16,19 @@
 require 'opennebula_probe'
 require 'AWS'
 
-class OpenNebulaEconeProbe < OpennebulaProbe
+# OpenNebulaEconeProbe - Econe client query service implementation.
 
+class OpenNebulaEconeProbe < OpennebulaProbe
   def initialize(opts)
     super(opts)
 
     @connection = AWS::EC2::Base.new(
-        :access_key_id     => @opts.username,
-        :secret_access_key => @opts.password,
-        :server            => @opts.hostname,
-        :port              => @opts.port,
-        :path              => @opts.path,
-        :use_ssl           => @opts.protocol == :https
+        access_key_id: @opts.username,
+        secret_access_key: @opts.password,
+        server: @opts.hostname,
+        port: @opts.port,
+        path: @opts.path,
+        use_ssl: @opts.protocol == :https
     )
   end
 
@@ -45,7 +47,7 @@ class OpenNebulaEconeProbe < OpennebulaProbe
   end
 
   def check_resources(resources)
-    if resources.map { |x| x[:resource] }.inject(true){ |product,resource| product && resource.nil? }
+    if resources.map { |x| x[:resource] }.reduce(true) { |product, resource| product && resource.nil? }
       @logger.info 'There are no resources to check, for details on how to specify resources see --help'
       return false
     end
@@ -66,19 +68,19 @@ class OpenNebulaEconeProbe < OpennebulaProbe
         set = 'instancesSet'
         id = 'instanceId'
       else
-        raise 'Wrong resource definition'
+        fail 'Wrong resource definition'
       end
 
       @logger.debug result
 
-      raise "No #{resource_hash[:resource_string].capitalize} found" unless result && result[set]
+      fail "No #{resource_hash[:resource_string].capitalize} found" unless result && result[set]
 
       resource.each do |resource_to_look_for|
         found = false
 
-        result[set]["item"].each { |resource_found| found = true if resource_to_look_for == resource_found[id] }
+        result[set]['item'].each { |resource_found| found = true if resource_to_look_for == resource_found[id] }
 
-        raise "#{resource_hash[:resource_string].capitalize} #{resource_to_look_for} not found" unless found
+        fail "#{resource_hash[:resource_string].capitalize} #{resource_to_look_for} not found" unless found
       end
     end
 
@@ -92,8 +94,8 @@ class OpenNebulaEconeProbe < OpennebulaProbe
     @logger.info "Not looking for networks, since it is not supported by OpenNebula's ECONE server'"  if @opts.network
 
     resources = []
-    resources << {:resource_type => :image, :resource => @opts.storage, :resource_string => 'image'}
-    resources << {:resource_type => :compute, :resource => @opts.compute, :resource_string => 'compute instance'}
+    resources << { resource_type: :image, resource: @opts.storage, resource_string: 'image' }
+    resources << { resource_type: :compute, resource: @opts.compute, resource_string: 'compute instance' }
 
     check_resources(resources)
 
