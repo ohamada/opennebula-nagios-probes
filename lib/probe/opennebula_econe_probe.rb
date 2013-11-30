@@ -104,3 +104,5 @@ class OpenNebulaEconeProbe < OpennebulaProbe
     return true
   end
 end
+
+# TODO: Remove hash pass requirement, replace with plaintext

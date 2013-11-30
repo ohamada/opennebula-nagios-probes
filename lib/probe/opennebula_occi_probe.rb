@@ -87,3 +87,5 @@ class OpenNebulaOcciProbe < OpennebulaProbe
     return true
   end
 end
+
+# TODO: Remove HUGS dependency and find replacement

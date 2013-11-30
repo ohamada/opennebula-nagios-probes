@@ -12,7 +12,7 @@
 ## limitations under the License.
 ###########################################################################
 
-$: << File.expand_path("..", __FILE__) + "/../../lib/probe"
+$LOAD_PATH << File.expand_path('..', __FILE__) + '/../../lib/probe'
 
 require 'rubygems'
 require 'bundler/setup'
@@ -28,7 +28,7 @@ include Log4r
 
 describe OpenNebulaOcciProbe do
   before do
-    WebMock.disable_net_connect! :allow => "localhost"
+    WebMock.disable_net_connect! allow: 'localhost'
 
     VCR.configure do |c|
       c.cassette_library_dir = 'spec/probe/fixtures/cassettes/occi'
@@ -38,16 +38,16 @@ describe OpenNebulaOcciProbe do
     @options = OpenStruct.new
 
     @options.protocol = :https
-    @options.hostname = "localhost"
+    @options.hostname = 'localhost'
     @options.port     = 2345
-    @options.path     = "/"
-    @options.username = "nagios-probes-test"
-    @options.password = "nagios-probes-pass"
+    @options.path     = '/'
+    @options.username = 'nagios-probes-test'
+    @options.password = 'nagios-probes-pass'
 
     @logger = Logger.new 'TestLogger'
   end
 
-  context "with no resources" do
+  context 'with no resources' do
     before :each do
       @probe = OpenNebulaOcciProbe.new(@options)
       @probe.logger = @logger
@@ -76,12 +76,12 @@ describe OpenNebulaOcciProbe do
     end
   end
 
-  context "with resources" do
+  context 'with resources' do
     before :each do
-      #resources should not have an effect on check_crit results
-      @options.network = ["3","4"]
-      @options.storage = ["6","7"]
-      @options.compute = ["11"]
+      # resources should not have an effect on check_crit results
+      @options.network = ['3', '4']
+      @options.storage = ['6', '7']
+      @options.compute = ['11']
 
       @probe = OpenNebulaOcciProbe.new(@options)
       @probe.logger = @logger
@@ -110,12 +110,12 @@ describe OpenNebulaOcciProbe do
     end
   end
 
-  context "with nonexisting resources" do
+  context 'with nonexisting resources' do
     before :each do
-      #resources should not have an effect on check_crit results
-      @options.network = ["16","17"]
-      @options.storage = ["126","127"]
-      @options.compute = ["22"]
+      # resources should not have an effect on check_crit results
+      @options.network = ['16', '17']
+      @options.storage = ['126', '127']
+      @options.compute = ['22']
 
       @probe = OpenNebulaOcciProbe.new(@options)
       @probe.logger = @logger

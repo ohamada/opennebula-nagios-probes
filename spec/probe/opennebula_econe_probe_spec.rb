@@ -12,7 +12,7 @@
 ## limitations under the License.
 ###########################################################################
 
-$: << File.expand_path("..", __FILE__) + "/../../lib/probe"
+$LOAD_PATH << File.expand_path('..', __FILE__) + '/../../lib/probe'
 
 require 'rubygems'
 require 'bundler/setup'
@@ -29,7 +29,7 @@ include Log4r
 
 describe OpenNebulaEconeProbe do
   before do
-    WebMock.disable_net_connect! :allow => "localhost"
+    WebMock.disable_net_connect! allow: 'localhost'
 
     VCR.configure do |c|
       c.cassette_library_dir = 'spec/probe/fixtures/cassettes/econe'
@@ -39,16 +39,16 @@ describe OpenNebulaEconeProbe do
     @options = OpenStruct.new
 
     @options.protocol = :https
-    @options.hostname = "localhost"
+    @options.hostname = 'localhost'
     @options.port     = 2345
-    @options.path     = "/"
-    @options.username = "nagios-probes-test"
-    @options.password = "1b5834c03b1a9fda89b38c081a6d99af634b046e"
+    @options.path     = '/'
+    @options.username = 'nagios-probes-test'
+    @options.password = '1b5834c03b1a9fda89b38c081a6d99af634b046e'
 
     @logger = Logger.new 'TestLogger'
   end
 
-  context "with no resources" do
+  context 'with no resources' do
     before :each do
       @probe = OpenNebulaEconeProbe.new(@options)
       @probe.logger = @logger
@@ -77,11 +77,11 @@ describe OpenNebulaEconeProbe do
     end
   end
 
-  context "with resources" do
+  context 'with resources' do
     before :each do
-      #resources should not have an effect on check_crit results
-      @options.storage = ["ami-00000006","ami-00000007"]
-      @options.compute = ["i-00000011"]
+      # resources should not have an effect on check_crit results
+      @options.storage = ['ami-00000006', 'ami-00000007']
+      @options.compute = ['i-00000011']
 
       @probe = OpenNebulaEconeProbe.new(@options)
       @probe.logger = @logger
@@ -110,11 +110,11 @@ describe OpenNebulaEconeProbe do
     end
   end
 
-  context "with nonexisting resources" do
+  context 'with nonexisting resources' do
     before :each do
-      #resources should not have an effect on check_crit results
-      @options.storage = ["ami-00000126","ami-00000127"]
-      @options.compute = ["i-00000022"]
+      # resources should not have an effect on check_crit results
+      @options.storage = ['ami-00000126', 'ami-00000127']
+      @options.compute = ['i-00000022']
 
       @probe = OpenNebulaEconeProbe.new(@options)
       @probe.logger = @logger
