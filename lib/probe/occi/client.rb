@@ -1,25 +1,20 @@
 # encoding: UTF-8
-%w(hugs digest/sha1 occi/resource occi/network occi/storage occi/compute).each { |r| require r }
+%w(digest/sha1 occi/resource occi/network occi/storage occi/compute).each { |r| require r }
+require 'rubygems'
+require 'excon'
+
 module Occi
 # OCCI Client class.
-# ==== Attributes (required)
-# * +user+: A String containing the username for use in HTTP Basic auth.
-# * +password+: A String containing the password for use in HTTP Basic auth.
-# * +host+: A String with the host to connect.
-#
 # ==== Options
 # * options - Hash with provided command line arguments.
 
   class Client
     def initialize(options)
-      @connection = Hugs::Client.new(
-        user: options[:user],
-        password: Digest::SHA1.hexdigest(options[:password]),
-        host: options[:host],
-        scheme: options[:scheme] || 'http',
-        port: options[:port] || 4567,
-        type: options[:type] || :xml,
-        raise_errors: true
+      @connection = Excon.new(
+        "#{options.scheme.to_s}://#{options.host}:#{options.port}",
+        user: options.user,
+        password: Digest::SHA1.hexdigest(options.password),
+        expects: [200, 201, 202, 204] # see resource.rb for explanation, expected HTTP codes
       )
     end
 

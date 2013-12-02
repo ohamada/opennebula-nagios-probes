@@ -15,6 +15,7 @@
 
 require 'opennebula_probe'
 require 'AWS'
+require 'digest/sha1'
 
 # OpenNebulaEconeProbe - Econe client query service implementation.
 
@@ -24,7 +25,7 @@ class OpenNebulaEconeProbe < OpennebulaProbe
 
     @connection = AWS::EC2::Base.new(
         access_key_id: @opts.username,
-        secret_access_key: @opts.password,
+        secret_access_key: Digest::SHA1.hexdigest(options.password),
         server: @opts.hostname,
         port: @opts.port,
         path: @opts.path,

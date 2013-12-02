@@ -48,6 +48,7 @@ class OpenNebulaOcciProbe < OpennebulaProbe
   end
 
   def check_resources(resources)
+    # extract key ":resource" from hashes to new array and determine, if any of them are other than nil
     if resources.map { |x| x[:resource] }.reduce(true) { |product, resource| product && resource.nil? }
       @logger.info 'There are no resources to check, for details on how to specify resources see --help'
       return false
@@ -55,14 +56,12 @@ class OpenNebulaOcciProbe < OpennebulaProbe
 
     resources.each do |resource_hash|
       resource = resource_hash[:resource]
-
       next unless resource
 
       begin
         @logger.info "Looking for #{resource_hash[:resource_string]}s: #{resource.inspect}"
         result = resource.map { |id| resource_hash[:resource_connection].find id }
         @logger.debug result
-
       end
     end
 

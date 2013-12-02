@@ -19,15 +19,12 @@ GEM
     crack (0.3.2)
     diff-lcs (1.2.2)
     eventmachine (1.0.3)
+    excon (0.30.0)
     hashie (2.0.3)
     highline (1.6.16)
     httparty (0.10.2)
       multi_json (~> 1.0)
       multi_xml (>= 0.5.2)
-    hugs (2.7.1)
-      net-http-persistent (~> 1.4.1)
-      nokogiri (~> 1.4.4)
-      yajl-ruby (~> 0.7.9)
     i18n (0.6.4)
     json (1.7.7)
     log4r (1.1.10)
@@ -35,7 +32,6 @@ GEM
     multi_xml (0.5.3)
     multipart-post (1.2.0)
     nagios-probe (0.1.2)
-    net-http-persistent (1.4.1)
     nokogiri (1.4.7)
     occi (3.1.0)
       activesupport
@@ -66,18 +62,16 @@ GEM
       addressable (>= 2.2.7)
       crack (>= 0.3.2)
     xml-simple (1.1.2)
-    yajl-ruby (0.7.9)
 
 PLATFORMS
   ruby
 
 DEPENDENCIES
   amazon-ec2
-  hugs
+  excon
   log4r
   multipart-post
   nagios-probe
-  nokogiri
   occi
   opennebula-oca
   rake

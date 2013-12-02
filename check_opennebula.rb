@@ -59,7 +59,8 @@ begin
   probe.run
 
   # report the result in a nagios-compatible format
-  puts probe.message
+  logger.info probe.message
+  logger.info "Probe returned: #{probe.retval.to_s}"
   exit probe.retval
 
 # catch all StandardErrors raised by parser or probes and treat them as a UKNOWN probe state too

@@ -90,7 +90,7 @@ class OpennebulaProbe
     unless crit?
       unless warn?
         @retval = OK
-        @message = "#{OK}"
+        @message = "#{OK_MSG}"
       end
     end
   end
