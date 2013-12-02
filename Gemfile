@@ -9,7 +9,7 @@ gem "excon"
 gem "multipart-post"
 gem "rake"
 gem "occi"
-gem "opennebula-oca"
+gem "opennebula-oca" , '~> 3.8.0'
 
 group :test do
   gem "rspec"

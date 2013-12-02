@@ -25,7 +25,7 @@ class OpenNebulaEconeProbe < OpennebulaProbe
 
     @connection = AWS::EC2::Base.new(
         access_key_id: @opts.username,
-        secret_access_key: Digest::SHA1.hexdigest(options.password),
+        secret_access_key: Digest::SHA1.hexdigest(@opts.password),
         server: @opts.hostname,
         port: @opts.port,
         path: @opts.path,
