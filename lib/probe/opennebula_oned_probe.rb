@@ -14,7 +14,7 @@
 ###########################################################################
 
 require 'opennebula_probe'
-require 'OpenNebula'
+require 'opennebula'
 
 include OpenNebula
 

@@ -1,6 +1,6 @@
 # encoding: UTF-8
-%w(digest/sha1 occi/resource occi/network occi/storage occi/compute).each { |r| require r }
-require 'rubygems'
+%w(occi/resource occi/network occi/storage occi/compute).each { |r| require r }
+require 'digest/sha1'
 require 'excon'
 
 module Occi

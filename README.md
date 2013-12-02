@@ -1,5 +1,5 @@
-Nagios probes for OpenNebula v3.4+
-==================================
+Nagios probes for OpenNebula v3.4 - v4.4
+========================================
 
 [![Build Status](https://travis-ci.org/arax/opennebula-nagios-probes.png)](https://travis-ci.org/arax/opennebula-nagios-probes)
 
@@ -7,6 +7,9 @@ Nagios probes for OpenNebula-related services e.g. econe-server, occi-server
 and oned RPC2.
 
 These probes are written in Ruby, Gemfile for bundler is included.
+
+## Requirements
+1.9.1 =< Ruby version =< 2.0.0
 
 ## Usage
 
