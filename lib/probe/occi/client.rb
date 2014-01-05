@@ -2,6 +2,7 @@
 %w(occi/resource occi/network occi/storage occi/compute).each { |r| require r }
 require 'digest/sha1'
 require 'excon'
+require 'httparty'
 
 module Occi
 # OCCI Client class.
@@ -10,12 +11,13 @@ module Occi
 
   class Client
     def initialize(options)
-      @connection = Excon.new(
-        "#{options.scheme.to_s}://#{options.host}:#{options.port}",
-        user: options.user,
-        password: Digest::SHA1.hexdigest(options.password),
-        expects: [200, 201, 202, 204] # see resource.rb for explanation, expected HTTP codes
-      )
+      @connection = options
+      #@connection = Excon.new(
+      #  "#{options.scheme.to_s}://#{options.host}:#{options.port}",
+      #  user: options.user,
+      #  password: Digest::SHA1.hexdigest(options.password),
+      #  expects: [200, 201, 202, 204] # see resource.rb for explanation, expected HTTP codes
+      #)
     end
 
     def network

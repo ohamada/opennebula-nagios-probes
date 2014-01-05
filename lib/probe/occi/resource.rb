@@ -1,12 +1,18 @@
 # encoding: UTF-8
+require 'httparty'
+
 module Occi
 # OCCI Resource class.
 # ==== Options
 # * connection - Object holding connection info.
 
   class Resource
+    include HTTParty
+    format :xml
+
     def initialize(connection)
-      @connection = connection
+      self.class.base_uri "#{connection.scheme.to_s}://#{connection.host}:#{connection.port}"
+      self.class.basic_auth "#{connection.user}", Digest::SHA1.hexdigest(options.password)
     end
 
     # Callback invoked whenever a subclass is created. This method dynamically defines virtual @endpoint
