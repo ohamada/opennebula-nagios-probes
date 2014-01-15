@@ -49,11 +49,12 @@ class OpenNebulaOnedProbe < OpennebulaProbe
     false
 
   rescue StandardError => e
-    @logger.error "Failed to check connectivity: #{e.message}"
+    @logger.error "Failed to check basic connectivity: #{e.message}"
+    @logger.debug "#{e.backtrace.join("\n")}"
     return true
   end
 
-  def check_resources(resources)
+  def scheck_resources(resources)
     if resources.map { |x| x[:resource] }.reduce(true) { |product, resource| product && resource.nil? }
       @logger.info 'There are no resources to check, for details on how to specify resources see --help'
       return false
@@ -93,7 +94,8 @@ class OpenNebulaOnedProbe < OpennebulaProbe
     check_resources(resources)
 
   rescue StandardError => e
-    @logger.error "Failed to check resource availability: #{e.message}"
+    @logger.error "Failed to check basic connectivity: #{e.message}"
+    @logger.debug "#{e.backtrace.join("\n")}"
     return true
   end
 end

@@ -65,7 +65,7 @@ begin
 
 # catch all StandardErrors raised by parser or probes and treat them as a UKNOWN probe state too
 rescue StandardError => e
-  puts "Exception occured: #{e}"
+  puts "Exception occured: #{e.message}"
   puts UNKNOWN
   exit UNKNOWN
 end

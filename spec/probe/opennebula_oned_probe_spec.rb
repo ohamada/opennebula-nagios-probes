@@ -21,7 +21,7 @@ require 'webmock'
 require 'log4r'
 require 'ostruct'
 
-require 'OpenNebula'
+require 'opennebula'
 
 #
 include OpenNebula
@@ -36,6 +36,8 @@ describe OpenNebulaOnedProbe do
     VCR.configure do |c|
       c.cassette_library_dir = 'spec/probe/fixtures/cassettes/oned'
       c.hook_into :webmock
+      # Do not fail if VCR cannot handle request, act as there was not any
+      c.allow_http_connections_when_no_cassette = true
     end
 
     @options = OpenStruct.new
@@ -47,7 +49,13 @@ describe OpenNebulaOnedProbe do
     @options.username = 'nagios-probes-test'
     @options.password = 'nagios-probes-pass'
 
+    # Adjust for debug purposes
+    @options.debug    = false
+
     @logger = Logger.new 'TestLogger'
+    @logger.outputters = Outputter.stderr
+    @logger.level = DEBUG
+    @logger.level = FATAL unless @options.debug
   end
 
   context 'with no resources' do

@@ -8,19 +8,22 @@ module Occi
 
   class Resource
     include HTTParty
-    format :xml
-
+    #format :html
+    headers = { "Content-Type" => 'text/xml', 'Accept' => 'application/xml'}
+    #headers 'Accept' => 'application/xml'
+    debug_output
     def initialize(connection)
       self.class.base_uri "#{connection.scheme.to_s}://#{connection.host}:#{connection.port}"
-      self.class.basic_auth "#{connection.user}", Digest::SHA1.hexdigest(options.password)
+      self.class.basic_auth "#{connection.user}", Digest::SHA1.hexdigest(connection.password)
     end
 
     # Callback invoked whenever a subclass is created. This method dynamically defines virtual @endpoint
     # attribute located in child instance, which contains backslash + name of inheriting class. It is used
     # for request building.
-    def self.inherited(base)
-      path = base.to_s.split('::').last.downcase
-      base.send(:define_method, :endpoint) do
+    def self.inherited(childclass)
+      super(childclass)
+      path = childclass.to_s.split('::').last.downcase
+      childclass.send(:define_method, :endpoint) do
         "/#{path}"
       end
     end
@@ -33,7 +36,9 @@ module Occi
     # Returns the contents of the pool.
     # 200 OK: An XML representation of the pool in the http body.
     def all
-      @connection.get(path: endpoint)
+      r = self.class.get(endpoint)
+      data = r.parsed_response
+      puts "Print data: #{data}"
     end
 
     ##

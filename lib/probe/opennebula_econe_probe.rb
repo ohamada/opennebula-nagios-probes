@@ -35,12 +35,13 @@ class OpenNebulaEconeProbe < OpennebulaProbe
 
   def check_crit
     @logger.info "Checking for basic connectivity at #{@endpoint}"
+    @connection.describe_images
 
     begin
-      @connection.describe_images
       @connection.describe_instances
     rescue StandardError => e
       @logger.error "Failed to check connectivity: #{e.message}"
+      @logger.debug "#{e.backtrace.join("\n")}"
       return true
     end
 
@@ -102,6 +103,7 @@ class OpenNebulaEconeProbe < OpennebulaProbe
 
   rescue StandardError => e
     @logger.error "Failed to check resource availability: #{e.message}"
+    @logger.debug "#{e.backtrace.join("\n")}"
     return true
   end
 end

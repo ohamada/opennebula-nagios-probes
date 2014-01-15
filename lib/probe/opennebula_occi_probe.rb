@@ -37,10 +37,11 @@ class OpenNebulaOcciProbe < OpennebulaProbe
     begin
       # make a few simple queries just to be sure that the service is running
       @connection.network.all
-      @connection.compute.all
-      @connection.storage.all
+      #@connection.compute.all
+      #@connection.storage.all
     rescue StandardError => e
       @logger.error "Failed to check connectivity: #{e.message}"
+      @logger.debug "#{e.backtrace.join("\n")}"
       return true
     end
 
@@ -83,6 +84,7 @@ class OpenNebulaOcciProbe < OpennebulaProbe
 
   rescue StandardError => e
     @logger.error "Failed to check resource availability: #{e.message}"
+    @logger.debug "#{e.backtrace.join("\n")}"
     return true
   end
 end

@@ -34,6 +34,7 @@ describe OpenNebulaEconeProbe do
     VCR.configure do |c|
       c.cassette_library_dir = 'spec/probe/fixtures/cassettes/econe'
       c.hook_into :webmock
+      c.debug_logger = $stdout
     end
 
     @options = OpenStruct.new
