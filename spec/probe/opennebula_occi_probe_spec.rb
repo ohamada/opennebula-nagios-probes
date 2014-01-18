@@ -54,7 +54,7 @@ describe OpenNebulaOcciProbe do
     end
 
     it 'checks basic connectivity with cassette' do
-      VCR. use_cassette('occi_critical_no_resources') do
+      VCR.use_cassette('occi_critical_no_resources') do
         @probe.check_crit.should be_false
       end
     end

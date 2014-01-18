@@ -52,6 +52,7 @@ begin
 
   # set the logger
   logger.outputters = Outputter.stderr
+  logger.level = INFO
   logger.level = ERROR unless options.debug
   probe.logger = logger
 

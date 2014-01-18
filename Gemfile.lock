@@ -90,6 +90,7 @@ DEPENDENCIES
   multipart-post
   nagios-probe
   occi
+  occi-api
   opennebula-oca
   rake
   rspec

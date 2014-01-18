@@ -37,10 +37,10 @@ class OpenNebulaOcciProbe < OpennebulaProbe
     begin
       # make a few simple queries just to be sure that the service is running
       @connection.network.all
-      #@connection.compute.all
-      #@connection.storage.all
+      @connection.compute.all
+      @connection.storage.all
     rescue StandardError => e
-      @logger.error "Failed to check connectivity: #{e.message}"
+      @logger.error "Failed to check connectivity: #{e}"
       @logger.debug "#{e.backtrace.join("\n")}"
       return true
     end
@@ -88,5 +88,3 @@ class OpenNebulaOcciProbe < OpennebulaProbe
     return true
   end
 end
-
-# TODO: Remove HUGS dependency and find replacement
