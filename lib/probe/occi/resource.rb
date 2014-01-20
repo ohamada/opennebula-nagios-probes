@@ -9,14 +9,16 @@ module Occi
   class Resource
     include HTTParty
 
-    #format :xml
     headers = { "Content-Type" => 'text/xml', 'Accept' => 'application/xml'}
-    #debug_output
 
     def initialize(connection)
-      self.class.base_uri "#{connection.scheme.to_s}://#{connection.host}:#{connection.port}"
-      # Nebula OCCI format
-      self.class.basic_auth "#{connection.user}", Digest::SHA1.hexdigest(connection.password)
+      self.class.base_uri "#{connection[:endpoint]}"
+      # nebula OCCI format
+      self.class.basic_auth "#{connection[:user]}", Digest::SHA1.hexdigest(connection[:password])
+
+      # Low-level debugging
+      # self.class.debug_output
+
       # rOCCI format
       #self.class.basic_auth "#{connection.user}", "#{connection.password}"
     end
@@ -87,13 +89,10 @@ module Occi
   end
 
   class HTTPResponseError < HTTParty::ResponseError
-    # Returns the response of the last request
-    # @return [Net::HTTPResponse] A subclass of Net::HTTPResponse, e.g.
-    # Net::HTTPOK
+    # Slightly modified HTTParty::ResponseError
+    # for better cooperation with existing code
     attr_reader :message
 
-    # Instantiate an instance of ResponseError with a Net::HTTPResponse object
-    # @param [Net::HTTPResponse]
     def initialize(m)
       super(m)
       @message = m

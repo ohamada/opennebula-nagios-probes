@@ -55,33 +55,33 @@ class OpennebulaProbe
   attr_writer :logger
 
   def initialize(opts = {})
-    @opts = opts
-    @retval = UNKNOWN
-    @logger = nil
-    @message = "#{UNKWN_MSG}"
+    @opts     = opts
+    @retval   = UNKNOWN
+    @logger   = nil
+    @message  = "#{UNKWN_MSG}"
     @endpoint = "#{@opts.protocol.to_s}://#{@opts.hostname}:#{@opts.port.to_s}#{@opts.path}"
   end
 
   def check_crit
-    # please override in child class
+    # overridden in child class
     true
   end
 
   def check_warn
-    # please override in child class
+    # overridden in child class
     true
   end
 
   def crit?
     return false unless check_crit
-    @retval = CRITICAL
+    @retval  = CRITICAL
     @message = "CRITICAL: #{CRIT_MSG}"
     true
   end
 
   def warn?
     return false unless check_warn
-    @retval = WARNING
+    @retval  = WARNING
     @message = "WARNING: #{WARN_MSG}"
     true
   end
@@ -89,11 +89,9 @@ class OpennebulaProbe
   def run
     unless crit?
       unless warn?
-        @retval = OK
+        @retval  = OK
         @message = "#{OK_MSG}"
       end
     end
   end
 end
-
-# TODO: upgrade to ON 4.4

@@ -52,10 +52,10 @@ describe OpenNebulaOnedProbe do
     # Adjust for debug purposes
     @options.debug    = false
 
-    @logger = Logger.new 'TestLogger'
+    @logger = Logger.new 'OnedTestLogger'
     @logger.outputters = Outputter.stderr
-    @logger.level = DEBUG
-    @logger.level = FATAL unless @options.debug
+    #@logger.level = DEBUG
+    @logger.level = INFO
   end
 
   context 'with no resources' do

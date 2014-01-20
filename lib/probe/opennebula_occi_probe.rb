@@ -23,11 +23,10 @@ class OpenNebulaOcciProbe < OpennebulaProbe
     super(opts)
 
     @connection = Occi::Client.new(
-        host: @opts.hostname,
-        port: @opts.port,
-        scheme: @opts.protocol,
-        user: @opts.username,
-        password: @opts.password
+        endpoint:   @endpoint,
+        port:       @opts.port,
+        user:       @opts.username,
+        password:   @opts.password
     )
   end
 

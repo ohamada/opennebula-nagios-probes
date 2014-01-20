@@ -24,20 +24,19 @@ class OpenNebulaEconeProbe < OpennebulaProbe
     super(opts)
 
     @connection = AWS::EC2::Base.new(
-        access_key_id: @opts.username,
-        secret_access_key: Digest::SHA1.hexdigest(@opts.password),
-        server: @opts.hostname,
-        port: @opts.port,
-        path: @opts.path,
-        use_ssl: @opts.protocol == :https
+        access_key_id:      @opts.username,
+        secret_access_key:  Digest::SHA1.hexdigest(@opts.password),
+        server:             @opts.hostname,
+        port:               @opts.port,
+        path:               @opts.path,
+        use_ssl:            @opts.protocol == :https
     )
   end
 
   def check_crit
     @logger.info "Checking for basic connectivity at #{@endpoint}"
-    @connection.describe_images
-
     begin
+      @connection.describe_images
       @connection.describe_instances
     rescue StandardError => e
       @logger.error "Failed to check connectivity: #{e.message}"
@@ -62,13 +61,13 @@ class OpenNebulaEconeProbe < OpennebulaProbe
       @logger.info "Looking for #{resource_hash[:resource_string]}s: #{resource.inspect}"
       if resource_hash[:resource_type] == :image
         result = @connection.describe_images
-        set = 'imagesSet'
-        id = 'imageId'
+        set    = 'imagesSet'
+        id     = 'imageId'
       elsif resource_hash[:resource_type] == :compute
         result = @connection.describe_instances
         result = result['reservationSet']['item'][0] if result['reservationSet'] && result['reservationSet']['item']
-        set = 'instancesSet'
-        id = 'instanceId'
+        set    = 'instancesSet'
+        id    = 'instanceId'
       else
         fail 'Wrong resource definition'
       end

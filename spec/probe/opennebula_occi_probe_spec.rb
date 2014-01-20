@@ -33,6 +33,7 @@ describe OpenNebulaOcciProbe do
     VCR.configure do |c|
       c.cassette_library_dir = 'spec/probe/fixtures/cassettes/occi'
       c.hook_into :webmock
+      c.allow_http_connections_when_no_cassette = true
     end
 
     @options = OpenStruct.new
@@ -44,7 +45,10 @@ describe OpenNebulaOcciProbe do
     @options.username = 'nagios-probes-test'
     @options.password = 'nagios-probes-pass'
 
-    @logger = Logger.new 'TestLogger'
+    @logger = Logger.new 'OcciTestLogger'
+    @logger.outputters = Outputter.stderr
+    #@logger.level = DEBUG
+    @logger.level = INFO
   end
 
   context 'with no resources' do

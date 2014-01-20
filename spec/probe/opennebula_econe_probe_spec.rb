@@ -34,7 +34,8 @@ describe OpenNebulaEconeProbe do
     VCR.configure do |c|
       c.cassette_library_dir = 'spec/probe/fixtures/cassettes/econe'
       c.hook_into :webmock
-      c.debug_logger = $stdout
+      #c.debug_logger = $stdout
+      c.allow_http_connections_when_no_cassette = true
     end
 
     @options = OpenStruct.new
@@ -44,9 +45,14 @@ describe OpenNebulaEconeProbe do
     @options.port     = 2345
     @options.path     = '/'
     @options.username = 'nagios-probes-test'
-    @options.password = '1b5834c03b1a9fda89b38c081a6d99af634b046e'
+    #@options.password = '1b5834c03b1a9fda89b38c081a6d99af634b046e'
+    @options.password = 'nagios-probes-pass'
 
-    @logger = Logger.new 'TestLogger'
+
+    @logger = Logger.new 'EconeTestLogger'
+    @logger.outputters = Outputter.stderr
+    #@logger.level = DEBUG
+    @logger.level = INFO
   end
 
   context 'with no resources' do

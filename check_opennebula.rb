@@ -52,9 +52,16 @@ begin
 
   # set the logger
   logger.outputters = Outputter.stderr
-  logger.level = INFO
-  logger.level = ERROR unless options.debug
   probe.logger = logger
+
+  case options.debug_level
+    when 0
+      logger.level = ERROR
+    when 1
+      logger.level = INFO
+    when 2
+      logger.level = DEBUG
+  end
 
   # run the probe
   probe.run
@@ -66,9 +73,7 @@ begin
 
 # catch all StandardErrors raised by parser or probes and treat them as a UKNOWN probe state too
 rescue StandardError => e
-  puts "Exception occured: #{e.message}"
+  puts "Fatal exception occured: #{e.message}"
   puts UNKNOWN
   exit UNKNOWN
 end
-
-# TODO: Bump all gems

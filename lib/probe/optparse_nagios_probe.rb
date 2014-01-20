@@ -24,7 +24,7 @@ class OptparseNagiosProbe
   def self.parse(args)
     options = OpenStruct.new
 
-    options.debug = false
+    options.debuglevel = 0
 
     options.hostname = 'localhost'
     options.port = 2633
@@ -100,8 +100,15 @@ class OptparseNagiosProbe
       opts.separator ''
       opts.separator 'Common options:'
 
-      opts.on('--[no-]debug', "Run with debugging options, defaults to 'no-debug'") do |debug|
-        options.debug = debug
+      opts.on('--debuglevel [NUMBER]', Integer, "Run with debugging mode on certain level, defaults to '0'") do |debug|
+        if !debug
+          options.debug_level = 1
+        else
+          options.debug_level = debug
+        end
+
+        # Param. correction - normalize debug level to max 2, minus sign interpreted as switch, no problem there
+        options.debug_level %= 3
       end
 
       opts.on_tail('-h', '--help', 'Show this message') do
