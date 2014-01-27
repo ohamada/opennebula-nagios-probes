@@ -25,7 +25,7 @@ $LOAD_PATH << File.expand_path('..', __FILE__) + '/lib/probe'
 require 'rubygems'
 require 'bundler/setup'
 require 'log4r'
-include Log4r
+#include Log4r
 
 
 # include the probe classes and a custom argument parser
@@ -44,26 +44,26 @@ begin
   case options.service
   when :oned
     probe = OpenNebulaOnedProbe.new(options)
-    logger = Logger.new 'OpenNebulaOnedProbe'
+    logger = Log4r::Logger.new 'OpenNebulaOnedProbe'
   when :occi, :rocci
     probe = OpenNebulaOcciProbe.new(options)
-    logger = Logger.new 'OpenNebulaOcciProbe'
+    logger = Log4r::Logger.new 'OpenNebulaOcciProbe'
   when :econe
     probe = OpenNebulaEconeProbe.new(options)
-    logger = Logger.new 'OpenNebulaEconeProbe'
+    logger = Log4r::Logger.new 'OpenNebulaEconeProbe'
   end
 
   # set the logger
-  logger.outputters = Outputter.stderr
+  logger.outputters = Log4r::Outputter.stderr
   probe.logger = logger
 
   case options.debug_level
     when 0
-      logger.level = ERROR
+      logger.level = Log4r::ERROR
     when 1
-      logger.level = INFO
+      logger.level = Log4r::INFO
     when 2
-      logger.level = DEBUG
+      logger.level = Log4r::DEBUG
   end
 
   # run the probe
