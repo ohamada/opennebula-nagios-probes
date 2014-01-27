@@ -23,7 +23,7 @@ and with optional
 
 * `--timeout` (this option is, for now, ignored by OCCI and ECONE probes)
 * `--protocol [https | http]`
-* `--debug`
+* `--debug [number]`
 * `--check-network <ID>,<ID>,<ID>,...` (this option is ignored by the ECONE probe)
 * `--check-storage <ID>,<ID>,<ID>,...`
 * `--check-compute <ID>,<ID>,<ID>,...`

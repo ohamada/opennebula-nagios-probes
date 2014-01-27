@@ -27,13 +27,14 @@ class OptparseNagiosProbe
     options.debuglevel = 0
 
     options.hostname = 'localhost'
-    options.port = 2633
-    options.path = '/'
+    options.port     = 2633
+    options.path     = '/'
     options.protocol = :http
     options.username = 'oneadmin'
     options.password = 'onepass'
 
     options.service = :oned
+    options.occi    = :occi
 
     options.timeout = 60
 
@@ -80,8 +81,8 @@ class OptparseNagiosProbe
       opts.separator ''
       opts.separator 'Service options:'
 
-      opts.on('--service [SERVICE_NAME]', [:oned, :occi, :econe], 'Name of the cloud service'\
-       + "to check, defaults to 'oned'") do |service|
+      opts.on('--service [SERVICE_NAME]', [:oned, :occi, :econe, :rocci], 'Name of the cloud service'\
+       + " to check [oned, occi, rocci, econe], defaults to 'oned'") do |service|
         options.service = service
       end
 

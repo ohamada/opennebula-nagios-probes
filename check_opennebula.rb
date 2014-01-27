@@ -17,6 +17,7 @@
 
 # translate special symbols into readable ones
 require 'English'
+
 # include the probe files and a custom version of OCA
 $LOAD_PATH << File.expand_path('..', __FILE__) + '/lib/probe'
 
@@ -26,6 +27,7 @@ require 'bundler/setup'
 require 'log4r'
 include Log4r
 
+
 # include the probe classes and a custom argument parser
 require 'opennebula_probe'
 require 'optparse_nagios_probe'
@@ -34,6 +36,7 @@ require 'opennebula_occi_probe'
 require 'opennebula_econe_probe'
 
 begin
+
   # parse the arguments (type checks, required args etc.)
   options = OptparseNagiosProbe.parse(ARGV)
 
@@ -42,7 +45,7 @@ begin
   when :oned
     probe = OpenNebulaOnedProbe.new(options)
     logger = Logger.new 'OpenNebulaOnedProbe'
-  when :occi
+  when :occi, :rocci
     probe = OpenNebulaOcciProbe.new(options)
     logger = Logger.new 'OpenNebulaOcciProbe'
   when :econe
@@ -74,6 +77,7 @@ begin
 # catch all StandardErrors raised by parser or probes and treat them as a UKNOWN probe state too
 rescue StandardError => e
   puts "Fatal exception occured: #{e.message}"
+  puts e.backtrace
   puts UNKNOWN
   exit UNKNOWN
 end

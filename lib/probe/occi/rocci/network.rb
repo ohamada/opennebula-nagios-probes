@@ -15,7 +15,7 @@
 ## limitations under the License.
 ###########################################################################
 
-module Occi
+module Rocci
   class Network < Resource
   end
 end
