@@ -12,10 +12,13 @@ module Occi
   class Client
     def initialize(options)
       @connection = options
+      #@version = options.occi_ver
     end
 
     def network
       @network ||= Occi::Network.new @connection
+      #@network ||= Rocci:Network.new @connection
+      #@network ||= "#{occi_ver}".class.new @connection
     end
 
     def storage
