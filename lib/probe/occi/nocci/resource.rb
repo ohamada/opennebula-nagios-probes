@@ -27,15 +27,12 @@ module Occi
     headers = { "Content-Type" => 'text/xml', 'Accept' => 'application/xml'}
 
     def initialize(connection)
-      self.class.base_uri "#{connection[:endpoint]}"
+      self.class.base_uri "#{connection.endpoint}"
       # nebula OCCI format
-      self.class.basic_auth "#{connection[:user]}", Digest::SHA1.hexdigest(connection[:password])
+      self.class.basic_auth "#{connection.auth.username}", Digest::SHA1.hexdigest(connection.auth.password)
 
       # Low-level debugging
       # self.class.debug_output
-
-      # rOCCI format
-      #self.class.basic_auth "#{connection.user}", "#{connection.password}"
     end
 
     # Callback invoked whenever a subclass is created. This method dynamically defines virtual @endpoint

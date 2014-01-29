@@ -18,17 +18,18 @@ require 'occi/client'
 
 # OpenNebulaOcciProbe - OCCI client query service implementation.
 
-
 class OpenNebulaOcciProbe < OpennebulaProbe
   def initialize(opts)
     super(opts)
 
-    @connection = Test::OcciClient.new(
-        endpoint:   @endpoint,
-        port:       @opts.port,
-        user:       @opts.username,
-        password:   @opts.password,
-        occi:       @opts.service
+    @connection = OcciClient.new(
+        endpoint: @endpoint,
+        auth:{
+                  username: @opts.username,
+                  password: @opts.password,
+                  type:     'basic'
+        },
+        occi:     @opts.service
     )
   end
 

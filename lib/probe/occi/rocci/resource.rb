@@ -16,41 +16,41 @@
 ###########################################################################
 require 'occi-api'
 
-#module Rocci
-class Resource
-  #include Occi::Api::Client
+module Rocci
+  class Resource
+    include Occi::Api::Dsl
 
-  def initialize(opts)
-    super(opts)
+    def initialize(opts)
+      connect(:http, opts)
+    end
 
+    # Callback invoked whenever a subclass is created. This method dynamically defines virtual @endpoint
+    # attribute located in child instance, which contains backslash + name of inheriting class. It is used
+    # for request building.
+    def self.inherited(childclass)
+      super(childclass)
+
+      path = childclass.to_s.split('::').last.downcase
+
+      childclass.send(:define_method, :resource_uri) {"#{path}"}
+    end
+
+    def entity(id)
+      "/#{resource_uri}/#{id}"
+    end
+
+    # Returns the contents of the pool.
+    # 200 OK: An XML representation of the pool in the http body.
+    # This means query the point "network", "storage" etc.
+    # Please read Occi::Api documentation here https://github.com/arax/rOCCI-api.
+    def all
+      describe(resource_uri)
+    end
+
+    # Returns the representation of specific resource identified by +id+.
+    # 200 OK: An XML representation of the pool in the http body.
+    def find(id)
+      describe(entity(id))
+    end
   end
-
-  # Callback invoked whenever a subclass is created. This method dynamically defines virtual @endpoint
-  # attribute located in child instance, which contains backslash + name of inheriting class. It is used
-  # for request building.
-  def self.inherited(childclass)
-    super(childclass)
-
-    path = childclass.to_s.split('::').last.downcase
-
-    childclass.send(:define_method, :endpoint) {"/#{path}"}
-  end
-
-  def entity(id)
-    "#{endpoint}/#{id}"
-  end
-
-  # Returns the contents of the pool.
-  # 200 OK: An XML representation of the pool in the http body.
-  # This means query the point /network, /storage etc.
-  def all
-
-  end
-
-  # Returns the representation of specific resource identified by +id+.
-  # 200 OK: An XML representation of the pool in the http body.
-  def find(id)
-
-  end
-  end
-#end
+end

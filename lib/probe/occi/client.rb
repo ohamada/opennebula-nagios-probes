@@ -23,7 +23,6 @@ $LOAD_PATH << File.expand_path('..', __FILE__)
 # ==== Options
 # * options - Hash with provided command line arguments.
 
-module Test
 class OcciClient
   def initialize(options)
     @connection = options
@@ -48,5 +47,4 @@ class OcciClient
   def compute
     @compute  ||= eval("#{@occi_ver}::Compute.new @connection")
   end
-end
 end
