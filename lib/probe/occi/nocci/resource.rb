@@ -27,9 +27,9 @@ module Occi
     headers = { "Content-Type" => 'text/xml', 'Accept' => 'application/xml'}
 
     def initialize(connection)
-      self.class.base_uri "#{connection.endpoint}"
+      self.class.base_uri "#{connection[:endpoint]}"
       # nebula OCCI format
-      self.class.basic_auth "#{connection.auth.username}", Digest::SHA1.hexdigest(connection.auth.password)
+      self.class.basic_auth "#{connection[:auth][:username]}", Digest::SHA1.hexdigest(connection[:auth][:password])
 
       # Low-level debugging
       # self.class.debug_output
@@ -55,49 +55,37 @@ module Occi
     # This means query the point /network, /storage etc.
     def all
       begin
-        r = self.class.get(endpoint)
+        response = self.class.get(endpoint)
       rescue => e
         raise e.class, "Could not initiate basic endpoint connectivity query, maybe HTTP/SSL server problem?"
+      ensure
+        unless response == nil
+          raise HTTPResponseError,
+                "Basic pool availibility request failed! #{response.body}" unless response.code.between?(200, 300)
+          return response.body
+        else
+          raise HTTPResponseError, "Basic pool availibility request failed!"
+        end
       end
-
-      raise HTTPResponseError, "Basic pool availibility request failed!" unless r.code.to_s == '200'
-      r.body
     end
 
     # Returns the representation of specific resource identified by +id+.
     # 200 OK: An XML representation of the pool in the http body.
     def find(id)
       begin
-        r = self.class.get(entity(id))
+        response = self.class.get(entity(id))
       rescue => e
         raise e.class, "Could not initiate specific resource query, maybe HTTP/SSL server problem?"
+      ensure
+        unless response == nil
+          raise HTTPResponseError,
+                "Specific resource request failed! #{response.body}" unless response.code.between?(200, 300)
+          return response.body
+        else
+          raise HTTPResponseError, "Specific resource request failed!"
+        end
       end
-
-      raise HTTPResponseError, "Specific resource request failed!" unless r.code.to_s == '200'
-      r.body
     end
-
-    # Request for the creation of an ER. An XML representation of a
-    # VM without the ID element should be passed in the http body.
-    # 201 Created: An XML representation of a ER of type COMPUTE with the ID.
-    # TODO: not used yet
-    #def create(body)
-    #  @connection.post(path: endpoint, body: body)
-    #end
-
-    # Update request for a Compute identified by +compute_id+.
-    # 202 Accepted : The update request is being process, polling required to confirm update.
-    # TODO: not used yet
-    #def update(id, body)
-    #  #@connection.put(path: entity(id), body: body)
-    #end
-
-    # Deletes the Compute resource identified by +compute_id+.
-    # 204 No Content : The Compute has been successfully deleted.
-    # TODO: not used yet
-    #def destroy(id)
-    #  #@connection.delete(path: entity(id))
-    #end
   end
 
   class HTTPResponseError < HTTParty::ResponseError

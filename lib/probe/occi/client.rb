@@ -28,7 +28,7 @@ class OcciClient
     @connection = options
 
     # Select OCCI version
-    if options.occi.to_s == 'rocci'
+    if options[:occi].to_s == 'rocci'
       @occi_ver = "Rocci"
     else
       @occi_ver = "Occi"

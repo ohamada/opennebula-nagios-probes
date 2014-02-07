@@ -39,7 +39,8 @@ class OpenNebulaOcciProbe < OpennebulaProbe
     begin
       # make a few simple queries just to be sure that the service is running
       @connection.network.all
-      @connection.compute.all
+      # Not supported yet
+      @connection.compute.all unless @opts.service == 'rocci'
       @connection.storage.all
     rescue StandardError => e
       @logger.error "Failed to check connectivity: #{e}"
@@ -75,11 +76,15 @@ class OpenNebulaOcciProbe < OpennebulaProbe
     @logger.info "Checking for resource availability at #{@endpoint}"
 
     resources = []
-    resources << { resource: @opts.storage, resource_string: 'image',
-                   resource_connection: @connection.storage }
-    resources << { resource: @opts.compute, resource_string: 'compute instance',
+
+    # Not supported yet
+    unless @opts.service == 'rocci'
+      resources << { resource: @opts.storage, resource_string: 'image',
+                     resource_connection: @connection.storage }
+    end
+    resources   << { resource: @opts.compute, resource_string: 'compute instance',
                    resource_connection: @connection.compute }
-    resources << { resource: @opts.network, resource_string: 'network',
+    resources   << { resource: @opts.network, resource_string: 'network',
                    resource_connection: @connection.network }
 
     check_resources(resources)

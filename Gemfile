@@ -7,9 +7,9 @@ gem "log4r"
 gem "amazon-ec2"
 gem "multipart-post"
 gem "rake"
-gem "occi"
+#gem "occi"
 gem "opennebula-oca"
-gem "occi-api"
+gem "occi-api", "= 4.2.0.beta.14"
 
 group :test do
   gem "rspec"
