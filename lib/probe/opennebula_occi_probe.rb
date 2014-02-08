@@ -22,15 +22,29 @@ class OpenNebulaOcciProbe < OpennebulaProbe
   def initialize(opts)
     super(opts)
 
-    @connection = OcciClient.new(
+    if @opts.user_cred
+      creds = {
+          type:               "x509",
+          user_cert:          @opts.user_cred,
+          user_cert_password: @opts.password,
+          ca_path:            @opts.ca_path,
+          ca_file:            @opts.ca_file,
+          voms:               @opts.voms
+      }
+    else
+      creds = {
+          username: @opts.username,
+          password: @opts.password,
+          type:     'basic'
+      }
+    end
+
+    @client = OcciClient.new(
         endpoint: @endpoint,
-        auth:{
-                  username: @opts.username,
-                  password: @opts.password,
-                  type:     'basic'
-        },
+        auth:     creds,
         occi:     @opts.service
     )
+
   end
 
   def check_crit
@@ -38,10 +52,10 @@ class OpenNebulaOcciProbe < OpennebulaProbe
 
     begin
       # make a few simple queries just to be sure that the service is running
-      @connection.network.all
+      @client.network.all
       # Not supported yet
-      @connection.compute.all unless @opts.service == 'rocci'
-      @connection.storage.all
+      @client.compute.all unless @opts.service == 'rocci'
+      @client.storage.all
     rescue StandardError => e
       @logger.error "Failed to check connectivity: #{e}"
       @logger.debug "#{e.backtrace.join("\n")}"
@@ -80,12 +94,12 @@ class OpenNebulaOcciProbe < OpennebulaProbe
     # Not supported yet
     unless @opts.service == 'rocci'
       resources << { resource: @opts.storage, resource_string: 'image',
-                     resource_connection: @connection.storage }
+                     resource_connection: @client.storage }
     end
     resources   << { resource: @opts.compute, resource_string: 'compute instance',
-                   resource_connection: @connection.compute }
+                   resource_connection: @client.compute }
     resources   << { resource: @opts.network, resource_string: 'network',
-                   resource_connection: @connection.network }
+                   resource_connection: @client.network }
 
     check_resources(resources)
 

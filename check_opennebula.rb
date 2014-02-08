@@ -58,11 +58,13 @@ begin
 
   case options.debug_level
     when 0
-      logger.level = Log4r::ERROR
+      logger.level = Log4r::FATAL
     when 1
-      logger.level = Log4r::INFO
+      logger.level = Log4r::ERROR
     when 2
       logger.level = Log4r::DEBUG
+    else
+      logger.level = Log4r::FATAL
   end
 
   # run the probe

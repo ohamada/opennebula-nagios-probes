@@ -38,6 +38,9 @@ class OptparseNagiosProbe
 
     options.timeout = 60
 
+    options.user_cred = nil
+    options.voms = false
+
     opts_ = OptionParser.new do |opts|
       opts.banner = 'Usage: check_opennebula.rb [options]'
 
@@ -86,23 +89,45 @@ class OptparseNagiosProbe
         options.service = service
       end
 
-      opts.on('--check-network [LIST_OF_IDS]', Array, 'Comma separated list of network IDs to check') do |network|
+      opts.on("--check-network [ID'S]", Array, 'Comma separated list of network IDs to check') do |network|
         options.network = network
       end
 
-      opts.on('--check-storage [LIST_OF_IDS]', Array, 'Comma separated list of storage IDs to check') do |storage|
+      opts.on("--check-storage [ID'S]", Array, 'Comma separated list of storage IDs to check') do |storage|
         options.storage = storage
       end
 
-      opts.on('--check-compute [LIST_OF_IDS]', Array, 'Comma separated list of VM IDs to check') do |compute|
+      opts.on("--check-compute [ID'S]", Array, 'Comma separated list of VM IDs to check') do |compute|
         options.compute = compute
+      end
+
+      opts.separator ''
+      opts.separator 'X.509 options:'
+
+      opts.on('--user-cred [PATH]', String, "Path to user's X.509 credentials, defaults to ~/.globus/usercred.pem'")\
+        do |ucred|
+        options.user_cred = ucred
+      end
+
+      opts.on('--ca-file [PATH]', String, 'Path to CA certificates bundle in a file') do |cafile|
+        options.ca_file = cafile
+      end
+
+      opts.on('--ca-path [PATH]', String, 'Path to CA certificates directory, defaults to "/etc/grid-security/certificates"')\
+       do |capath|
+        options.ca_path = capath
+      end
+
+      opts.on('--voms', "--[no-]voms", 'Enable VOMS credentials; modifies behavior of the X.509 authN module')\
+       do |voms|
+        options.voms = voms
       end
 
       opts.separator ''
       opts.separator 'Common options:'
 
       opts.on('--debuglevel [NUMBER]', Integer, "Run with debugging mode on certain level, defaults to '0'") do |debug|
-        if !debug
+        unless debug
           options.debug_level = 1
         else
           options.debug_level = debug
@@ -126,11 +151,17 @@ class OptparseNagiosProbe
 
     opts_.parse!(args)
 
-    mandatory = [:protocol, :hostname, :port, :path, :service, :username, :password]
+    # Emphasize required fields
+    mandatory = [:protocol, :hostname, :port, :path, :service, :password]
+    unless options.user_cred
+      mandatory << :username
+    end
+
     options_hash = options.marshal_dump
 
+    # Bug here, i am not sure the mandatory params working
     missing = mandatory.select { |param| options_hash[param].nil? }
-    fail Exception, "Missing required arguments #{missing.join(', ')}" unless missing.empty?
+    fail StandardError, "Missing required arguments #{missing.join(', ')}" unless missing.empty?
 
     options
   end
