@@ -15,6 +15,7 @@ GEM
       safe_yaml (~> 1.0.0)
     diff-lcs (1.2.5)
     hashie (2.0.5)
+    highline (1.6.20)
     httparty (0.12.0)
       json (~> 1.8)
       multi_xml (>= 0.5.2)
@@ -33,6 +34,10 @@ GEM
       httparty
       json
       occi-core (~> 4.2.7)
+    occi-cli (4.2.0.beta.15)
+      highline
+      json
+      occi-api (= 4.2.0.beta.14)
     occi-core (4.2.7)
       activesupport (~> 4.0.0)
       hashie
@@ -75,6 +80,7 @@ DEPENDENCIES
   multipart-post
   nagios-probe
   occi-api (= 4.2.0.beta.14)
+  occi-cli
   opennebula-oca
   rake
   rspec

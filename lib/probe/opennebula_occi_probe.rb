@@ -39,12 +39,19 @@ class OpenNebulaOcciProbe < OpennebulaProbe
       }
     end
 
+    template_name = "os_tpl##{@opts.template_uuid}"
+    mixin = {}
+    mixin["#{template_name.to_s}"] = true
+
     @client = OcciClient.new(
         endpoint: @endpoint,
         auth:     creds,
-        occi:     @opts.service
+        occi:     @opts.service,
+        template: @opts.template_uuid,
+        vmname:   @opts.vmname
     )
 
+    puts 'test'
   end
 
   def check_crit

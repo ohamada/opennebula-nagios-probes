@@ -21,6 +21,7 @@ module Rocci
     include Occi::Api::Dsl
 
     def initialize(opts)
+      @opts = opts
       connect(:http, opts)
     end
 
@@ -50,6 +51,11 @@ module Rocci
     # Returns the representation of specific resource identified by +id+.
     # 200 OK: An XML representation of the pool in the http body.
     def find(id)
+      # Additionally create VM from template
+      if (!@opts.template.nil? && self.class.name.include?('Compute'))
+        create_vm
+      end
+
       describe(entity(id))
     end
   end

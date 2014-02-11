@@ -101,6 +101,14 @@ class OptparseNagiosProbe
         options.compute = compute
       end
 
+      opts.on("--createvm [TEMPLATE_UUID]", String, 'rOCCI template uuid') do |tmpl|
+        options.template_uuid = tmpl
+      end
+
+      opts.on("--name [NAME]", String, 'Name for VM instantiated from template') do |vmname|
+        options.vmname = vmname
+      end
+
       opts.separator ''
       opts.separator 'X.509 options:'
 

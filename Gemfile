@@ -7,7 +7,7 @@ gem "log4r"
 gem "amazon-ec2"
 gem "multipart-post"
 gem "rake"
-#gem "occi"
+gem "occi-cli"
 gem "opennebula-oca"
 gem "occi-api", "= 4.2.0.beta.14"
 
