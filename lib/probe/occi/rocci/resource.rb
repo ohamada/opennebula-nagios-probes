@@ -51,12 +51,11 @@ module Rocci
     # Returns the representation of specific resource identified by +id+.
     # 200 OK: An XML representation of the pool in the http body.
     def find(id)
-      # Additionally create VM from template
-      if (!@opts.template.nil? && self.class.name.include?('Compute'))
-        create_vm
-      end
-
       describe(entity(id))
+    end
+
+    def create_check_destroy
+      # Overriden in sibling (compute)
     end
   end
 end

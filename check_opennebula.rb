@@ -77,8 +77,8 @@ begin
 
 # catch all StandardErrors raised by parser or probes and treat them as a UKNOWN probe state too
 rescue StandardError => e
-  puts "Fatal exception occured: #{e.message}"
-  puts e.backtrace
-  puts UNKNOWN
+  logger.info "Fatal exception occured: #{e.message}"
+  logger.debug e.backtrace
+  logger.info UNKNOWN
   exit UNKNOWN
 end

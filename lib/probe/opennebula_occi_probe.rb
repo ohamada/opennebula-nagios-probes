@@ -48,10 +48,9 @@ class OpenNebulaOcciProbe < OpennebulaProbe
         auth:     creds,
         occi:     @opts.service,
         template: @opts.template_uuid,
-        vmname:   @opts.vmname
+        vmname:   @opts.vmname,
+        timeout:  @opts.timeout
     )
-
-    puts 'test'
   end
 
   def check_crit
@@ -59,10 +58,10 @@ class OpenNebulaOcciProbe < OpennebulaProbe
 
     begin
       # make a few simple queries just to be sure that the service is running
-      @client.network.all
+      #@client.network.all
       # Not supported yet
-      @client.compute.all unless @opts.service == 'rocci'
-      @client.storage.all
+      #@client.compute.all unless @opts.service == 'rocci'
+      #@client.storage.all
     rescue StandardError => e
       @logger.error "Failed to check connectivity: #{e}"
       @logger.debug "#{e.backtrace.join("\n")}"
@@ -108,7 +107,15 @@ class OpenNebulaOcciProbe < OpennebulaProbe
     resources   << { resource: @opts.network, resource_string: 'network',
                    resource_connection: @client.network }
 
-    check_resources(resources)
+
+    # Additionally create VM from template when using rOCCI if needed
+    if (!@opts.template_uuid.nil?)
+      @client.compute.create_check_destroy
+    else
+      check_resources(resources)
+    end
+
+    false
 
   rescue StandardError => e
     @logger.error "Failed to check resource availability: #{e.message}"

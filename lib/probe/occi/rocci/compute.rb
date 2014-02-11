@@ -17,34 +17,48 @@
 require 'occi-cli'
 require 'occi-core'
 require 'occi-api'
-require 'rubygems'
-require 'pp'
-require 'openssl'
-require 'highline/import'
+require 'timeout'
 
 module Rocci
-  include Occi::Cli::Helpers::CreateHelper
+  #include Occi::Cli::Helpers::CreateHelper
 
   class Compute < Resource
-    def create_vm
+
+    # Create, check and destroy resource
+    def create_check_destroy
+      # Build resource
       type_id = @client.get_resource_type_identifier('compute')
       res = Occi::Core::Resource.new(type_id)
       res.model = model
-      #Occi::Cli::Helpers::CreateHelper.helper_create_attach_mixins(@opts, res)
       res.attributes['occi.core.title'] = @opts.vmname
       res.hostname = res.attributes['occi.core.title']
 
-      mxn = Occi::Core::Mixin.new('os_tpl#', @opts.template)
-      orig_mxn = mixin(mxn.term, mxn.scheme.chomp('#'), true)
+      # Fill resource mixin
+      orig_mxn = @client.get_mixin(@opts.template, "os_tpl", describe = true)
       res.mixins << orig_mxn
 
-      puts "Creating resource #{res.inspect}"
+      # Create and commit resource
       response = create(res)
-
       new_vm = response.gsub!(@opts.endpoint.chomp('/'), '')
-      d = describe(new_vm).first
 
-      d.attributes.occi.compute.state
+      # Following block checks out for sucessfull VM deployment
+      # and clean up then
+      begin
+        status = Timeout::timeout(@opts.timeout) {
+          loop do
+            d = describe(new_vm).first
+            if d.attributes.occi.compute.state == 'active'
+              #puts "OK, resource did enter 'active' state in time"
+              break
+            end
+            sleep @opts.timeout/5
+          end
+        }
+      rescue Timeout::Error => ex
+        raise Timeout::Error, "Resource did not enter 'active' state in time!"
+      ensure
+        delete new_vm
+      end
     end
   end
 end
