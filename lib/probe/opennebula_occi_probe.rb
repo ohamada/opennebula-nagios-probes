@@ -58,10 +58,10 @@ class OpenNebulaOcciProbe < OpennebulaProbe
 
     begin
       # make a few simple queries just to be sure that the service is running
-      #@client.network.all
+      @client.network.all
       # Not supported yet
-      #@client.compute.all unless @opts.service == 'rocci'
-      #@client.storage.all
+      @client.compute.all unless @opts.service == 'rocci'
+      @client.storage.all
     rescue StandardError => e
       @logger.error "Failed to check connectivity: #{e}"
       @logger.debug "#{e.backtrace.join("\n")}"
