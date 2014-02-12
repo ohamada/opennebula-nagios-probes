@@ -20,21 +20,27 @@ require 'occi-api'
 require 'timeout'
 
 module Rocci
-  #include Occi::Cli::Helpers::CreateHelper
-
   class Compute < Resource
 
     # Create, check and destroy resource
     def create_check_destroy
       # Build resource
-      type_id = @client.get_resource_type_identifier('compute')
-      res = Occi::Core::Resource.new(type_id)
+      res = @client.get_resource('compute')
       res.model = model
-      res.attributes['occi.core.title'] = @opts.vmname
-      res.hostname = res.attributes['occi.core.title']
+      res.title = @opts.vmname
+      res.hostname = res.title
 
       # Fill resource mixin
-      orig_mxn = @client.get_mixin(@opts.template, "os_tpl", describe = true)
+      if @opts.template.include?("http")
+        orig_mxn = model.get_by_id(@opts.template)
+      else
+        orig_mxn = @client.get_mixin(@opts.template, "os_tpl", describe = true)
+      end
+
+      if orig_mxn == nil
+        raise Occi::Api::Client::Errors::AmbiguousNameError 'Invalid or ambiguous mixin name'
+      end
+
       res.mixins << orig_mxn
 
       # Create and commit resource

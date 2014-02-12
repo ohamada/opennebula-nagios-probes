@@ -33,5 +33,4 @@ additional options for rOCCI and advanced features (X.509, VOMS, VM instantiatio
 ./check_opennebula.rb --cred <USER_PEM_BUNDLE_OR_PK12> --capath <CA_PATH> --cafile <OR_CA_BUNDLE> --password <PASSWORD> --hostname <HOSTNAME> --port <PORT_NUMBER>  --service rocci --voms
 ~~~
 
-* `--createvm [ROCCI_TEMPLATE_NAME]` `--name [vmname]` (create, check and destroy VM specified by os_tpl#ROCCI_TEMPLATE_NAME mixin)
-
+* `--createvm [ROCCI_TEMPLATE_NAME]` `--name [vmname]` (create, check and destroy VM specified by os_tpl#rocci_template_name or full_mixin_path)
