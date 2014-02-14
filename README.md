@@ -1,7 +1,7 @@
 Nagios probes for OpenNebula v3.4 - v4.4
 ========================================
 
-[![Build Status](https://travis-ci.org/b3rserker/opennebula-nagios-probes.png)](https://travis-ci.org/b3rserker/opennebula-nagios-probes)
+[![Build Status](https://travis-ci.org/b3rserker/opennebula-nagios-probes.png?branch=unstable)](https://travis-ci.org/b3rserker/opennebula-nagios-probes)
 
 Nagios probes for OpenNebula-related services e.g. oned RPC2, econe-server, occi-server and rOCCI server (GWDG implementation)
 
