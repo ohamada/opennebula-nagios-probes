@@ -18,15 +18,14 @@ require 'rubygems'
 require 'bundler/setup'
 require 'vcr'
 require 'webmock'
-require 'occi/client'
 require 'log4r'
 require 'ostruct'
 
 require 'opennebula_occi_probe'
 
-include Log4r
+#include Log4r
 
-describe OpenNebulaOcciProbe do
+RSpec::Core::DSL.describe OpenNebulaOcciProbe do
   before do
     WebMock.disable_net_connect! allow: 'localhost'
 
@@ -45,10 +44,10 @@ describe OpenNebulaOcciProbe do
     @options.username = 'nagios-probes-test'
     @options.password = 'nagios-probes-pass'
 
-    @logger = Logger.new 'OcciTestLogger'
-    @logger.outputters = Outputter.stderr
-    #@logger.level = DEBUG
-    @logger.level = INFO
+    @logger = Log4r::Logger.new 'OcciTestLogger'
+    @logger.outputters = Log4r::Outputter.stderr
+    #@logger.level =  Log4r::DEBUG
+    @logger.level = Log4r::INFO
   end
 
   context 'with no resources' do
