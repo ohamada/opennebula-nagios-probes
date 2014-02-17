@@ -17,6 +17,7 @@
 require 'occi-api'
 
 module Rocci
+  # rOCCI Resource class.
   class Resource
     include Occi::Api::Dsl
 
@@ -33,7 +34,7 @@ module Rocci
 
       path = childclass.to_s.split('::').last.downcase
 
-      childclass.send(:define_method, :resource_uri) {"#{path}"}
+      childclass.send(:define_method, :resource_uri) { "#{path}" }
     end
 
     def entity(id)

@@ -1,3 +1,6 @@
+#!/usr/bin/env ruby
+# encoding: UTF-8
+
 ###########################################################################
 ## Licensed under the Apache License, Version 2.0 (the "License");
 ## you may not use this file except in compliance with the License.
@@ -14,7 +17,6 @@
 
 $LOAD_PATH << File.expand_path('..', __FILE__) + '/../../lib/probe'
 
-#require 'rubygems'
 require 'bundler/setup'
 require 'vcr'
 require 'webmock'
@@ -46,7 +48,7 @@ RSpec::Core::DSL.describe OpenNebulaOcciProbe do
 
     @logger = Log4r::Logger.new 'RocciTestLogger'
     @logger.outputters = Log4r::Outputter.stderr
-    #@logger.level = Log4r::DEBUG
+    # @logger.level = Log4r::DEBUG
     @logger.level = Log4r::INFO
   end
 
@@ -85,10 +87,10 @@ RSpec::Core::DSL.describe OpenNebulaOcciProbe do
   context 'with resources' do
     before :each do
       # resources should not have an effect on check_crit results
-      @options.network = ['1', '61']
+      @options.network = %w(1 61)
       # Not supported yet
-      #@options.storage = []
-      @options.compute = ['4016']
+      # @options.storage = []
+      @options.compute = %w(4016)
 
       @probe = OpenNebulaOcciProbe.new(@options)
       @probe.logger = @logger
@@ -120,10 +122,10 @@ RSpec::Core::DSL.describe OpenNebulaOcciProbe do
   context 'with nonexisting resources' do
     before :each do
       # resources should not have an effect on check_crit results
-      @options.network = ['10', '11']
+      @options.network = %w(10 11)
       # Not supported yet
-      #@options.storage = ['126', '127']
-      @options.compute = ['8192']
+      # @options.storage = ['126', '127']
+      @options.compute = %w(8192)
 
       @probe = OpenNebulaOcciProbe.new(@options)
       @probe.logger = @logger

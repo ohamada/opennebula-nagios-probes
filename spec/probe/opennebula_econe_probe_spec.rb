@@ -1,3 +1,6 @@
+#!/usr/bin/env ruby
+# encoding: UTF-8
+
 ###########################################################################
 ## Licensed under the Apache License, Version 2.0 (the "License");
 ## you may not use this file except in compliance with the License.
@@ -14,7 +17,6 @@
 
 $LOAD_PATH << File.expand_path('..', __FILE__) + '/../../lib/probe'
 
-#require 'rubygems'
 require 'bundler/setup'
 require 'vcr'
 require 'webmock'
@@ -25,8 +27,6 @@ require 'ostruct'
 
 require 'opennebula_econe_probe'
 
-#include Log4r
-
 RSpec::Core::DSL.describe OpenNebulaEconeProbe do
   before do
     WebMock.disable_net_connect! allow: 'localhost'
@@ -34,7 +34,6 @@ RSpec::Core::DSL.describe OpenNebulaEconeProbe do
     VCR.configure do |c|
       c.cassette_library_dir = 'spec/probe/fixtures/cassettes/econe'
       c.hook_into :webmock
-      #c.debug_logger = $stdout
       c.allow_http_connections_when_no_cassette = true
     end
 
@@ -45,13 +44,12 @@ RSpec::Core::DSL.describe OpenNebulaEconeProbe do
     @options.port     = 2345
     @options.path     = '/'
     @options.username = 'nagios-probes-test'
-    #@options.password = '1b5834c03b1a9fda89b38c081a6d99af634b046e'
+    # @options.password = '1b5834c03b1a9fda89b38c081a6d99af634b046e'
     @options.password = 'nagios-probes-pass'
-
 
     @logger = Log4r::Logger.new 'EconeTestLogger'
     @logger.outputters = Log4r::Outputter.stderr
-    #@logger.level = Log4r::DEBUG
+    # @logger.level = Log4r::DEBUG
     @logger.level = Log4r::INFO
   end
 
@@ -87,8 +85,8 @@ RSpec::Core::DSL.describe OpenNebulaEconeProbe do
   context 'with resources' do
     before :each do
       # resources should not have an effect on check_crit results
-      @options.storage = ['ami-00000006', 'ami-00000007']
-      @options.compute = ['i-00000011']
+      @options.storage = %w(ami-00000006 ami-00000007)
+      @options.compute = %w(i-00000011)
 
       @probe = OpenNebulaEconeProbe.new(@options)
       @probe.logger = @logger
@@ -120,8 +118,8 @@ RSpec::Core::DSL.describe OpenNebulaEconeProbe do
   context 'with nonexisting resources' do
     before :each do
       # resources should not have an effect on check_crit results
-      @options.storage = ['ami-00000126', 'ami-00000127']
-      @options.compute = ['i-00000022']
+      @options.storage = %w(ami-00000126 ami-00000127)
+      @options.compute = %w(i-00000022)
 
       @probe = OpenNebulaEconeProbe.new(@options)
       @probe.logger = @logger

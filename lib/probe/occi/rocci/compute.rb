@@ -20,8 +20,8 @@ require 'occi-api'
 require 'timeout'
 
 module Rocci
+  # OCCI Compute class.
   class Compute < Resource
-
     # Create, check and destroy resource
     def create_check_destroy
       # Build resource
@@ -31,14 +31,14 @@ module Rocci
       res.hostname = res.title
 
       # Fill resource mixin
-      if @opts.template.include?("http")
+      if @opts.template.include?('http')
         orig_mxn = model.get_by_id(@opts.template)
       else
-        orig_mxn = @client.get_mixin(@opts.template, "os_tpl", describe = true)
+        orig_mxn = @client.get_mixin(@opts.template, 'os_tpl', true)
       end
 
-      if orig_mxn == nil
-        raise Occi::Api::Client::Errors::AmbiguousNameError, 'Invalid, non-existing or ambiguous mixin (template) name'
+      if orig_mxn.nil?
+        fail Occi::Api::Client::Errors::AmbiguousNameError, 'Invalid, non-existing or ambiguous mixin (template) name'
       end
 
       res.mixins << orig_mxn
@@ -50,17 +50,17 @@ module Rocci
       # Following block checks out for sucessfull VM deployment
       # and clean up then
       begin
-        status = Timeout::timeout(@opts.timeout) {
+        timeout(@opts.timeout) do
           loop do
             d = describe(new_vm).first
             if d.attributes.occi.compute.state == 'active'
-              #puts "OK, resource did enter 'active' state in time"
+              # puts "OK, resource did enter 'active' state in time"
               break
             end
-            sleep @opts.timeout/5
+            sleep @opts.timeout / 5
           end
-        }
-      rescue Timeout::Error => ex
+        end
+      rescue Timeout::Error
         raise Timeout::Error, "Resource did not enter 'active' state in time!"
       ensure
         delete new_vm

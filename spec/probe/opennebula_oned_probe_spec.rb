@@ -1,3 +1,6 @@
+#!/usr/bin/env ruby
+# encoding: UTF-8
+
 ###########################################################################
 ## Licensed under the Apache License, Version 2.0 (the "License");
 ## you may not use this file except in compliance with the License.
@@ -14,18 +17,12 @@
 
 $LOAD_PATH << File.expand_path('..', __FILE__) + '/../../lib/probe'
 
-#require 'rubygems'
 require 'bundler/setup'
 require 'vcr'
 require 'webmock'
 require 'log4r'
 require 'ostruct'
-
 require 'opennebula'
-
-#
-#include OpenNebula
-#include Log4r
 
 require 'opennebula_oned_probe'
 
@@ -54,7 +51,7 @@ RSpec::Core::DSL.describe OpenNebulaOnedProbe do
 
     @logger = Log4r::Logger.new 'OnedTestLogger'
     @logger.outputters = Log4r::Outputter.stderr
-    #@logger.level = Log4r::DEBUG
+    # @logger.level = Log4r::DEBUG
     @logger.level = Log4r::INFO
   end
 
@@ -90,9 +87,9 @@ RSpec::Core::DSL.describe OpenNebulaOnedProbe do
   context 'with resources' do
     before :each do
       # resources should not have an effect on check_crit results
-      @options.network = ['3', '4']
-      @options.storage = ['6', '7']
-      @options.compute = ['11']
+      @options.network = %w(3 4)
+      @options.storage = %w(6 7)
+      @options.compute = %w(11)
 
       @probe = OpenNebulaOnedProbe.new(@options)
       @probe.logger = @logger
@@ -124,9 +121,9 @@ RSpec::Core::DSL.describe OpenNebulaOnedProbe do
   context 'with nonexisting resources' do
     before :each do
       # resources should not have an effect on check_crit results
-      @options.network = ['16', '17']
-      @options.storage = ['126', '127']
-      @options.compute = ['22']
+      @options.network = %w(16 17)
+      @options.storage = %w(126 127)
+      @options.compute = %w(22)
 
       @probe = OpenNebulaOnedProbe.new(@options)
       @probe.logger = @logger

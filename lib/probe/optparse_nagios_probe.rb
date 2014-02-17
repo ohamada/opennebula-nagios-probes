@@ -101,11 +101,11 @@ class OptparseNagiosProbe
         options.compute = compute
       end
 
-      opts.on("--createvm [TEMPLATE_UUID]", String, 'rOCCI template uuid') do |tmpl|
+      opts.on('--createvm [TEMPLATE_UUID]', String, 'rOCCI template uuid') do |tmpl|
         options.template_uuid = tmpl
       end
 
-      opts.on("--name [NAME]", String, 'Name for VM instantiated from template') do |vmname|
+      opts.on('--name [NAME]', String, 'Name for VM instantiated from template') do |vmname|
         options.vmname = vmname
       end
 
@@ -126,7 +126,7 @@ class OptparseNagiosProbe
         options.ca_path = capath
       end
 
-      opts.on('--voms', "--[no-]voms", 'Enable VOMS credentials; modifies behavior of the X.509 authN module')\
+      opts.on('--voms', '--[no-]voms', 'Enable VOMS credentials; modifies behavior of the X.509 authN module')\
        do |voms|
         options.voms = voms
       end
@@ -135,7 +135,7 @@ class OptparseNagiosProbe
       opts.separator 'Common options:'
 
       opts.on('--debuglevel [NUMBER]', Integer, "Run with debugging mode on certain level, defaults to '0'") do |debug|
-        unless debug
+        if !debug
           options.debug_level = 1
         else
           options.debug_level = debug
@@ -161,9 +161,7 @@ class OptparseNagiosProbe
 
     # Emphasize required fields
     mandatory = [:protocol, :hostname, :port, :path, :service, :password]
-    unless options.user_cred
-      mandatory << :username
-    end
+    mandatory << :username unless options.user_cred
 
     options_hash = options.marshal_dump
 

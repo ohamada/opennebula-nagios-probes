@@ -18,13 +18,8 @@ require 'httparty'
 
 module Occi
 # OCCI Resource class.
-# ==== Options
-# * connection - Object holding connection info.
-
   class Resource
     include HTTParty
-
-    headers = { "Content-Type" => 'text/xml', 'Accept' => 'application/xml'}
 
     def initialize(connection)
       self.class.base_uri "#{connection[:endpoint]}"
@@ -43,7 +38,7 @@ module Occi
 
       path = childclass.to_s.split('::').last.downcase
 
-      childclass.send(:define_method, :endpoint) {"/#{path}"}
+      childclass.send(:define_method, :endpoint) { "/#{path}" }
     end
 
     def entity(id)
@@ -57,14 +52,13 @@ module Occi
       begin
         response = self.class.get(endpoint)
       rescue => e
-        raise e.class, "Could not initiate basic endpoint connectivity query, maybe HTTP/SSL server problem?"
+        raise e.class, 'Could not initiate basic endpoint connectivity query, maybe HTTP/SSL server problem?'
       ensure
-        unless response == nil
-          raise HTTPResponseError,
-                "Basic pool availibility request failed! #{response.body}" unless response.code.between?(200, 300)
-          return response.body
+        if !response.nil?
+          fail HTTPResponseError, "Basic pool availibility request failed! #{response.body}" unless response.code.between?(200, 300)
+          response.body
         else
-          raise HTTPResponseError, "Basic pool availibility request failed!"
+          fail HTTPResponseError, 'Basic pool availibility request failed!'
         end
       end
     end
@@ -75,22 +69,23 @@ module Occi
       begin
         response = self.class.get(entity(id))
       rescue => e
-        raise e.class, "Could not initiate specific resource query, maybe HTTP/SSL server problem?"
+        raise e.class, 'Could not initiate specific resource query, maybe HTTP/SSL server problem?'
       ensure
-        unless response == nil
-          raise HTTPResponseError,
-                "Specific resource request failed! #{response.body}" unless response.code.between?(200, 300)
-          return response.body
+        if !response.nil?
+          fail HTTPResponseError, "Specific resource request failed! #{response.body}" unless response.code.between?(200, 300)
+          response.body
         else
-          raise HTTPResponseError, "Specific resource request failed!"
+          fail HTTPResponseError, 'Specific resource request failed!'
         end
       end
     end
   end
 
+# HTTPResponseError class.
+# Slightly modified HTTParty::ResponseError
+# for better cooperation with existing code
+
   class HTTPResponseError < HTTParty::ResponseError
-    # Slightly modified HTTParty::ResponseError
-    # for better cooperation with existing code
     attr_reader :message
 
     def initialize(m)

@@ -29,9 +29,9 @@ class OcciClient
 
     # Select OCCI version
     if options[:occi].to_s == 'rocci'
-      @occi_ver = "Rocci"
+      @occi_ver = 'Rocci'
     else
-      @occi_ver = "Occi"
+      @occi_ver = 'Occi'
     end
   end
 

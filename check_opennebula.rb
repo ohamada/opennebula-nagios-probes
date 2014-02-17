@@ -22,11 +22,8 @@ require 'English'
 $LOAD_PATH << File.expand_path('..', __FILE__) + '/lib/probe'
 
 # bundler integration and dependencies
-#require 'rubygems'
 require 'bundler/setup'
 require 'log4r'
-#include Log4r
-
 
 # include the probe classes and a custom argument parser
 require 'opennebula_probe'
@@ -57,14 +54,14 @@ begin
   probe.logger = logger
 
   case options.debug_level
-    when 0
-      logger.level = Log4r::FATAL
-    when 1
-      logger.level = Log4r::ERROR
-    when 2
-      logger.level = Log4r::DEBUG
-    else
-      logger.level = Log4r::FATAL
+  when 0
+    logger.level = Log4r::FATAL
+  when 1
+    logger.level = Log4r::ERROR
+  when 2
+    logger.level = Log4r::DEBUG
+  else
+    logger.level = Log4r::FATAL
   end
 
   # run the probe

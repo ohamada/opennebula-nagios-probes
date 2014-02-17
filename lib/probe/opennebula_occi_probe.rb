@@ -24,7 +24,7 @@ class OpenNebulaOcciProbe < OpennebulaProbe
 
     if @opts.user_cred
       creds = {
-          type:               "x509",
+          type:               'x509',
           user_cert:          @opts.user_cred,
           user_cert_password: @opts.password,
           ca_path:            @opts.ca_path,
@@ -95,17 +95,22 @@ class OpenNebulaOcciProbe < OpennebulaProbe
 
     # Not supported yet
     unless @opts.service == 'rocci'
-      resources << { resource: @opts.storage, resource_string: 'image',
-                     resource_connection: @client.storage }
+      resources << { resource:            @opts.storage,
+                     resource_string:     'image',
+                     resource_connection: @client.storage
+                   }
     end
-    resources   << { resource: @opts.compute, resource_string: 'compute instance',
-                   resource_connection: @client.compute }
-    resources   << { resource: @opts.network, resource_string: 'network',
-                   resource_connection: @client.network }
-
+    resources   << { resource:            @opts.compute,
+                     resource_string:     'compute instance',
+                     resource_connection: @client.compute
+                   }
+    resources   << { resource:            @opts.network,
+                     resource_string:     'network',
+                     resource_connection: @client.network
+                   }
 
     # Additionally create VM from template when using rOCCI if needed
-    if (!@opts.template_uuid.nil?)
+    if !@opts.template_uuid.nil?
       @client.compute.create_check_destroy
     else
       check_resources(resources)
