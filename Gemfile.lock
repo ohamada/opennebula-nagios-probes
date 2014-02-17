@@ -78,7 +78,7 @@ DEPENDENCIES
   log4r
   multipart-post
   nagios-probe
-  occi-api (~> 4.2.0)
+  occi-api (~> 4.2)
   occi-cli
   opennebula-oca
   rake

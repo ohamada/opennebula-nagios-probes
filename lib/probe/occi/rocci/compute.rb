@@ -38,7 +38,7 @@ module Rocci
       end
 
       if orig_mxn == nil
-        raise Occi::Api::Client::Errors::AmbiguousNameError 'Invalid or ambiguous mixin name'
+        raise Occi::Api::Client::Errors::AmbiguousNameError, 'Invalid, non-existing or ambiguous mixin (template) name'
       end
 
       res.mixins << orig_mxn

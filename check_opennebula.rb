@@ -22,7 +22,7 @@ require 'English'
 $LOAD_PATH << File.expand_path('..', __FILE__) + '/lib/probe'
 
 # bundler integration and dependencies
-require 'rubygems'
+#require 'rubygems'
 require 'bundler/setup'
 require 'log4r'
 #include Log4r

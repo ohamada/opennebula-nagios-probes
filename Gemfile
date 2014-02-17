@@ -9,7 +9,7 @@ gem "multipart-post"
 gem "rake"
 gem "occi-cli"
 gem "opennebula-oca"
-gem "occi-api", "~> 4.2.0"
+gem "occi-api", "~> 4.2"
 
 group :test do
   gem "rspec"

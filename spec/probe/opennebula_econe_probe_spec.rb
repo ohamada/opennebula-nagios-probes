@@ -14,7 +14,7 @@
 
 $LOAD_PATH << File.expand_path('..', __FILE__) + '/../../lib/probe'
 
-require 'rubygems'
+#require 'rubygems'
 require 'bundler/setup'
 require 'vcr'
 require 'webmock'
