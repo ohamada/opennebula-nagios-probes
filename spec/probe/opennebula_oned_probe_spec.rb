@@ -24,12 +24,12 @@ require 'ostruct'
 require 'opennebula'
 
 #
-include OpenNebula
-include Log4r
+#include OpenNebula
+#include Log4r
 
 require 'opennebula_oned_probe'
 
-describe OpenNebulaOnedProbe do
+RSpec::Core::DSL.describe OpenNebulaOnedProbe do
   before do
     WebMock.disable_net_connect! allow: 'localhost'
 
@@ -52,10 +52,10 @@ describe OpenNebulaOnedProbe do
     # Adjust for debug purposes
     @options.debug    = false
 
-    @logger = Logger.new 'OnedTestLogger'
-    @logger.outputters = Outputter.stderr
-    #@logger.level = DEBUG
-    @logger.level = INFO
+    @logger = Log4r::Logger.new 'OnedTestLogger'
+    @logger.outputters = Log4r::Outputter.stderr
+    #@logger.level = Log4r::DEBUG
+    @logger.level = Log4r::INFO
   end
 
   context 'with no resources' do

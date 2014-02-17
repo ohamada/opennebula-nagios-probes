@@ -24,7 +24,7 @@ require 'ostruct'
 
 require 'opennebula_occi_probe'
 
-describe OpenNebulaOcciProbe do
+RSpec::Core::DSL.describe OpenNebulaOcciProbe do
   before do
     WebMock.disable_net_connect! allow: 'localhost'
 

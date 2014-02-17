@@ -25,9 +25,9 @@ require 'ostruct'
 
 require 'opennebula_econe_probe'
 
-include Log4r
+#include Log4r
 
-describe OpenNebulaEconeProbe do
+RSpec::Core::DSL.describe OpenNebulaEconeProbe do
   before do
     WebMock.disable_net_connect! allow: 'localhost'
 
@@ -49,10 +49,10 @@ describe OpenNebulaEconeProbe do
     @options.password = 'nagios-probes-pass'
 
 
-    @logger = Logger.new 'EconeTestLogger'
-    @logger.outputters = Outputter.stderr
-    #@logger.level = DEBUG
-    @logger.level = INFO
+    @logger = Log4r::Logger.new 'EconeTestLogger'
+    @logger.outputters = Log4r::Outputter.stderr
+    #@logger.level = Log4r::DEBUG
+    @logger.level = Log4r::INFO
   end
 
   context 'with no resources' do
