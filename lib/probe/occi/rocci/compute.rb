@@ -35,6 +35,8 @@ module Rocci
 
       # Fill resource mixin
       orig_mxn = @client.get_mixin(@opts.template, "os_tpl", describe = true)
+      raise StandardError, "Specified template doesn't exist!" unless orig_mxn
+
       res.mixins << orig_mxn
 
       # Create and commit resource

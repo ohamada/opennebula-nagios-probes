@@ -39,10 +39,6 @@ class OpenNebulaOcciProbe < OpennebulaProbe
       }
     end
 
-    template_name = "os_tpl##{@opts.template_uuid}"
-    mixin = {}
-    mixin["#{template_name.to_s}"] = true
-
     @client = OcciClient.new(
         endpoint: @endpoint,
         auth:     creds,
