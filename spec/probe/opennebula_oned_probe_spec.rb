@@ -1,3 +1,6 @@
+#!/usr/bin/env ruby
+# encoding: UTF-8
+
 ###########################################################################
 ## Licensed under the Apache License, Version 2.0 (the "License");
 ## you may not use this file except in compliance with the License.
@@ -12,45 +15,47 @@
 ## limitations under the License.
 ###########################################################################
 
-$: << File.expand_path("..", __FILE__) + "/../../lib/probe"
+$LOAD_PATH << File.expand_path('..', __FILE__) + '/../../lib/probe'
 
-require 'rubygems'
 require 'bundler/setup'
 require 'vcr'
 require 'webmock'
 require 'log4r'
 require 'ostruct'
-
-require 'OpenNebula'
-
-#
-include OpenNebula
-include Log4r
+require 'opennebula'
 
 require 'opennebula_oned_probe'
 
-describe OpenNebulaOnedProbe do
+RSpec::Core::DSL.describe OpenNebulaOnedProbe do
   before do
-    WebMock.disable_net_connect! :allow => "localhost"
+    WebMock.disable_net_connect! allow: 'localhost'
 
     VCR.configure do |c|
       c.cassette_library_dir = 'spec/probe/fixtures/cassettes/oned'
       c.hook_into :webmock
+      # Do not fail if VCR cannot handle request, act as there was not any
+      c.allow_http_connections_when_no_cassette = true
     end
 
     @options = OpenStruct.new
 
     @options.protocol = :https
-    @options.hostname = "localhost"
+    @options.hostname = 'localhost'
     @options.port     = 2345
-    @options.path     = "/RPC2"
-    @options.username = "nagios-probes-test"
-    @options.password = "nagios-probes-pass"
+    @options.path     = '/RPC2'
+    @options.username = 'nagios-probes-test'
+    @options.password = 'nagios-probes-pass'
 
-    @logger = Logger.new 'TestLogger'
+    # Adjust for debug purposes
+    @options.debug    = false
+
+    @logger = Log4r::Logger.new 'OnedTestLogger'
+    @logger.outputters = Log4r::Outputter.stderr
+    # @logger.level = Log4r::DEBUG
+    @logger.level = Log4r::INFO
   end
 
-  context "with no resources" do
+  context 'with no resources' do
     before :each do
       @probe = OpenNebulaOnedProbe.new(@options)
       @probe.logger = @logger
@@ -79,12 +84,12 @@ describe OpenNebulaOnedProbe do
     end
   end
 
-  context "with resources" do
+  context 'with resources' do
     before :each do
-      #resources should not have an effect on check_crit results
-      @options.network = ["3","4"]
-      @options.storage = ["6","7"]
-      @options.compute = ["11"]
+      # resources should not have an effect on check_crit results
+      @options.network = %w(3 4)
+      @options.storage = %w(6 7)
+      @options.compute = %w(11)
 
       @probe = OpenNebulaOnedProbe.new(@options)
       @probe.logger = @logger
@@ -113,12 +118,12 @@ describe OpenNebulaOnedProbe do
     end
   end
 
-  context "with nonexisting resources" do
+  context 'with nonexisting resources' do
     before :each do
-      #resources should not have an effect on check_crit results
-      @options.network = ["16","17"]
-      @options.storage = ["126","127"]
-      @options.compute = ["22"]
+      # resources should not have an effect on check_crit results
+      @options.network = %w(16 17)
+      @options.storage = %w(126 127)
+      @options.compute = %w(22)
 
       @probe = OpenNebulaOnedProbe.new(@options)
       @probe.logger = @logger

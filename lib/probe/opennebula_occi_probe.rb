@@ -1,3 +1,4 @@
+# encoding: UTF-8
 ###########################################################################
 ## Licensed under the Apache License, Version 2.0 (the "License");
 ## you may not use this file except in compliance with the License.
@@ -15,19 +16,36 @@
 require 'opennebula_probe'
 require 'occi/client'
 
+# OpenNebulaOcciProbe - OCCI client query service implementation.
+
 class OpenNebulaOcciProbe < OpennebulaProbe
-
-  attr_writer :logger
-
   def initialize(opts)
     super(opts)
 
-    @connection = Occi::Client.new(
-        :host     => @opts.hostname,
-        :port     => @opts.port,
-        :scheme   => @opts.protocol,
-        :user     => @opts.username,
-        :password => @opts.password
+    if @opts.user_cred
+      creds = {
+          type:               'x509',
+          user_cert:          @opts.user_cred,
+          user_cert_password: @opts.password,
+          ca_path:            @opts.ca_path,
+          ca_file:            @opts.ca_file,
+          voms:               @opts.voms
+      }
+    else
+      creds = {
+          username: @opts.username,
+          password: @opts.password,
+          type:     'basic'
+      }
+    end
+
+    @client = OcciClient.new(
+        endpoint: @endpoint,
+        auth:     creds,
+        occi:     @opts.service,
+        template: @opts.template_uuid,
+        vmname:   @opts.vmname,
+        timeout:  @opts.timeout
     )
   end
 
@@ -36,11 +54,13 @@ class OpenNebulaOcciProbe < OpennebulaProbe
 
     begin
       # make a few simple queries just to be sure that the service is running
-      @connection.network.all
-      @connection.compute.all
-      @connection.storage.all
+      @client.network.all
+      # Not supported yet
+      @client.compute.all unless @opts.service == 'rocci'
+      @client.storage.all
     rescue StandardError => e
-      @logger.error "Failed to check connectivity: #{e.message}"
+      @logger.error "Failed to check connectivity: #{e}"
+      @logger.debug "#{e.backtrace.join("\n")}"
       return true
     end
 
@@ -48,21 +68,20 @@ class OpenNebulaOcciProbe < OpennebulaProbe
   end
 
   def check_resources(resources)
-    if resources.map { |x| x[:resource] }.inject(true){ |product,resource| product && resource.nil? }
+    # extract key ":resource" from hashes to new array and determine, if any of them are other than nil
+    if resources.map { |x| x[:resource] }.reduce(true) { |product, resource| product && resource.nil? }
       @logger.info 'There are no resources to check, for details on how to specify resources see --help'
       return false
     end
 
     resources.each do |resource_hash|
       resource = resource_hash[:resource]
-
       next unless resource
 
       begin
         @logger.info "Looking for #{resource_hash[:resource_string]}s: #{resource.inspect}"
-        result = resource.collect {|id| resource_hash[:resource_connection].find id }
+        result = resource.map { |id| resource_hash[:resource_connection].find id }
         @logger.debug result
-
       end
     end
 
@@ -73,14 +92,35 @@ class OpenNebulaOcciProbe < OpennebulaProbe
     @logger.info "Checking for resource availability at #{@endpoint}"
 
     resources = []
-    resources << {:resource => @opts.storage, :resource_string => 'image', :resource_connection => @connection.storage}
-    resources << {:resource => @opts.compute, :resource_string => 'compute instance', :resource_connection => @connection.compute}
-    resources << {:resource => @opts.network, :resource_string => 'network', :resource_connection => @connection.network}
 
-    check_resources(resources)
+    # Not supported yet
+    unless @opts.service == 'rocci'
+      resources << { resource:            @opts.storage,
+                     resource_string:     'image',
+                     resource_connection: @client.storage
+                   }
+    end
+    resources   << { resource:            @opts.compute,
+                     resource_string:     'compute instance',
+                     resource_connection: @client.compute
+                   }
+    resources   << { resource:            @opts.network,
+                     resource_string:     'network',
+                     resource_connection: @client.network
+                   }
+
+    # Additionally create VM from template when using rOCCI if needed
+    if !@opts.template_uuid.nil?
+      @client.compute.create_check_destroy
+    else
+      check_resources(resources)
+    end
+
+    false
 
   rescue StandardError => e
     @logger.error "Failed to check resource availability: #{e.message}"
+    @logger.debug "#{e.backtrace.join("\n")}"
     return true
   end
 end
