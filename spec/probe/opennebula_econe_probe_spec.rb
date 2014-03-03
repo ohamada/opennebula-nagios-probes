@@ -86,7 +86,7 @@ RSpec::Core::DSL.describe OpenNebulaEconeProbe do
     before :each do
       # resources should not have an effect on check_crit results
       @options.storage = %w(ami-00000006 ami-00000007)
-      @options.compute = %w(i-00000011)
+      @options.compute = %w(11)
 
       @probe = OpenNebulaEconeProbe.new(@options)
       @probe.logger = @logger
@@ -119,7 +119,7 @@ RSpec::Core::DSL.describe OpenNebulaEconeProbe do
     before :each do
       # resources should not have an effect on check_crit results
       @options.storage = %w(ami-00000126 ami-00000127)
-      @options.compute = %w(i-00000022)
+      @options.compute = %w(22)
 
       @probe = OpenNebulaEconeProbe.new(@options)
       @probe.logger = @logger

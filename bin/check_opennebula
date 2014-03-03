@@ -15,22 +15,11 @@
 ## limitations under the License.
 ###########################################################################
 
-# translate special symbols into readable ones
-require 'English'
-
-# include the probe files and a custom version of OCA
-$LOAD_PATH << File.expand_path('..', __FILE__) + '/lib/probe'
-
 # bundler integration and dependencies
 require 'bundler/setup'
 require 'log4r'
 
-# include the probe classes and a custom argument parser
-require 'opennebula_probe'
-require 'optparse_nagios_probe'
-require 'opennebula_oned_probe'
-require 'opennebula_occi_probe'
-require 'opennebula_econe_probe'
+require File.expand_path('..', __FILE__) +'/../lib/opennebula_nagios_probe'
 
 begin
   # parse the arguments (type checks, required args etc.)

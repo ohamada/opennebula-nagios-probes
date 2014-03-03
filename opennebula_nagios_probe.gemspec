@@ -13,6 +13,7 @@ Gem::Specification.new do |gem|
   gem.files         = `git ls-files`.split("\n")
   gem.test_files    = `git ls-files -- {test,spec}/*`.split("\n")
   gem.require_paths = ['lib']
+  gem.executables   = ['check_opennebula']
 
   gem.add_dependency 'nagios-probe',	'~> 0.1'
   gem.add_dependency 'log4r',		'~> 1.1'

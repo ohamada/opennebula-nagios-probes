@@ -67,7 +67,7 @@ class OpenNebulaEconeProbe < OpennebulaProbe
         result = @connection.describe_instances
         result = result['reservationSet']['item'][0] if result['reservationSet'] && result['reservationSet']['item']
         set    = 'instancesSet'
-        id    = 'instanceId'
+        id     = 'amiLaunchIndex'
       else
         fail 'Wrong resource definition'
       end
@@ -106,5 +106,3 @@ class OpenNebulaEconeProbe < OpennebulaProbe
     return true
   end
 end
-
-# TODO: Remove hash pass requirement, replace with plaintext
